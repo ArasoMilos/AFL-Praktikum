@@ -40,6 +40,9 @@
   --font-ui: 'Libre Franklin', sans-serif;
   --font-body: 'Source Serif 4', serif;
   --theory-color: #0d4f4f;
+  --hilfs-color: #5d3891;
+  --hilfs-light: #7f53a3;
+  --hilfs-lighter: #e8d5f5;
   --theory-light: #1a7a7a;
   --theory-lighter: #d0eeee;
 }
@@ -218,6 +221,13 @@ body {
 .theme-theory .cat-1 { background: var(--theory-color); }
 .theme-theory .cat-2 { background: var(--theory-light); }
 .theme-theory .cat-3 { background: var(--theory-lighter); color: var(--theory-color); }
+.theme-hilfs .cat-1 { background: var(--hilfs-color); }
+.theme-hilfs .cat-2 { background: var(--hilfs-light); }
+.theme-hilfs .cat-3 { background: var(--hilfs-lighter); color: var(--hilfs-color); }
+.hs-struct { display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; margin:10px 0; }
+.struct-img { width:170px; border-radius:8px; border:1px solid #eee; background:#fff; flex-shrink:0; }
+.struct-placeholder { width:170px; height:150px; border-radius:8px; border:1px solid #eee; background:#f8f9fa; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; font-size:11px; color:#666; text-align:center; padding:8px; }
+
 
 /* ── ENTRY CARD ── */
 .entry-card {
@@ -595,6 +605,7 @@ html { scroll-behavior: smooth; }
   <button class="tab-btn" onclick="switchTab('karteikarten', this)">Karteikarten</button>
   <button class="tab-btn" onclick="switchTab('quiz', this)">Quiz</button>
   <button class="tab-btn" onclick="switchTab('glossar', this)">Glossar</button>
+  <button class="tab-btn" onclick="switchTab('hilfsstoffe', this)">Hilfsstoffe</button>
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════ -->
@@ -2569,6 +2580,7 @@ html { scroll-behavior: smooth; }
     <button class="filter-btn" onclick="filterCards('kapsel',this)">Kapseln</button>
     <button class="filter-btn" onclick="filterCards('homoeo',this)">Homöopathie</button>
     <button class="filter-btn" onclick="filterCards('gmp',this)">GMP &amp; Analytik</button>
+    <button class="filter-btn" onclick="filterCards('hilfs',this)">Hilfsstoffe</button>
     <span style="color:#999;font-family:var(--font-ui);font-size:12px;padding:6px;">Klick = Antwort aufdecken</span>
     <button class="filter-btn" onclick="revealAll()" style="margin-left:auto;">Alle aufdecken</button>
   </div>
@@ -2605,6 +2617,693 @@ html { scroll-behavior: smooth; }
   <div id="glossar-list"></div>
 </div>
 
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  TAB: HILFSSTOFFE                                        -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="tab-hilfsstoffe" class="tab-content theme-hilfs">
+
+  <div class="toc-card">
+    <h2>Hilfsstoffe &#8211; Eigenschaften &amp; Strukturen</h2>
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:12px;">Wichtige pharmazeutische Hilfsstoffe mit Struktur, Eigenschaften und Einsatzgebieten.</p>
+    <ul class="toc-list">
+      <li><a class="toc-link" onclick="scrollToAnchor('hs-suessung')">&#127852; S&#252;&#223;ungsmittel</a></li>
+      <li><a class="toc-link" onclick="scrollToAnchor('hs-konserv')">Konservierungsmittel</a></li>
+      <li><a class="toc-link" onclick="scrollToAnchor('hs-emulg')">Emulgatoren</a></li>
+      <li><a class="toc-link" onclick="scrollToAnchor('hs-polysacc')">Polysaccharide &amp; Polymere</a></li>
+      <li><a class="toc-link" onclick="scrollToAnchor('hs-antioxid')">Antioxidantien</a></li>
+    </ul>
+  </div>
+
+  <div class="cat-1" id="hs-suessung">S&#252;&#223;ungsmittel</div>
+
+  <div class="entry-card" id="hs-saccharin">
+    <div class="entry-header">
+      <h3>Saccharin-Natrium</h3>
+      <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/656582/PNG" alt="Saccharin-Na Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>S&#252;&#223;kraft</td><td>200&#8211;700&#215; Saccharose</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gut wasserlöslich</td></tr>
+          <tr><td>Kalorienwert</td><td>0 kcal/g</td></tr>
+          <tr><td>pH-Stabilität</td><td>stabil (weite pH-Toleranz)</td></tr>
+          <tr><td>Einsatz</td><td>L&#246;sungen, Tabletten, Zahnpasta</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-yellow"><strong>Cave:</strong> Metallisch-bitterer Nachgeschmack bei Konz. &gt; 0,03 %. Unbedenklich bei PKU.</div>
+  </div>
+
+  <div class="entry-card" id="hs-cyclamat">
+    <div class="entry-header">
+      <h3>Natrium-Cyclamat</h3>
+      <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/25468/PNG" alt="Cyclamat Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>S&#252;&#223;kraft</td><td>30&#8211;50&#215; Saccharose</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gut wasserlöslich</td></tr>
+          <tr><td>Kalorienwert</td><td>0 kcal/g</td></tr>
+          <tr><td>Synergismus</td><td>mit Saccharin (Verhältnis 10:1)</td></tr>
+          <tr><td>Einsatz</td><td>Sirupen, L&#246;sungen, Brausetabletten</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Kombination:</strong> Saccharin + Cyclamat 10:1 &#8594; synergistisch verbesserte S&#252;&#223;e ohne Nachgeschmack.</div>
+  </div>
+
+  <div class="entry-card" id="hs-aspartam">
+    <div class="entry-header">
+      <h3>Aspartam</h3>
+      <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/134601/PNG" alt="Aspartam Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>S&#252;&#223;kraft</td><td>~200&#215; Saccharose</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gering wasserlöslich</td></tr>
+          <tr><td>Thermostabilität</td><td>instabil &gt; 100 &#176;C</td></tr>
+          <tr><td>Spaltprodukte</td><td>Asp + Phe + Methanol &#8594; DKP</td></tr>
+          <tr><td>Einsatz</td><td>Kaltans&#228;tze, Tabletten</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>PKU-Warnung!</strong> Enthält Phenylalanin &#8594; kontraindiziert bei Phenylketonurie. Pflichtdeklaration: &#8222;Enthält eine Phenylalaninquelle&#8220;.</div>
+    <div class="info-yellow"><strong>Hitzeinstabilität:</strong> Hydrolyse &#8594; Diketopiperazin (DKP, bitter). Nicht f&#252;r Hei&#223;getr&#228;nke!</div>
+  </div>
+
+  <div class="entry-card" id="hs-sorbitol">
+    <div class="entry-header">
+      <h3>Sorbitol (Glucitol)</h3>
+      <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">F&#220;LLSTOFF</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5780/PNG" alt="Sorbitol Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>S&#252;&#223;kraft</td><td>~0,6&#215; Saccharose</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>sehr gut wasserlöslich</td></tr>
+          <tr><td>Kalorienwert</td><td>~2,4 kcal/g</td></tr>
+          <tr><td>Eigenschaft</td><td>hygroskopisch, Feuchthaltemittel</td></tr>
+          <tr><td>Einsatz</td><td>Sirupe, Kapseln, Kaumassen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-yellow"><strong>Laxierend:</strong> &gt; 50 g/Tag &#8594; osmotisch laxierende Wirkung. Pflichtdeklaration ab 10 g/Tagesdosis.</div>
+  </div>
+
+  <div class="cat-1" id="hs-konserv">Konservierungsmittel</div>
+
+  <div class="cat-2">Phenolische Verbindungen</div>
+
+  <div class="entry-card" id="hs-thymol">
+    <div class="entry-header">
+      <h3>Thymol</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6989/PNG" alt="Thymol Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Klasse</td><td>Natürliches Phenol (Thymianöl)</td></tr>
+          <tr><td>Konzentration</td><td>0,05&#8211;0,1 %</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>lipophil, wenig wasserlöslich</td></tr>
+          <tr><td>Wirkspektrum</td><td>Bakterien, Pilze</td></tr>
+          <tr><td>Einsatz</td><td>Mund- &amp; Rachentherapeutika, extern</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Struktur:</strong> Isopropyl-Methylphenol. Natürlicher Bestandteil von Thymianöl.</div>
+  </div>
+
+  <div class="entry-card" id="hs-benzylalkohol">
+    <div class="entry-header">
+      <h3>Benzylalkohol</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/244/PNG" alt="Benzylalkohol Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>1 % (Konserv.) / bis 9 % (Lokalanästh.)</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>4 % in Wasser; gut in Fett/Ethanol</td></tr>
+          <tr><td>Wirkspektrum</td><td>Bakterien, Pilze</td></tr>
+          <tr><td>Einsatz</td><td>Injektionslösungen (Multi-Dose)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Cave Neonaten:</strong> Gasping-Syndrom bei S&#228;uglingen &#8594; kontraindiziert in Injektionslösungen f&#252;r Neugeborene!</div>
+  </div>
+
+  <div class="entry-card" id="hs-phenoxyethanol">
+    <div class="entry-header">
+      <h3>Phenoxyethanol (2-Phenoxyethanol)</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/31236/PNG" alt="Phenoxyethanol Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,5&#8211;1,0 %</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>2,4 % in Wasser</td></tr>
+          <tr><td>Wirkspektrum</td><td>Bakterien, Pilze, Hefen</td></tr>
+          <tr><td>pH-Bereich</td><td>3&#8211;10 (stabil)</td></tr>
+          <tr><td>Einsatz</td><td>Dermatika, Kosmetika, Augentropfen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Paraben-Alternative:</strong> H&#228;ufig als Ersatz f&#252;r Parabene in modernen Formulierungen eingesetzt.</div>
+  </div>
+
+  <div class="entry-card" id="hs-chlorhexidin">
+    <div class="entry-header">
+      <h3>Chlorhexidin (Chlorhexidingluconat)</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9552079/PNG" alt="Chlorhexidin Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,01&#8211;0,02 %</td></tr>
+          <tr><td>Ladung</td><td>kationisch (Bisguanidin)</td></tr>
+          <tr><td>Wirkspektrum</td><td>breit (G+, G&#8722;, Pilze)</td></tr>
+          <tr><td>Einsatz</td><td>Augentropfen, Wundspülung, Mundpflege</td></tr>
+          <tr><td>Inkompatibilität</td><td>Anionen, Phosphate, Seifen, SDS</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Inkompatibilität:</strong> F&#228;llt mit Anionen aus (Phosphate, SDS, Seifen) &#8594; Kationisches Tensid!</div>
+  </div>
+
+  <div class="cat-2">Parabene (PHB-Ester)</div>
+
+  <div class="entry-card" id="hs-parabene">
+    <div class="entry-header">
+      <h3>Methyl- &amp; Propyl-4-Hydroxybenzoat (Parabene)</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7456/PNG" alt="Methylparaben" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">Methylparaben (M-PHB)</div>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7175/PNG" alt="Propylparaben" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">Propylparaben (P-PHB)</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>M-PHB Konz.</td><td>0,15&#8211;0,3 % (hydrophil, Bakterien)</td></tr>
+          <tr><td>P-PHB Konz.</td><td>0,02&#8211;0,05 % (lipophil, Pilze)</td></tr>
+          <tr><td>Kombination</td><td>M-PHB + P-PHB &#8594; breites Spektrum</td></tr>
+          <tr><td>pH-Bereich</td><td>4&#8211;8 wirksam</td></tr>
+          <tr><td>Lagerung</td><td>&gt; 15 &#176;C (sonst Kristallisation!)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Cave:</strong> PHB-Ester kristallisieren unter 15 &#176;C aus &#8594; Wirksamkeitsverlust. Konserviertes Wasser muss bei &gt; 15 &#176;C gelagert werden!</div>
+    <div class="info-blue"><strong>Kombinationsprinzip:</strong> M-PHB = wasserlöslich &#8594; bakterizid. P-PHB = öllöslich &#8594; fungizid. Zusammen deckend.</div>
+  </div>
+
+  <div class="cat-2">Carbons&#228;uren (pH-abh&#228;ngig)</div>
+
+  <div class="entry-card" id="hs-carbsaeuren">
+    <div class="entry-header">
+      <h3>Benzoes&#228;ure &amp; Sorbins&#228;ure</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/243/PNG" alt="Benzoes&#228;ure" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">Benzoes&#228;ure (pK&#8336; 4,2)</div>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/643460/PNG" alt="Sorbins&#228;ure" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">Sorbins&#228;ure (pK&#8336; 4,76)</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Wirksame Form</td><td>undissoziierte S&#228;ure</td></tr>
+          <tr><td>Optimaler pH</td><td>&lt; 5 (undissoziiert)</td></tr>
+          <tr><td>Einsatz</td><td>Sirupen, Emulsionen (saurer pH)</td></tr>
+          <tr><td>Salze</td><td>Na-/Kaliumsorbat (besser löslich)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>pH-abh&#228;ngig!</strong> Nur die undissoziierte S&#228;ure ist antimikrobiell. Bei pH &gt; 5 &#8594; überwiegend Salz &#8594; kaum Wirkung. Citronens&#228;ure zur pH-Einstellung n&#246;tig!</div>
+  </div>
+
+  <div class="cat-1" id="hs-emulg">Emulgatoren</div>
+
+  <div class="cat-2">Nichtionische Emulgatoren</div>
+
+  <div class="entry-card" id="hs-gms">
+    <div class="entry-header">
+      <h3>Glycerolmonostearat (GMS)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23665227/PNG" alt="GMS Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>HLB-Wert</td><td>~3,8 (W/O-Emulgator)</td></tr>
+          <tr><td>Ladung</td><td>nichtionisch</td></tr>
+          <tr><td>Schmelzpunkt</td><td>~58 &#176;C</td></tr>
+          <tr><td>Funktion</td><td>Co-Emulgator, Konsistenzgeber</td></tr>
+          <tr><td>Einsatz</td><td>Cremes, Salben, Suppositorien</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Nichtionisch:</strong> Kompatibel mit kationischen und anionischen Substanzen. Verst&#228;rkt den Emulgatorfilm durch Mischkristallbildung.</div>
+  </div>
+
+  <div class="entry-card" id="hs-cetylalkohol">
+    <div class="entry-header">
+      <h3>Cetylalkohol (1-Hexadecanol)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">KONSISTENZGEBER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2682/PNG" alt="Cetylalkohol Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>ges&#228;ttigter Fettalkohol C16</td></tr>
+          <tr><td>Schmelzpunkt</td><td>49&#8211;51 &#176;C</td></tr>
+          <tr><td>Funktion</td><td>Konsistenzgeber, stabilisiert Emulgatorfilm</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>unlöslich in Wasser, gut in Fett</td></tr>
+          <tr><td>Einsatz</td><td>Basiscreme DAC, W/O-Cremes</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Praktikum:</strong> Bestandteil der Basiscreme DAC. Verst&#228;rkt den Emulgatorfilm durch Mischkristallbildung (Co-Emulgator).</div>
+  </div>
+
+  <div class="entry-card" id="hs-cholesterin">
+    <div class="entry-header">
+      <h3>Cholesterin</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5997/PNG" alt="Cholesterin Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Sterol (tierischen Ursprungs)</td></tr>
+          <tr><td>HLB</td><td>~1 (stark W/O)</td></tr>
+          <tr><td>Funktion</td><td>W/O-Emulgator, Membranbestandteil</td></tr>
+          <tr><td>Einsatz</td><td>Wollwachsalkohole, Liposomen</td></tr>
+          <tr><td>Eigenschaft</td><td>stabilisiert Lipiddoppelschichten</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Wollwachsalkohole:</strong> Gemisch aus Cholesterin, Cholesterinestern und anderen Sterolen. Typischer W/O-Emulgator &#8594; Wollwachsalkoholcreme (W/O).</div>
+  </div>
+
+  <div class="entry-card" id="hs-span-tween">
+    <div class="entry-header">
+      <h3>Span &amp; Tween (Sorbit&#228;nester &amp; Polysorbate)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5353953/PNG" alt="Span 60" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">Span 60 (HLB 4,7)</div>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5282492/PNG" alt="Tween" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">Polysorbat (Tween)</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Span HLB-Bereich</td><td>1,8&#8211;8,6 (W/O-Emulgatoren)</td></tr>
+          <tr><td>Tween HLB-Bereich</td><td>9,6&#8211;16,7 (O/W-Emulgatoren)</td></tr>
+          <tr><td>Ladung</td><td>nichtionisch</td></tr>
+          <tr><td>Misch-HLB</td><td>durch Mengenverh&#228;ltnis einstellbar</td></tr>
+          <tr><td>Einsatz</td><td>Emulsionen, Augentropfen, Solubilisierung</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>HLB-Mischung:</strong> HLB<sub>mix</sub> = (m<sub>Span</sub>&#160;&#215;&#160;HLB<sub>Span</sub> + m<sub>Tween</sub>&#160;&#215;&#160;HLB<sub>Tween</sub>) / Gesamt. Durch Variation des Mengenverh&#228;ltnisses ist jeder Misch-HLB einstellbar.</div>
+  </div>
+
+  <div class="cat-2">Amphotere Emulgatoren</div>
+
+  <div class="entry-card" id="hs-lecithin">
+    <div class="entry-header">
+      <h3>Lecithin (Phosphatidylcholin)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">AMPHOTER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5326803/PNG" alt="Phosphatidylcholin Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Phospholipid (nat. aus Soja/Ei)</td></tr>
+          <tr><td>HLB</td><td>~4 (W/O-Tendenz)</td></tr>
+          <tr><td>Ladung</td><td>zwitterionisch (amphoter)</td></tr>
+          <tr><td>Einsatz</td><td>Injektionen, Liposomen, i.v.-Emulsionen</td></tr>
+          <tr><td>Eigenschaft</td><td>bildet Vesikel / Lamellarphasen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-green"><strong>Biokompatibel:</strong> Nat&#252;rlicher Membranbestandteil &#8594; hervorragende Vertr&#228;glichkeit. Essentiell f&#252;r Liposomale Arzneiformen.</div>
+  </div>
+
+  <div class="cat-2">Anionische Emulgatoren</div>
+
+  <div class="entry-card" id="hs-sds">
+    <div class="entry-header">
+      <h3>Natriumlaurylsulfat (SDS / NaDS)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">ANIONISCH</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/3423265/PNG" alt="SDS Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>HLB</td><td>~40 (starkes Tensid)</td></tr>
+          <tr><td>Ladung</td><td>anionisch (negativ)</td></tr>
+          <tr><td>Einsatz</td><td>Emulg. Cetylstearylalkohol Typ A</td></tr>
+          <tr><td>Inkompatibilität</td><td>Kationika (BAC, Chlorhexidin)</td></tr>
+          <tr><td>Wirkung</td><td>stark emulgierend, lösungsvermittelnd</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Cave:</strong> Inkompatibel mit kationischen Substanzen (z.B. Benzalkoniumchlorid, Chlorhexidin) &#8594; F&#228;llung! Bestandteil des Emulgierenden Cetylstearylalkohols Typ A.</div>
+  </div>
+
+  <div class="cat-1" id="hs-polysacc">Polysaccharide &amp; Polymere</div>
+
+  <div class="cat-2">Cyclodextrine</div>
+
+  <div class="entry-card" id="hs-cyclodextrin">
+    <div class="entry-header">
+      <h3>&#946;-Cyclodextrin (Betadex)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">L&#214;SL.-VERBESSERUNG</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/444041/PNG" alt="Cyclodextrin Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Ringgr&#246;&#223;e</td><td>&#945;: 6, &#946;: 7, &#947;: 8 Glucoseeinheiten</td></tr>
+          <tr><td>L&#246;slichkeit &#946;-CD</td><td>18,5 g/100 mL (begrenzt)</td></tr>
+          <tr><td>HP&#946;CD</td><td>besser löslich (Hydroxypropyl-&#946;-CD)</td></tr>
+          <tr><td>Mechanismus</td><td>Inklusionskomplexe mit lipophilen G&#228;sten</td></tr>
+          <tr><td>Einsatz</td><td>L&#246;slichkeitsverbesserung, Stabilisierung</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Inklusionskomplex:</strong> Der lipophile Hohlraum nimmt hydrophobe Gastmolek&#252;le auf &#8594; verbessert L&#246;slichkeit, Stabilit&#228;t und Bioverf&#252;gbarkeit lipophiler Wirkstoffe.</div>
+  </div>
+
+  <div class="cat-2">Celluloseether</div>
+
+  <div class="entry-card" id="hs-hpmc">
+    <div class="entry-header">
+      <h3>HPMC (Hydroxypropylmethylcellulose / Hypromellose)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder">
+        <div style="font-size:28px;">&#127807;</div>
+        <div style="margin-top:6px;">Semisynthetischer<br>Celluloseether<br><em>variabler DS</em></div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Semisynthetischer Celluloseether</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>in kaltem Wasser (nicht in hei&#223;em!)</td></tr>
+          <tr><td>Gelbildung</td><td>thermoreversibel: Sol kalt &#8594; Gel warm</td></tr>
+          <tr><td>Viskosit&#228;t</td><td>konzentrationsabh&#228;ngig (viele Typen)</td></tr>
+          <tr><td>Einsatz</td><td>Gelbildner, Filmcoating, Retardmatrix</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-yellow"><strong>Umgekehrte Thermogelierung:</strong> HPMC quillt in kaltem Wasser &#8594; Sol. Bei Erw&#228;rmen &#8594; Gel. Gegenteil zu Gelatine!</div>
+  </div>
+
+  <div class="entry-card" id="hs-carmellose">
+    <div class="entry-header">
+      <h3>Carmellose-Natrium (CMC-Na)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder">
+        <div style="font-size:28px;">&#127807;</div>
+        <div style="margin-top:6px;">Anionischer<br>Celluloseether<br>&#8211;CH&#8322;&#8211;COO&#8315;Na&#8314;</div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>anionischer Celluloseether</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>wasserlöslich</td></tr>
+          <tr><td>Einsatz</td><td>Gelbildner, Suspendiermittel, Augentr.</td></tr>
+          <tr><td>Viskosit&#228;t</td><td>typabh&#228;ngig (niedrig/hoch)</td></tr>
+          <tr><td>pH-Bereich</td><td>2&#8211;10 stabil</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Praktikum:</strong> In Wund- und Heilgelen als Gelbildner. Zuerst mit Propylenglykol benetzen (Klümpchenbildung vermeiden!), dann Wasser zuf&#252;gen.</div>
+  </div>
+
+  <div class="cat-2">Synthetische Polymere</div>
+
+  <div class="entry-card" id="hs-pvp">
+    <div class="entry-header">
+      <h3>Povidon (PVP, Polyvinylpyrrolidon)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/441/PNG" alt="NVP Monomer" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Bild zeigt</td><td>N-Vinyl-2-pyrrolidon (Monomer)</td></tr>
+          <tr><td>MW-Typen</td><td>K17, K25, K30 (60 kDa), K90 (900 kDa)</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>wasser- und organisch-löslich</td></tr>
+          <tr><td>Einsatz</td><td>Bindemittel (Granulierung), L&#246;sl.-vermittler</td></tr>
+          <tr><td>Eigenschaft</td><td>amorph, hygroskopisch, filmbildend</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Granulierung:</strong> PVP K30-L&#246;sung (5&#8211;10 %) als Granulierfl&#252;ssigkeit. Bildet durch Trocknung Br&#252;cken zwischen Pulverpartikeln &#8594; Granulat mit guten Flie&#223;eigenschaften.</div>
+  </div>
+
+  <div class="entry-card" id="hs-peg">
+    <div class="entry-header">
+      <h3>PEG / Macrogol (Polyethylenglykol)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/174/PNG" alt="Ethylenglykol Monomer" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Bild zeigt</td><td>Ethylenglykol (Monomereinheit)</td></tr>
+          <tr><td>Fl&#252;ssig</td><td>PEG 200&#8211;600 (Macrogol 400 = h&#228;ufig)</td></tr>
+          <tr><td>Fest</td><td>PEG 1000&#8211;6000 (Macrogol 4000)</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gut wasserlöslich</td></tr>
+          <tr><td>Einsatz</td><td>Suppositoriengrundlage, L&#246;sungsmittel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Praktikum:</strong> Macrogol 400 als L&#246;sungsmittel f&#252;r Clotrimazol (in Wasser unlöslich). Macrogol-Suppositorien: tropenfest (löst sich im w&#228;ssrigen Sekret).</div>
+  </div>
+
+  <div class="cat-2">Biopolymere</div>
+
+  <div class="entry-card" id="hs-alginat">
+    <div class="entry-header">
+      <h3>Natriumalginat</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder">
+        <div style="font-size:28px;">&#127807;</div>
+        <div style="margin-top:6px;">Braunalgen-Polysaccharid<br>Guluronsäure +<br>Mannuronsäure</div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Herkunft</td><td>Braunalgen</td></tr>
+          <tr><td>Ionotrope Gelbildung</td><td>mit Ca&#178;&#8314;-Ionen (sofort vernetzt)</td></tr>
+          <tr><td>Einsatz</td><td>Gele, Wundverb&#228;nde, Verkapselung</td></tr>
+          <tr><td>Besonderheit</td><td>Ca&#178;&#8314;-Vernetzung irreversibel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Ionotrope Gelbildung:</strong> Na-Alginat-L&#246;sung + CaCl&#8322; &#8594; sofortige Vernetzung &#252;ber Ca&#178;&#8314;-Br&#252;cken &#8594; festes Gel. Basis f&#252;r Bead-Technologie.</div>
+  </div>
+
+  <div class="entry-card" id="hs-gelatine2">
+    <div class="entry-header">
+      <h3>Gelatine (Kollagen-Hydrolysat)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder">
+        <div style="font-size:28px;">&#129516;</div>
+        <div style="margin-top:6px;">Kollagen-Hydrolysat<br>Gly-Pro-Hyp<br>Tripelhelix</div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Herkunft</td><td>Tierisches Kollagen (Knochen, H&#228;ute)</td></tr>
+          <tr><td>Gelbildung</td><td>thermoreversibel: Gel &lt; 35 &#176;C, Sol hei&#223;</td></tr>
+          <tr><td>Bloom-Zahl</td><td>Gelst&#228;rke (h&#246;her = fester)</td></tr>
+          <tr><td>Einsatz</td><td>Kapselh&#252;llen, Granulierfl&#252;ssigkeit</td></tr>
+          <tr><td>pH-Stabilit&#228;t</td><td>optimal pH 4&#8211;8</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Thermoreversibel:</strong> Gelatine bildet bei K&#252;hlung (&lt; 35 &#176;C) festes Gel &#8594; bei Erw&#228;rmen wieder Sol. Gegenteil zu HPMC!</div>
+    <div class="info-green"><strong>Praktikum:</strong> Gelatineschleim 4 %ig als Granulierfl&#252;ssigkeit (Tag 7). Kapselh&#252;llen aus Hartgelatine (Typ B, alkalische Hydrolyse).</div>
+  </div>
+
+  <div class="cat-1" id="hs-antioxid">Antioxidantien</div>
+
+  <div class="cat-2">Wasserlösliche Antioxidantien</div>
+
+  <div class="entry-card" id="hs-ascorbinsaeure">
+    <div class="entry-header">
+      <h3>Ascorbins&#228;ure (Vitamin C)</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5785/PNG" alt="Ascorbins&#228;ure Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,01&#8211;0,5 %</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gut wasserlöslich</td></tr>
+          <tr><td>Mechanismus</td><td>Reduktionsmittel &#8594; oxidiert zu Dehydro-Asc.</td></tr>
+          <tr><td>Thermostabilit&#228;t</td><td>thermolabil &#8594; erst nach Abk&#252;hlen zugeben</td></tr>
+          <tr><td>Einsatz</td><td>Injektionslösungen, Sirupen, Trinkampullen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-green"><strong>Opfersubstanz:</strong> Ascorbins&#228;ure oxidiert vorrangig selbst und sch&#252;tzt so den Wirkstoff vor Oxidation. Synergie mit EDTA (Chelatierung der Metallkatalysatoren).</div>
+  </div>
+
+  <div class="entry-card" id="hs-edta">
+    <div class="entry-header">
+      <h3>Dinatrium-EDTA (Edetat)</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">CHELATBILDNER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6049/PNG" alt="EDTA Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,005&#8211;0,1 %</td></tr>
+          <tr><td>Mechanismus</td><td>Komplexierung von Fe&#178;&#8314;/&#179;&#8314;, Cu&#178;&#8314;</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gut wasserlöslich (Na-Salz)</td></tr>
+          <tr><td>Einsatz</td><td>Augentropfen, Injektionslösungen</td></tr>
+          <tr><td>Synergie</td><td>mit Ascorbins&#228;ure (Chelat + Reduktion)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Indirekte Wirkung:</strong> EDTA ist selbst kein Reduktionsmittel, bindet aber die Metallionen (Fe&#178;&#8314;, Cu&#178;&#8314;), die als Katalysatoren der oxidativen Zersetzung wirken.</div>
+  </div>
+
+  <div class="entry-card" id="hs-metabisulfit">
+    <div class="entry-header">
+      <h3>Natrium- &amp; Kaliummetabisulfit</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/657336/PNG" alt="Natriumsulfit Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,01&#8211;0,2 %</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>gut wasserlöslich</td></tr>
+          <tr><td>Mechanismus</td><td>Sulfit-Ion = starkes Reduktionsmittel</td></tr>
+          <tr><td>pH-Abh&#228;ngigkeit</td><td>bei pH &lt; 7 &#8594; HSO&#8323;&#8315; (reaktiver)</td></tr>
+          <tr><td>Einsatz</td><td>Injektionen, Augentropfen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Allergie-Cave!</strong> Sulfite k&#246;nnen bei sensiblen Personen Asthmaanf&#228;lle auslösen. Pflichtkennzeichnung: &#8222;Enth&#228;lt Sulfite&#8220;.</div>
+  </div>
+
+  <div class="cat-2">Fettlösliche Antioxidantien</div>
+
+  <div class="entry-card" id="hs-tocopherol">
+    <div class="entry-header">
+      <h3>&#945;-Tocopherol (Vitamin E)</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/14985/PNG" alt="Alpha-Tocopherol Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,01&#8211;0,1 %</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>fettlöslich, nicht wasserlöslich</td></tr>
+          <tr><td>Mechanismus</td><td>Radikalfänger (Lipidperoxidation)</td></tr>
+          <tr><td>Einsatz</td><td>Öle, Salben, W/O-Cremes</td></tr>
+          <tr><td>Synergie</td><td>mit Ascorbins&#228;ure (Regeneration von Vit. E)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-green"><strong>Radikalfänger:</strong> Tocopherol gibt ein H-Atom an Lipidperoxylradikale ab &#8594; Radikalkettenreaktion unterbrochen. Ascorbins&#228;ure regeneriert verbrauchtes Tocopherol.</div>
+  </div>
+
+  <div class="entry-card" id="hs-bha-bht">
+    <div class="entry-header">
+      <h3>BHA &amp; BHT (Butylhydroxyanisol / -toluol)</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+    </div>
+    <div class="hs-struct">
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8456/PNG" alt="BHA" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">BHA (E 320)</div>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/31404/PNG" alt="BHT" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <div style="font-size:11px;color:#666;margin-top:2px;">BHT (E 321)</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>0,0075&#8211;0,02 %</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>fettlöslich, nicht wasserlöslich</td></tr>
+          <tr><td>Mechanismus</td><td>sterisch gehindertes Phenol, H-Donor</td></tr>
+          <tr><td>Einsatz</td><td>Fette, Öle, Wachse, Salbengrundlagen</td></tr>
+          <tr><td>Unterschied</td><td>BHT fl&#252;chtiger als BHA</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-yellow"><strong>Sterische Hinderung:</strong> Die tert. Butylgruppen hindern sterisch &#8594; effektiver H-Donor f&#252;r Radikale bei gleichzeitig stabiler Phenoxy-Radikalstruktur.</div>
+  </div>
+
+  <div class="entry-card" id="hs-ascpalmitat">
+    <div class="entry-header">
+      <h3>Ascorbins&#228;urepalmitat (Ascorbylpalmitat)</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/54680953/PNG" alt="Ascorbylpalmitat Struktur" class="struct-img">
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Lipophiles Ascorbins&#228;urederivat</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>fettlöslich (Palmitins&#228;ureester)</td></tr>
+          <tr><td>Mechanismus</td><td>Reduktionsmittel an Öl-Wasser-Grenzfl&#228;che</td></tr>
+          <tr><td>Einsatz</td><td>Emulsionen, lipophile Formulierungen</td></tr>
+          <tr><td>Vorteil</td><td>Ascorbins&#228;urewirkung in der Fettphase</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Amphiphil:</strong> Verbindet die antioxidative Wirkung der Ascorbins&#228;ure (hydrophil) mit Lipophilie &#8594; einsetzbar in Fettformulierungen und an Grenzfl&#228;chen von Emulsionen.</div>
+  </div>
+
+</div>
 
 <!-- ════════ FOOTER ════════ -->
 <footer class="site-footer">
@@ -2747,6 +3446,23 @@ var flashcards = [
   {cat:'gmp',q:'Was prüft die Gleichförmigkeit der Masse und welche Grenzwerte gelten?',a:'Einzelne Einheiten (Kapseln, Globuli) werden gewogen. Max. 2 von 20 Einheiten dürfen die Grenzabweichung überschreiten, keine darf die doppelte Grenzabweichung überschreiten.',exp:'Ph.Eur.-Kriterium – stellt sicher, dass jede Einheit die korrekte Menge enthält.',freq:6},
   {cat:'gmp',q:'Wie funktioniert die Grindometrie?',a:'Eine Grindometer-Platte mit einer Rille abnehmender Tiefe wird mit der Zubereitung befüllt und abgezogen – an der Stelle, an der Körner sichtbar werden, kann die Partikelgröße in µm abgelesen werden.',exp:'Methode zur Überprüfung der Mahlfeinheit halbfester Zubereitungen (Salben, Cremes, Pasten).',freq:5},
   {cat:'gmp',q:'Wie unterscheidet man im Verdünnungstest eine O/W- von einer W/O-Emulsion?',a:'O/W-Emulsionen lassen sich mit Wasser verdünnen/mischen (Wasser ist Außenphase). W/O-Emulsionen sind mit Wasser nicht mischbar.',exp:'Weitere Tests: Färbetest (wasserlöslicher Farbstoff verteilt sich → O/W), Leitfähigkeitstest (leitfähig → O/W).',freq:6},
+  // ── HILFSSTOFFE ──
+  {cat:'hilfs',q:'Warum muss Aspartam PKU-Warnhinweis tragen?',a:'Aspartam enthält Phenylalanin → bei Phenylketonurie (PKU) kann Phe nicht abgebaut werden → toxische Akkumulation.',exp:'Aspartam hydrolysiert zu Asp + Phe + Methanol. Pflichtdeklaration: Enthält eine Phenylalaninquelle.',freq:8},
+  {cat:'hilfs',q:'Warum verliert Saccharin bei Konz. > 0,03 % an Qualität?',a:'Metallisch-bitterlicher Nachgeschmack bei Überdosierung. Lösung: Kombination mit Cyclamat (10:1).',exp:'Saccharin: 200-700x süßer als Saccharose. Cyclamat: 30-50x süßer. Kombination wirkt synergistisch.',freq:7},
+  {cat:'hilfs',q:'Warum sind PHB-Ester bei Lagerung unter 15 Grad C problematisch?',a:'Methyl- und Propyl-4-Hydroxybenzoat kristallisieren unter 15 Grad C aus -> Wirkstoff nicht mehr in Lösung -> Konservierung versagt.',exp:'Konserviertes Wasser (NRF) muss deshalb bei T > 15 Grad C gelagert werden.',freq:9},
+  {cat:'hilfs',q:'Was ist das Kombinationsprinzip bei Parabenen (M-PHB + P-PHB)?',a:'M-PHB (hydrophil) = bakterizid in der Wasserphase. P-PHB (lipophil) = fungizid in der Ölphase. Zusammen deckend.',exp:'Verhältnis typisch 3:1 (M:P). Einsatzkonzentrationen: M-PHB 0,15-0,3 %, P-PHB 0,02-0,05 %.',freq:8},
+  {cat:'hilfs',q:'Warum wirken Benzoesäure und Sorbinsäure nur bei saurem pH?',a:'Nur die undissoziierte Säure kann die Zellmembran von Mikroorganismen durchdringen und wirken.',exp:'Bei pH > pKa überwiegt das Salz (dissoziiert) -> kaum antimikrobiell. Citronensäure stellt pH < 5 ein.',freq:9},
+  {cat:'hilfs',q:'Was ist der Unterschied zwischen Span und Tween?',a:'Span = Sorbitanester (HLB 1,8-8,6, W/O). Tween = PEGylierter Sorbitanester (HLB 9,6-16,7, O/W).',exp:'Span + Tween können gemischt werden -> jeder Misch-HLB einstellbar nach HLB_mix = Summe(m_i x HLB_i)/Gesamt.',freq:8},
+  {cat:'hilfs',q:'Was ist ein Inklusionskomplex und wie bildet Cyclodextrin ihn?',a:'Der lipophile Hohlraum des Cyclodextrins nimmt hydrophobe Gastmoleküle auf -> Löslichkeit steigt, Stabilität steigt.',exp:'beta-CD (7 Glucoseeinheiten) am häufigsten eingesetzt. HP-beta-CD ist besser wasserlöslich.',freq:7},
+  {cat:'hilfs',q:'Wie unterscheiden sich HPMC und Gelatine bei der Gelbildung?',a:'HPMC: Sol kalt, Gel warm (umgekehrte Thermogelierung). Gelatine: Gel kalt (< 35 Grad C), Sol heiss.',exp:'HPMC-Gelierung durch thermische Dehydratation der Polymerketten bei Erwärmen.',freq:8},
+  {cat:'hilfs',q:'Warum wird Carmellose-Na zuerst mit Propylenglykol angerieben?',a:'Propylenglykol benetzt den Gelbildner vor und verhindert Klümpchenbildung beim Kontakt mit Wasser.',exp:'Würde man CMC-Na direkt in Wasser einstreuen, quillt die Außenschicht sofort, Inneres bleibt trocken -> Klumpen.',freq:7},
+  {cat:'hilfs',q:'Welche Funktion hat EDTA als Antioxidans?',a:'EDTA ist selbst kein Reduktionsmittel - es bindet Metallionen (Fe2+, Cu2+), die als Katalysatoren der Oxidation wirken.',exp:'Chelatbildner -> indirekte Antioxidantswirkung. Synergie mit Ascorbinsäure (direkte Reduktion).',freq:8},
+  {cat:'hilfs',q:'Warum ist alpha-Tocopherol (Vitamin E) fettlöslich und für Öle geeignet?',a:'Tocopherol hat eine lange Phytylkette (lipophil) und ein phenolisches Chromanol-Ringsystem -> löst sich in Fetten.',exp:'Unterbricht Lipidperoxidation durch H-Donierung an Radikale. Synergie: Ascorbinsäure regeneriert Tocopheroxyl-Radikal.',freq:7},
+  {cat:'hilfs',q:'Was macht BHA und BHT besonders stabile Antioxidantien?',a:'Sterisch gehinderte Phenole: tert. Butylgruppen schirmen das Phenoxyl-Radikal ab -> reaktives Phenol, aber stabiles Radikal.',exp:'BHT (E 321) flüchtiger als BHA (E 320). Einsatz in Fetten und Ölen als fettlösliche Antioxidantien.',freq:6},
+  {cat:'hilfs',q:'Was ist ionotrope Gelbildung bei Natriumalginat?',a:'Na-Alginat-Lösung + Ca2+-Ionen -> ionische Vernetzung der Guluronat-Ketten -> festes, irreversibles Gel.',exp:'Gegensatz zu thermoreversiblen Gelen (Gelatine, HPMC). Basis für Bead-Technologie und Wundverbände.',freq:6},
+  {cat:'hilfs',q:'Warum ist Natriumlaurylsulfat (SDS) inkompatibel mit Chlorhexidin?',a:'SDS = anionisch. Chlorhexidin = kationisch. Ionenpaar -> Ausfällung / Inaktivierung beider Substanzen.',exp:'Bestandteil des Emulgierenden Cetylstearylalkohols Typ A (anionisch). Cave: nie mit kationischen Substanzen kombinieren!',freq:8},
+  {cat:'hilfs',q:'Warum ist Lecithin ein amphoterer Emulgator?',a:'Lecithin (Phosphatidylcholin) ist zwitterionisch: positiv geladene Cholin-Gruppe + negativ geladene Phosphat-Gruppe.',exp:'Natürlicher Membranbestandteil -> beste Biokompatibilität. Einsatz in Liposomen, i.v.-Emulsionen, Injektionen.',freq:7},
+
 ];
 
 // ─── RENDER FLASHCARDS ───
@@ -2971,6 +3687,37 @@ var glossar = [
   {term:'Succussion (Dynamisierung)',def:'Kräftiges Schütteln einer homöopathischen Dilution nach jeder Verdünnungsstufe (normiert: 10 abwärts geführte Normschläge zum Erdmittelpunkt). Konstitutiver Bestandteil der Potenzierung.'},
   {term:'Trituration',def:'Homöopathische Verreibung einer Ursubstanz mit Lactose im Mörser (potenziert bei unlöslichen/alkohollabilen Substanzen durch C-Potenzen).'},
   {term:'Ursubstanz',def:'Unverdünnte/unpotenzierte Ausgangssubstanz in der Homöopathie, aus der durch Potenzierung die Dilutionen, Triturationen oder Globuli hergestellt werden.'},
+
+  // ── HILFSSTOFFE ──
+  {term:'Antioxidans',def:'Substanz, die die Oxidation von Arzneistoffen verhindert, indem sie selbst oxidiert (Reduktionsmittel, z.B. Ascorbinsäure) oder Metallkatalysatoren bindet (Chelatbildner, z.B. EDTA).'},
+  {term:'Aspartam',def:'Künstlicher Süßstoff (Asp-Phe-Methylester). ~200× süßer als Saccharose. Enthält Phenylalanin → PKU-Pflichtdeklaration. Thermolabil > 100 °C (DKP-Bildung).'},
+  {term:'BHA (Butylhydroxyanisol)',def:'Synthetisches fettlösliches Antioxidans (E 320). Sterisch gehindertes Phenol → Radikalfänger in Fetten, Ölen und Salbengrundlagen.'},
+  {term:'BHT (Butylhydroxytoluol)',def:'Synthetisches fettlösliches Antioxidans (E 321). Ähnlich BHA, jedoch flüchtiger. Einsatz in Fetten und Ölen.'},
+  {term:'Benzylalkohol',def:'Phenolischer Alkohol (C7H8O). Konservierungsmittel in Injektionslösungen bei 1 %. Cave: Gasping-Syndrom bei Neugeborenen → kontraindiziert!'},
+  {term:'Carmellose-Natrium (CMC-Na)',def:'Anionischer Celluloseether mit –CH₂–COO⁻Na⁺-Gruppen. Gelbildner und Suspendiermittel. Zuerst mit Propylenglykol benetzen, dann Wasser zufügen.'},
+  {term:'Cetylalkohol',def:'Gesättigter Fettalkohol (C16). Co-Emulgator und Konsistenzgeber in Cremes (z.B. Basiscreme DAC). Unlöslich in Wasser, gut in Fett.'},
+  {term:'Chlorhexidin',def:'Kationisches Bisguanidin-Konservierungsmittel. Breites Wirkspektrum. Cave: Inkompatibel mit Anionen (Phosphate, SDS, Seifen) → Ausfällung.'},
+  {term:'Cyclodextrin (β-CD)',def:'Zyklisches Oligosaccharid aus 7 Glucoseeinheiten mit lipophilem Hohlraum. Bildet Inklusionskomplexe mit hydrophoben Gastmolekülen → verbesserte Löslichkeit.'},
+  {term:'Diketopiperazin (DKP)',def:'Zyklisches Abbauprodukt von Aspartam bei Erhitzen. Bitter, unwirksam → Aspartam nicht für Heißgetränke geeignet.'},
+  {term:'EDTA (Edetat)',def:'Chelatbildner (Ethylendiamintetraessigsäure, Na₂-Salz). Bindet Fe²⁺/³⁺ und Cu²⁺ → verhindert metallkatalysierte Oxidation. Synergie mit Ascorbinsäure.'},
+  {term:'Gelatine (pharmazeutisch)',def:'Kollagen-Hydrolysat mit thermoreversiblem Gelierverhalten: Gel bei < 35 °C, Sol bei Erwärmen. Einsatz als Kapselhülle und Granulierflüssigkeit.'},
+  {term:'Glycerolmonostearat (GMS)',def:'Nichtionischer W/O-Emulgator (HLB ~3,8). Monoglycerid aus Glycerol und Stearinsäure. Konsistenzgeber in Cremes und Suppositorien.'},
+  {term:'HPMC (Hypromellose)',def:'Hydroxypropylmethylcellulose. Semisynthetischer Celluloseether. Löst sich in kaltem Wasser, geliert bei Erwärmen (umgekehrte Thermogelierung). Gelbildner, Filmcoating, Retardmatrix.'},
+  {term:'Ionotrope Gelbildung',def:'Gelbildung durch ionische Vernetzung von Polyanionen (z.B. Alginat) mit mehrwertigen Kationen (Ca²⁺). Gegensatz zur thermoreversiblen Gelbildung.'},
+  {term:'Lecithin',def:'Phosphatidylcholin. Amphoterer (zwitterionischer) Emulgator aus Soja/Ei. HLB ~4. Biokompatibel → Liposomen, i.v.-Emulsionen, Injektionen.'},
+  {term:'Metabisulfit (Na₂S₂O₅)',def:'Natriummetabisulfit und Kaliummetabisulfit: wasserlösliche Reduktionsmittel (Antioxidantien). Cave: Allergisierend (Asthma bei Sulfitempfindlichen). Pflichtdeklaration.'},
+  {term:'Natrium-Cyclamat',def:'Künstlicher Süßstoff (30–50× Saccharose). Synergistisch mit Saccharin (10:1). Kalorienfrei, PKU-unbedenklich.'},
+  {term:'Natriumalginat',def:'Salz der Alginsäure (aus Braunalgen). Bildet mit Ca²⁺ irreversibles Gel (ionotrope Gelbildung). Einsatz in Wundverbänden und Bead-Technologie.'},
+  {term:'Natriumlaurylsulfat (SDS)',def:'Anionisches Tensid (Emulgator). HLB ~40. Bestandteil des Emulgierenden Cetylstearylalkohols Typ A. Cave: Inkompatibel mit Kationika (Chlorhexidin, BAC).'},
+  {term:'Paraben (PHB-Ester)',def:'4-Hydroxybenzoesäureester (Methyl-, Propyl-). Konservierungsmittel. M-PHB hydrophil (Bakterien), P-PHB lipophil (Pilze). Kristallisieren unter 15 °C aus!'},
+  {term:'Phenoxyethanol',def:'2-Phenoxyethanol. Konservierungsmittel (0,5–1 %). Alternative zu Parabenen. Stabil bei pH 3–10. Einsatz in Dermatika und Kosmetika.'},
+  {term:'Polysorbat (Tween)',def:'PEGylierter Sorbitanester. Nichtionischer O/W-Emulgator (HLB 9,6–16,7). Kombinierbar mit Span zur Einstellung des Misch-HLB.'},
+  {term:'Povidon (PVP)',def:'Polyvinylpyrrolidon. Synthetisches Polymer. Einsatz als Bindemittel bei der Feuchtgranulierung (K30) und als Löslichkeitsvermittler für schlecht lösliche Wirkstoffe.'},
+  {term:'Saccharin-Natrium',def:'Künstlicher Süßstoff (200–700× Saccharose). Kalorienfrei, PKU-unbedenklich. Cave: Metallisch-bitterlicher Nachgeschmack bei Konz. > 0,03 %.'},
+  {term:'Sorbitol',def:'Zuckeralkohol (0,6× Saccharose). Hygroskopisch. Bei > 50 g/Tag laxierend (osmotisch). Einsatz als Süßstoff und Füllstoff in Kapseln und Sirupen.'},
+  {term:'Sorbitanmonostearat (Span 60)',def:'Nichtionischer W/O-Emulgator (HLB 4,7). Kombinierbar mit Polysorbaten (Tween) zur Einstellung des Misch-HLB. Einsatz in W/O-Emulsionen.'},
+  {term:'Thymol',def:'Natürliches Phenol aus Thymianöl. Antiseptisch (Bakterien, Pilze). Konzentration 0,05–0,1 %. Lipophil. Einsatz in Mund- und Rachentherapeutika.'},
+  {term:'Tocopherol (α-Tocopherol)',def:'Vitamin E. Fettlösliches Antioxidans. Radikalfänger: unterbricht Lipidperoxidation. Synergie mit Ascorbinsäure. Einsatz in Ölen und Salben.'},
 ].sort(function(a,b) { return a.term.localeCompare(b.term, 'de'); });
 
 function renderGlossar(filter) {
