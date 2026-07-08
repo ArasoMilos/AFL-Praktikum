@@ -227,6 +227,7 @@ body {
 .hs-struct { display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; margin:10px 0; }
 .struct-img { width:170px; border-radius:8px; border:1px solid #eee; background:#fff; flex-shrink:0; }
 .struct-placeholder { width:170px; height:150px; border-radius:8px; border:1px solid #eee; background:#f8f9fa; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; font-size:11px; color:#666; text-align:center; padding:8px; }
+.struct-placeholder-sm { width:130px; height:115px; border-radius:6px; border:1px solid #eee; background:#f8f9fa; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; font-size:10px; color:#666; text-align:center; padding:6px; }
 
 
 /* ── ENTRY CARD ── */
@@ -2582,7 +2583,7 @@ html { scroll-behavior: smooth; }
     <button class="filter-btn" onclick="filterCards('gmp',this)">GMP &amp; Analytik</button>
     <button class="filter-btn" onclick="filterCards('hilfs',this)">Hilfsstoffe</button>
     <span style="color:#999;font-family:var(--font-ui);font-size:12px;padding:6px;">Klick = Antwort aufdecken</span>
-    <button class="filter-btn" onclick="revealAll()" style="margin-left:auto;">Alle aufdecken</button>
+    <button class="filter-btn" onclick="revealAll(this)" style="margin-left:auto;">Alle aufdecken</button>
   </div>
   <div id="flashcard-list"></div>
 </div>
@@ -2643,7 +2644,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/656582/PNG" alt="Saccharin-Na Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/saccharin%20sodium/PNG" alt="Saccharin-Na Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Saccharin-Na Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>S&#252;&#223;kraft</td><td>200&#8211;700&#215; Saccharose</td></tr>
@@ -2663,7 +2665,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/25468/PNG" alt="Cyclamat Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sodium%20cyclamate/PNG" alt="Cyclamat Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cyclamat Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>S&#252;&#223;kraft</td><td>30&#8211;50&#215; Saccharose</td></tr>
@@ -2683,7 +2686,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#e8d5f5;color:#5d3891;border-color:#7f53a3;">S&#220;SSMITTEL</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/134601/PNG" alt="Aspartam Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspartame/PNG" alt="Aspartam Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Aspartam Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>S&#252;&#223;kraft</td><td>~200&#215; Saccharose</td></tr>
@@ -2705,7 +2709,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="color:#999;border-color:#bbb;">F&#220;LLSTOFF</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5780/PNG" alt="Sorbitol Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sorbitol/PNG" alt="Sorbitol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Sorbitol Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>S&#252;&#223;kraft</td><td>~0,6&#215; Saccharose</td></tr>
@@ -2729,7 +2734,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6989/PNG" alt="Thymol Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/thymol/PNG" alt="Thymol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Thymol Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Klasse</td><td>Natürliches Phenol (Thymianöl)</td></tr>
@@ -2749,7 +2755,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/244/PNG" alt="Benzylalkohol Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/benzyl%20alcohol/PNG" alt="Benzylalkohol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Benzylalkohol Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>1 % (Konserv.) / bis 9 % (Lokalanästh.)</td></tr>
@@ -2768,7 +2775,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/31236/PNG" alt="Phenoxyethanol Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/2-phenoxyethanol/PNG" alt="Phenoxyethanol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Phenoxyethanol Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>0,5&#8211;1,0 %</td></tr>
@@ -2788,7 +2796,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9552079/PNG" alt="Chlorhexidin Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/chlorhexidine/PNG" alt="Chlorhexidin Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Chlorhexidin Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>0,01&#8211;0,02 %</td></tr>
@@ -2812,11 +2821,13 @@ html { scroll-behavior: smooth; }
     <div class="hs-struct">
       <div style="display:flex;gap:8px;flex-shrink:0;">
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7456/PNG" alt="Methylparaben" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/methylparaben/PNG" alt="Methylparaben" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">Methylparaben</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Methylparaben (M-PHB)</div>
         </div>
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/7175/PNG" alt="Propylparaben" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/propylparaben/PNG" alt="Propylparaben" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">Propylparaben</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Propylparaben (P-PHB)</div>
         </div>
       </div>
@@ -2844,11 +2855,13 @@ html { scroll-behavior: smooth; }
     <div class="hs-struct">
       <div style="display:flex;gap:8px;flex-shrink:0;">
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/243/PNG" alt="Benzoes&#228;ure" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/benzoic%20acid/PNG" alt="Benzoes&#228;ure" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">Benzoes&#228;ure</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Benzoes&#228;ure (pK&#8336; 4,2)</div>
         </div>
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/643460/PNG" alt="Sorbins&#228;ure" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sorbic%20acid/PNG" alt="Sorbins&#228;ure" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">Sorbins&#228;ure</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Sorbins&#228;ure (pK&#8336; 4,76)</div>
         </div>
       </div>
@@ -2864,6 +2877,108 @@ html { scroll-behavior: smooth; }
     <div class="info-red"><strong>pH-abh&#228;ngig!</strong> Nur die undissoziierte S&#228;ure ist antimikrobiell. Bei pH &gt; 5 &#8594; überwiegend Salz &#8594; kaum Wirkung. Citronens&#228;ure zur pH-Einstellung n&#246;tig!</div>
   </div>
 
+  <div class="cat-2">Weitere Konservierungsmittel</div>
+
+  <div class="entry-card" id="hs-cetrimid">
+    <div class="entry-header">
+      <h3>Cetrimid (Cetrimonium)</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">KATIONISCH</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/cetrimonium%20bromide/PNG" alt="Cetrimid Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cetrimid<br>(quart&#228;re Ammoniumverbindung)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>quart&#228;re Ammoniumverbindung (Kation)</td></tr>
+          <tr><td>Wirkspektrum</td><td>v.a. grampositive Bakterien</td></tr>
+          <tr><td>Einsatz</td><td>Wundreinigung, Hautdesinfektion</td></tr>
+          <tr><td>Inkompatibilität</td><td>Anionen (Seifen, SDS, Phosphate)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Cave:</strong> Wie Chlorhexidin kationisch &#8594; inkompatibel mit anionischen Tensiden und Seifen.</div>
+  </div>
+
+  <div class="entry-card" id="hs-chlorcresol">
+    <div class="entry-header">
+      <h3>Chlorcresol (Chlorkresol)</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/chlorocresol/PNG" alt="Chlorcresol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Chlorcresol</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Klasse</td><td>chloriertes Phenolderivat</td></tr>
+          <tr><td>Konzentration</td><td>0,05&#8211;0,2 %</td></tr>
+          <tr><td>Wirkspektrum</td><td>Bakterien, Pilze</td></tr>
+          <tr><td>Einsatz</td><td>Injektionslösungen, halbfeste Zubereitungen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Struktur:</strong> Verwandt mit Thymol &#8211; chloriertes Kresol mit antiseptischer Wirkung.</div>
+  </div>
+
+  <div class="entry-card" id="hs-propylenglykol">
+    <div class="entry-header">
+      <h3>Propylenglykol</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+      <span class="badge" style="color:#999;border-color:#bbb;">L&#214;SUNGSMITTEL</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/propylene%20glycol/PNG" alt="Propylenglykol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Propylenglykol</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Konzentration</td><td>&#8805; 20 % konservierend wirksam</td></tr>
+          <tr><td>Eigenschaft</td><td>hygroskopisch, feuchthaltend</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>mischbar mit Wasser</td></tr>
+          <tr><td>Einsatz</td><td>Lösungsmittel, Konservierung, Anreibemittel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Praktikum:</strong> Wird zum Anreiben von Carmellose-Na verwendet, bevor Wasser zugesetzt wird (verhindert Klümpchenbildung).</div>
+  </div>
+
+  <div class="entry-card" id="hs-phenylmercurinitrat">
+    <div class="entry-header">
+      <h3>Phenylmercurinitrat</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/phenylmercuric%20nitrate/PNG" alt="Phenylmercurinitrat Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Phenylmercurinitrat<br>(organische Quecksilberverb.)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>organische Quecksilberverbindung</td></tr>
+          <tr><td>Konzentration</td><td>0,001&#8211;0,002 %</td></tr>
+          <tr><td>Einsatz</td><td>historisch: Augentropfen, Kosmetika</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Toxikologie:</strong> Quecksilberhaltig &#8211; heute stark eingeschränkt/verboten in vielen Ländern wegen Toxizität.</div>
+  </div>
+
+  <div class="entry-card" id="hs-thiomersal">
+    <div class="entry-header">
+      <h3>Thiomersal (Thimerosal)</h3>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">KONSERV.</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/thimerosal/PNG" alt="Thiomersal Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Thiomersal<br>(organische Quecksilberverb.)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>organische Quecksilberverbindung</td></tr>
+          <tr><td>Konzentration</td><td>0,001&#8211;0,01 %</td></tr>
+          <tr><td>Einsatz</td><td>Multi-Dose-Impfstoffe, Augentropfen (historisch)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Kontrovers:</strong> Quecksilberhaltig &#8211; aus den meisten modernen Impfstoffen entfernt, in Einzelfällen (Mehrdosenbehältnisse) noch im Einsatz.</div>
+  </div>
+
   <div class="cat-1" id="hs-emulg">Emulgatoren</div>
 
   <div class="cat-2">Nichtionische Emulgatoren</div>
@@ -2874,7 +2989,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/23665227/PNG" alt="GMS Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/glyceryl%20monostearate/PNG" alt="GMS Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">GMS Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>HLB-Wert</td><td>~3,8 (W/O-Emulgator)</td></tr>
@@ -2895,7 +3011,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="color:#999;border-color:#bbb;">KONSISTENZGEBER</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2682/PNG" alt="Cetylalkohol Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/cetyl%20alcohol/PNG" alt="Cetylalkohol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cetylalkohol Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Typ</td><td>ges&#228;ttigter Fettalkohol C16</td></tr>
@@ -2915,7 +3032,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5997/PNG" alt="Cholesterin Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/cholesterol/PNG" alt="Cholesterin Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cholesterin Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Typ</td><td>Sterol (tierischen Ursprungs)</td></tr>
@@ -2937,11 +3055,13 @@ html { scroll-behavior: smooth; }
     <div class="hs-struct">
       <div style="display:flex;gap:8px;flex-shrink:0;">
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5353953/PNG" alt="Span 60" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sorbitan%20monostearate/PNG" alt="Span 60" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">Span 60</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Span 60 (HLB 4,7)</div>
         </div>
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5282492/PNG" alt="Tween" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/polysorbate%2080/PNG" alt="Tween" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">Tween</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">Polysorbat (Tween)</div>
         </div>
       </div>
@@ -2958,6 +3078,64 @@ html { scroll-behavior: smooth; }
     <div class="info-blue"><strong>HLB-Mischung:</strong> HLB<sub>mix</sub> = (m<sub>Span</sub>&#160;&#215;&#160;HLB<sub>Span</sub> + m<sub>Tween</sub>&#160;&#215;&#160;HLB<sub>Tween</sub>) / Gesamt. Durch Variation des Mengenverh&#228;ltnisses ist jeder Misch-HLB einstellbar.</div>
   </div>
 
+  <div class="entry-card" id="hs-wollwachs">
+    <div class="entry-header">
+      <h3>Wollwachs (Lanolin)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#128031;</div><div style="margin-top:6px;">Wollwachs (Lanolin)<br>Wachsester-Gemisch<br>aus Schafwolle</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>komplexes Wachsester-Gemisch (tierisch)</td></tr>
+          <tr><td>HLB</td><td>~ 8 (W/O-Tendenz, kann viel Wasser binden)</td></tr>
+          <tr><td>Besonderheit</td><td>bindet 200&#8211;300&#215; sein Eigengewicht an Wasser</td></tr>
+          <tr><td>Einsatz</td><td>W/O-Salbengrundlagen, stark rückfettend</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Wasserbindung:</strong> Kann 200&#8211;300&#215; sein Eigengewicht an Wasser aufnehmen, ohne dass die Salbe „bricht" (Emulsion instabil wird).</div>
+  </div>
+
+  <div class="entry-card" id="hs-wollwachsalkohol">
+    <div class="entry-header">
+      <h3>Wollwachsalkohole</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#128031;</div><div style="margin-top:6px;">Wollwachsalkohole<br>Sterole/Fettalkohole<br>aus Wollwachs-Verseifung</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Sterole &amp; Fettalkohole (u.a. Cholesterin)</td></tr>
+          <tr><td>Funktion</td><td>W/O-Emulgator, Co-Emulgator, Stabilisator</td></tr>
+          <tr><td>Einsatz</td><td>Herstellung hydrophober Salben und Cremes</td></tr>
+          <tr><td>Kennzeichnung</td><td>Pflicht: „Enthält Wollwachsalkohole"</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Allergiepotenzial:</strong> Kontaktallergie möglich (Lanolin-Allergie) &#8594; Pflicht-Deklaration nach ApBetrO. Praktikum: Wollwachsalkoholcreme/-salbe DAB.</div>
+  </div>
+
+  <div class="entry-card" id="hs-glycerinfettsaeureester">
+    <div class="entry-header">
+      <h3>Glycerinfettsäureester (Glycerolfettsäureester)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/glyceryl%20tristearate/PNG" alt="Glycerinfettsäureester Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Glycerinfettsäureester<br>(Mono-/Di-/Triester)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Mono-, Di- oder Triester des Glycerols</td></tr>
+          <tr><td>Ladung</td><td>nichtionisch</td></tr>
+          <tr><td>Funktion</td><td>W/O-Emulgator, Konsistenzgeber</td></tr>
+          <tr><td>Einsatz</td><td>Cremes, Salben (verwandt mit GMS)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Verwandtschaft:</strong> Glycerolmonostearat (GMS) ist der wichtigste Vertreter dieser Gruppe &#8211; siehe eigener Eintrag oben.</div>
+  </div>
+
   <div class="cat-2">Amphotere Emulgatoren</div>
 
   <div class="entry-card" id="hs-lecithin">
@@ -2967,7 +3145,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="color:#999;border-color:#bbb;">AMPHOTER</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5326803/PNG" alt="Phosphatidylcholin Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/phosphatidylcholine/PNG" alt="Phosphatidylcholin Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Phosphatidylcholin Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Typ</td><td>Phospholipid (nat. aus Soja/Ei)</td></tr>
@@ -2981,6 +3160,65 @@ html { scroll-behavior: smooth; }
     <div class="info-green"><strong>Biokompatibel:</strong> Nat&#252;rlicher Membranbestandteil &#8594; hervorragende Vertr&#228;glichkeit. Essentiell f&#252;r Liposomale Arzneiformen.</div>
   </div>
 
+  <div class="cat-2">Macrogol-Emulgatoren (nichtionisch, O/W)</div>
+
+  <div class="entry-card" id="hs-macrogolether">
+    <div class="entry-header">
+      <h3>Macrogolfettalkoholether (Cetomacrogol)</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#128268;</div><div style="margin-top:6px;">PEG-Fettalkoholether<br>R&#8211;O&#8211;(CH&#8322;CH&#8322;O)<sub>n</sub>&#8211;H</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Struktur</td><td>Polyethylenglykol-Fettalkoholether</td></tr>
+          <tr><td>Ladung</td><td>nichtionisch</td></tr>
+          <tr><td>Typ</td><td>O/W-Emulgator</td></tr>
+          <tr><td>Bekanntester Vertreter</td><td>Cetomacrogol 1000</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Aufbau:</strong> Fettalkohol (lipophiler Anker) + PEG-Kette (hydrophiler Kopf) &#8594; klassischer O/W-Emulgator nach dem Ethertyp.</div>
+  </div>
+
+  <div class="entry-card" id="hs-macrogolester">
+    <div class="entry-header">
+      <h3>Macrogolfettsäureester</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#128268;</div><div style="margin-top:6px;">PEG-Fettsäureester<br>R&#8211;COO&#8211;(CH&#8322;CH&#8322;O)<sub>n</sub>&#8211;H</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Struktur</td><td>Polyethylenglykol-Fettsäureester</td></tr>
+          <tr><td>Ladung</td><td>nichtionisch</td></tr>
+          <tr><td>Typ</td><td>O/W-Emulgator</td></tr>
+          <tr><td>Unterschied zu Ether</td><td>Esterbindung statt Etherbindung &#8594; leichter hydrolysierbar</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-yellow"><strong>Hydrolyseempfindlich:</strong> Die Esterbindung kann bei extremen pH-Werten gespalten werden &#8211; weniger stabil als Macrogol-Ether.</div>
+  </div>
+
+  <div class="entry-card" id="hs-macrogolglycerolester">
+    <div class="entry-header">
+      <h3>Macrogolglycerolfettsäureester</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#128268;</div><div style="margin-top:6px;">PEG-Glycerol-<br>Fettsäureester<br>(z.B. Kolliphor-Typen)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Struktur</td><td>Polyethylenglykol-Glycerol-Fettsäureester</td></tr>
+          <tr><td>Ladung</td><td>nichtionisch</td></tr>
+          <tr><td>Typ</td><td>O/W-Emulgator</td></tr>
+          <tr><td>Beispiele</td><td>Macrogolglycerolhydroxystearat (Kolliphor RH40)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Solubilisierung:</strong> Wird häufig zur Lösungsvermittlung lipophiler Wirkstoffe in wässrigen Systemen eingesetzt (Mizellenbildung).</div>
+  </div>
+
   <div class="cat-2">Anionische Emulgatoren</div>
 
   <div class="entry-card" id="hs-sds">
@@ -2990,7 +3228,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">ANIONISCH</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/3423265/PNG" alt="SDS Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sodium%20dodecyl%20sulfate/PNG" alt="SDS Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">SDS Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>HLB</td><td>~40 (starkes Tensid)</td></tr>
@@ -3004,6 +3243,69 @@ html { scroll-behavior: smooth; }
     <div class="info-red"><strong>Cave:</strong> Inkompatibel mit kationischen Substanzen (z.B. Benzalkoniumchlorid, Chlorhexidin) &#8594; F&#228;llung! Bestandteil des Emulgierenden Cetylstearylalkohols Typ A.</div>
   </div>
 
+  <div class="entry-card" id="hs-natriumcaprylat">
+    <div class="entry-header">
+      <h3>Natriumcaprylat</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">ANIONISCH</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sodium%20caprylate/PNG" alt="Natriumcaprylat Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Natriumcaprylat</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Natriumsalz der Caprylsäure (C8)</td></tr>
+          <tr><td>Ladung</td><td>anionisch</td></tr>
+          <tr><td>Funktion</td><td>Netzmittel, schwacher Emulgator</td></tr>
+          <tr><td>Einsatz</td><td>Stabilisator in Albumin-Lösungen, Netzmittel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Netzmittel:</strong> Senkt die Grenzflächenspannung &#8594; verbessert die Benetzung hydrophober Feststoffe.</div>
+  </div>
+
+  <div class="entry-card" id="hs-natriumcetylstearylsulfat">
+    <div class="entry-header">
+      <h3>Natriumcetylstearylsulfat</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">ANIONISCH</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Na-Cetylstearylsulfat<br>langkettiges<br>Alkylsulfat-Gemisch</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Sulfatester aus Cetyl-/Stearylalkohol-Gemisch</td></tr>
+          <tr><td>Ladung</td><td>anionisch</td></tr>
+          <tr><td>Funktion</td><td>O/W-Emulgator &amp; Stabilisator</td></tr>
+          <tr><td>Einsatz</td><td>Bestandteil selbstemulgierender Grundlagen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Verwandt mit SDS:</strong> Ähnliches Wirkprinzip wie Natriumlaurylsulfat, aber längere/gemischte Alkylkette (Cetyl + Stearyl).</div>
+  </div>
+
+  <div class="entry-card" id="hs-cetylstearylalkohol-typab">
+    <div class="entry-header">
+      <h3>Emulgierender Cetylstearylalkohol Typ A &amp; B</h3>
+      <span class="badge" style="background:#d5f5e3;color:#1a5c3a;border-color:#27ae60;">EMULGATOR</span>
+      <span class="badge" style="background:#fdebd0;color:#935116;border-color:#e67e22;">ANIONISCH</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/cetostearyl%20alcohol/PNG" alt="Cetylstearylalkohol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cetylstearylalkohol</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Basis</td><td>Cetylstearylalkohol (Fettalkohol-Gemisch)</td></tr>
+          <tr><td>Typ A</td><td>+ Natriumlaurylsulfat (SDS)</td></tr>
+          <tr><td>Typ B</td><td>+ Natriumcetylstearylsulfat</td></tr>
+          <tr><td>Funktion</td><td>selbstemulgierende Grundlage, O/W</td></tr>
+          <tr><td>Einsatz</td><td>Absorptionsgrundlagen für Cremes</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-red"><strong>Cave:</strong> Anionisch &#8594; inkompatibel mit kationischen Wirk-/Hilfsstoffen (z.B. Benzalkoniumchlorid, Chlorhexidin) &#8594; Ausfällung!</div>
+  </div>
+
   <div class="cat-1" id="hs-polysacc">Polysaccharide &amp; Polymere</div>
 
   <div class="cat-2">Cyclodextrine</div>
@@ -3015,7 +3317,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="color:#999;border-color:#bbb;">L&#214;SL.-VERBESSERUNG</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/444041/PNG" alt="Cyclodextrin Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/beta-cyclodextrin/PNG" alt="Cyclodextrin Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cyclodextrin Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Ringgr&#246;&#223;e</td><td>&#945;: 6, &#946;: 7, &#947;: 8 Glucoseeinheiten</td></tr>
@@ -3031,13 +3334,75 @@ html { scroll-behavior: smooth; }
 
   <div class="cat-2">Celluloseether</div>
 
+  <div class="entry-card" id="hs-cellulose">
+    <div class="entry-header">
+      <h3>Cellulose (mikrokristallin)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/cellulose/PNG" alt="Cellulose Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Cellulose<br>&#946;-1,4-glykosidisch<br>verkn&#252;pfte Glucoseketten</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>unverzweigtes Polysaccharid (&#946;-1,4-Glucose)</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>wasserunlöslich (kristallin)</td></tr>
+          <tr><td>Funktion</td><td>Verdickungsmittel, Bindemittel</td></tr>
+          <tr><td>Einsatz</td><td>Tablettenhilfsstoff, Füllmittel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Grundgerüst:</strong> Ausgangsmaterial für alle Celluloseether (HPC, HPMC, Ethylcellulose, CMC-Na) durch chemische Derivatisierung der OH-Gruppen.</div>
+  </div>
+
+  <div class="entry-card" id="hs-hpc">
+    <div class="entry-header">
+      <h3>Hydroxypropylcellulose (HPC)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/hydroxypropyl%20cellulose/PNG" alt="HPC Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">HPC<br>Hydroxypropyl-<br>Celluloseether</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>nichtionischer Celluloseether</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>kaltes Wasser &amp; viele org. Lösungsmittel</td></tr>
+          <tr><td>Funktion</td><td>Gelbildner, Filmbildner</td></tr>
+          <tr><td>Einsatz</td><td>Filmüberzüge, Augengele</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Unterschied zu HPMC:</strong> HPC hat nur Hydroxypropyl-Gruppen (kein Methyl) &#8594; auch in Ethanol löslich, thermoplastisch (schmilzt statt zu gelieren).</div>
+  </div>
+
+  <div class="entry-card" id="hs-ethylcellulose">
+    <div class="entry-header">
+      <h3>Ethylcellulose</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/ethylcellulose/PNG" alt="Ethylcellulose Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Ethylcellulose<br>wasserunlöslicher<br>Celluloseether</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>wasserunlöslicher Celluloseether</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>unlöslich in Wasser, löslich in Ethanol</td></tr>
+          <tr><td>Funktion</td><td>Filmbildner, Sprengmittel, Gelbildner</td></tr>
+          <tr><td>Einsatz</td><td>Retardüberzüge für Tabletten</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Retardierung:</strong> Wasserunlöslicher Filmüberzug &#8594; verzögerte Wirkstofffreisetzung (Depot-/Retardtabletten).</div>
+  </div>
+
+
   <div class="entry-card" id="hs-hpmc">
     <div class="entry-header">
       <h3>HPMC (Hydroxypropylmethylcellulose / Hypromellose)</h3>
       <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
     </div>
     <div class="hs-struct">
-      <div class="struct-placeholder">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/hypromellose/PNG" alt="HPMC Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;">
         <div style="font-size:28px;">&#127807;</div>
         <div style="margin-top:6px;">Semisynthetischer<br>Celluloseether<br><em>variabler DS</em></div>
       </div>
@@ -3060,7 +3425,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
     </div>
     <div class="hs-struct">
-      <div class="struct-placeholder">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/carboxymethylcellulose%20sodium/PNG" alt="Carmellose-Na Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;">
         <div style="font-size:28px;">&#127807;</div>
         <div style="margin-top:6px;">Anionischer<br>Celluloseether<br>&#8211;CH&#8322;&#8211;COO&#8315;Na&#8314;</div>
       </div>
@@ -3085,7 +3451,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/441/PNG" alt="NVP Monomer" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/1-vinyl-2-pyrrolidone/PNG" alt="NVP Monomer" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">NVP Monomer<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Bild zeigt</td><td>N-Vinyl-2-pyrrolidon (Monomer)</td></tr>
@@ -3105,7 +3472,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/174/PNG" alt="Ethylenglykol Monomer" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/ethylene%20glycol/PNG" alt="Ethylenglykol Monomer" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Ethylenglykol Monomer<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Bild zeigt</td><td>Ethylenglykol (Monomereinheit)</td></tr>
@@ -3119,6 +3487,66 @@ html { scroll-behavior: smooth; }
     <div class="info-blue"><strong>Praktikum:</strong> Macrogol 400 als L&#246;sungsmittel f&#252;r Clotrimazol (in Wasser unlöslich). Macrogol-Suppositorien: tropenfest (löst sich im w&#228;ssrigen Sekret).</div>
   </div>
 
+  <div class="entry-card" id="hs-poloxamer">
+    <div class="entry-header">
+      <h3>Poloxamer (z.B. Poloxamer 407)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/poloxamer%20407/PNG" alt="Poloxamer Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Poloxamer<br>PEO-PPO-PEO<br>Blockcopolymer</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Struktur</td><td>Blockcopolymer: PEO&#8211;PPO&#8211;PEO</td></tr>
+          <tr><td>Eigenschaft</td><td>amphiphil, bildet Mizellen</td></tr>
+          <tr><td>Funktion</td><td>Emulgator (Ö + Wasser mischbar), Solubilisator</td></tr>
+          <tr><td>Besonderheit</td><td>manche Typen: umgekehrte Thermogelierung (Sol kalt/Gel warm)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Aufbau:</strong> Hydrophiler Polyoxyethylen(PEO)-Block außen, hydrophober Polyoxypropylen(PPO)-Block innen &#8594; löst Öl in Wasser über Mizellenbildung.</div>
+  </div>
+
+  <div class="entry-card" id="hs-carbomer">
+    <div class="entry-header">
+      <h3>Carbomer (Polyacrylsäure, Carbopol&#174;)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/acrylic%20acid/PNG" alt="Acrylsäure Monomer" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Bild zeigt Acryls&#228;ure<br>(Monomereinheit)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Bild zeigt</td><td>Acrylsäure (Monomer der Kette)</td></tr>
+          <tr><td>Gelbildung</td><td>pH-abhängig: Neutralisation mit Base (z.B. NH&#8323;) → Quellung</td></tr>
+          <tr><td>Funktion</td><td>Gelbildner, Verdickungsmittel</td></tr>
+          <tr><td>Einsatz</td><td>Wundheilungsgele, Franzbranntwein-Gel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-yellow"><strong>Praktikum:</strong> Franzbranntwein-Gel &#8211; Carbopol quillt in Wasser, wird dann mit Ammoniaklösung neutralisiert → Carboxylgruppen deprotonieren, Ketten stoßen sich ab → Gelnetzwerk.</div>
+  </div>
+
+  <div class="entry-card" id="hs-pva">
+    <div class="entry-header">
+      <h3>Polyvinylalkohol (PVA)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/polyvinyl%20alcohol/PNG" alt="PVA Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Polyvinylalkohol</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>synthetisches Makromolekül</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>wasserlöslich</td></tr>
+          <tr><td>Funktion</td><td>Viskositätserhöhung, Filmbildner</td></tr>
+          <tr><td>Einsatz</td><td>Augentropfen (Tränenersatzmittel), Filmüberzug</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Tränenersatz:</strong> Erhöht die Viskosität und Verweildauer von Augentropfen auf der Augenoberfläche &#8594; ähnliche Funktion wie Povidon in Tränenersatzmitteln.</div>
+  </div>
+
   <div class="cat-2">Biopolymere</div>
 
   <div class="entry-card" id="hs-alginat">
@@ -3127,7 +3555,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
     </div>
     <div class="hs-struct">
-      <div class="struct-placeholder">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sodium%20alginate/PNG" alt="Natriumalginat Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;">
         <div style="font-size:28px;">&#127807;</div>
         <div style="margin-top:6px;">Braunalgen-Polysaccharid<br>Guluronsäure +<br>Mannuronsäure</div>
       </div>
@@ -3149,7 +3578,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
     </div>
     <div class="hs-struct">
-      <div class="struct-placeholder">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/gelatin/PNG" alt="Gelatine Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;">
         <div style="font-size:28px;">&#129516;</div>
         <div style="margin-top:6px;">Kollagen-Hydrolysat<br>Gly-Pro-Hyp<br>Tripelhelix</div>
       </div>
@@ -3167,6 +3597,121 @@ html { scroll-behavior: smooth; }
     <div class="info-green"><strong>Praktikum:</strong> Gelatineschleim 4 %ig als Granulierfl&#252;ssigkeit (Tag 7). Kapselh&#252;llen aus Hartgelatine (Typ B, alkalische Hydrolyse).</div>
   </div>
 
+  <div class="cat-2">Pflanzliche &amp; marine Polysaccharide</div>
+
+  <div class="entry-card" id="hs-staerke">
+    <div class="entry-header">
+      <h3>Stärke (Amylose &amp; Amylopektin)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/amylose/PNG" alt="Amylose Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">St&#228;rke:<br>~30% Amylose<br>~70% Amylopektin</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Zusammensetzung</td><td>~30 % Amylose (unverzweigt), ~70 % Amylopektin (verzweigt)</td></tr>
+          <tr><td>Funktion</td><td>Bindemittel, Füllmittel, Zerfallsmittel</td></tr>
+          <tr><td>Einsatz</td><td>Tabletten, Salbengrundlage</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Zerfallsmittel:</strong> Stärke quillt in Wasser stark auf &#8594; sprengt die Tablettenmatrix beim Kontakt mit Magensaft (Zerfallsförderung).</div>
+  </div>
+
+  <div class="entry-card" id="hs-xanthan">
+    <div class="entry-header">
+      <h3>Xanthan (Xanthan Gum)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/xanthan%20gum/PNG" alt="Xanthan Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Xanthan<br>mikrobielles<br>Polysaccharid</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Herkunft</td><td>mikrobielle Fermentation (Xanthomonas)</td></tr>
+          <tr><td>Funktion</td><td>Verdickungsmittel, Bindemittel</td></tr>
+          <tr><td>Eigenschaft</td><td>stark pseudoplastisch (scherverdünnend)</td></tr>
+          <tr><td>Einsatz</td><td>Suspensionen, orale Flüssigkeiten</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Scherverdünnung:</strong> Hohe Viskosität in Ruhe (stabilisiert Suspension), niedrige Viskosität beim Schütteln/Gießen &#8594; gute Anwendbarkeit.</div>
+  </div>
+
+  <div class="entry-card" id="hs-traganth">
+    <div class="entry-header">
+      <h3>Traganth (Tragacanth)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <div class="struct-placeholder"><div style="font-size:28px;">&#127807;</div><div style="margin-top:6px;">Traganth<br>pflanzliches Gummi-<br>Exsudat (Astragalus)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Herkunft</td><td>Exsudat der Astragalus-Pflanze</td></tr>
+          <tr><td>Funktion</td><td>Verdickungsmittel, Gelbildner, Füllmittel</td></tr>
+          <tr><td>Weitere Funktion</td><td>Stabilisator von Suspensionen, Bindemittel, Pseudoemulgator</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Pseudoemulgator:</strong> Stabilisiert Emulsionen nicht über Grenzflächenspannung, sondern durch Erhöhung der Viskosität der äußeren Phase.</div>
+  </div>
+
+  <div class="entry-card" id="hs-pektin">
+    <div class="entry-header">
+      <h3>Pektin (teilweise verestert)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/pectin/PNG" alt="Pektin Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Pektin<br>Galacturons&#228;ure-<br>Polymer</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Grundgerüst</td><td>teilweise veresterte Galacturonsäure</td></tr>
+          <tr><td>Herkunft</td><td>pflanzlich (Zellwände, z.B. Zitrusfrüchte)</td></tr>
+          <tr><td>Funktion</td><td>Verdickungsmittel</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Veresterungsgrad:</strong> Bestimmt die Gelierfähigkeit &#8211; hochveresterte Pektine gelieren mit Zucker/Säure, niedrigveresterte mit Ca²⁺ (ähnlich Alginat).</div>
+  </div>
+
+  <div class="entry-card" id="hs-carrageen">
+    <div class="entry-header">
+      <h3>Carrageen (Carrageenan)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/carrageenan/PNG" alt="Carrageen Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Carrageen<br>sulfatiertes<br>Polysaccharid (Algen)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Herkunft</td><td>Rotalgen (marine Quelle)</td></tr>
+          <tr><td>Gruppen</td><td>negativ geladene Sulfatgruppen</td></tr>
+          <tr><td>Funktion</td><td>Verdickungsmittel, Gelbildner, Pseudoemulgator, Stabilisator, Dispergiermittel, Matrixbildner (Tabletten)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Vielseitig:</strong> Aufgrund der negativen Sulfatgruppen sehr breites Funktionsspektrum &#8211; von Gelbildner bis Tablettenmatrixbildner.</div>
+  </div>
+
+  <div class="entry-card" id="hs-guaran">
+    <div class="entry-header">
+      <h3>Guaran (Guar Gum, Guarmehl)</h3>
+      <span class="badge" style="background:#d6eaf8;color:#1a5276;border-color:#2980b9;">POLYMER</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/guar%20gum/PNG" alt="Guaran Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Guaran<br>Galactomannan<br>(Guarbohne)</div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Herkunft</td><td>Samen der Guarbohne (Galactomannan)</td></tr>
+          <tr><td>Funktion</td><td>Suspensionsstabilisator, Verdickungsmittel, Bindemittel, Emulgator</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-blue"><strong>Praktikum:</strong> Als Suspendierhilfsmittel &#8211; quillt in Wasser und verlangsamt die Sedimentation suspendierter Wirkstoffe (vgl. Stokes-Gleichung).</div>
+  </div>
+
   <div class="cat-1" id="hs-antioxid">Antioxidantien</div>
 
   <div class="cat-2">Wasserlösliche Antioxidantien</div>
@@ -3177,7 +3722,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5785/PNG" alt="Ascorbins&#228;ure Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/ascorbic%20acid/PNG" alt="Ascorbins&#228;ure Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Ascorbins&#228;ure Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>0,01&#8211;0,5 %</td></tr>
@@ -3198,7 +3744,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="color:#999;border-color:#bbb;">CHELATBILDNER</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/6049/PNG" alt="EDTA Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/edetic%20acid/PNG" alt="EDTA Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">EDTA Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>0,005&#8211;0,1 %</td></tr>
@@ -3218,7 +3765,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/657336/PNG" alt="Natriumsulfit Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/sodium%20metabisulfite/PNG" alt="Natriumsulfit Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Natriumsulfit Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>0,01&#8211;0,2 %</td></tr>
@@ -3240,7 +3788,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/14985/PNG" alt="Alpha-Tocopherol Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/alpha-tocopherol/PNG" alt="Alpha-Tocopherol Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Alpha-Tocopherol Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Konzentration</td><td>0,01&#8211;0,1 %</td></tr>
@@ -3262,11 +3811,13 @@ html { scroll-behavior: smooth; }
     <div class="hs-struct">
       <div style="display:flex;gap:8px;flex-shrink:0;">
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8456/PNG" alt="BHA" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/butylated%20hydroxyanisole/PNG" alt="BHA" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">BHA</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">BHA (E 320)</div>
         </div>
         <div style="text-align:center;">
-          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/31404/PNG" alt="BHT" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;">
+          <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/butylated%20hydroxytoluene/PNG" alt="BHT" style="width:130px;border-radius:6px;border:1px solid #eee;background:#fff;" onerror="hsImgErr(this)">
+          <div class="struct-placeholder-sm" style="display:none;"><div style="font-size:22px;">&#9883;&#65039;</div><div style="margin-top:4px;">BHT</div></div>
           <div style="font-size:11px;color:#666;margin-top:2px;">BHT (E 321)</div>
         </div>
       </div>
@@ -3289,7 +3840,8 @@ html { scroll-behavior: smooth; }
       <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
     </div>
     <div class="hs-struct">
-      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/54680953/PNG" alt="Ascorbylpalmitat Struktur" class="struct-img">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/ascorbyl%20palmitate/PNG" alt="Ascorbylpalmitat Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Ascorbylpalmitat Struktur<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
       <div style="flex:1;min-width:200px;">
         <table class="props-table">
           <tr><td>Typ</td><td>Lipophiles Ascorbins&#228;urederivat</td></tr>
@@ -3301,6 +3853,26 @@ html { scroll-behavior: smooth; }
       </div>
     </div>
     <div class="info-blue"><strong>Amphiphil:</strong> Verbindet die antioxidative Wirkung der Ascorbins&#228;ure (hydrophil) mit Lipophilie &#8594; einsetzbar in Fettformulierungen und an Grenzfl&#228;chen von Emulsionen.</div>
+  </div>
+
+  <div class="entry-card" id="hs-dodecylgallat">
+    <div class="entry-header">
+      <h3>Dodecylgallat (Laurylgallat)</h3>
+      <span class="badge" style="background:#fff3cd;color:#856404;border-color:#ffc107;">ANTIOXIDANS</span>
+    </div>
+    <div class="hs-struct">
+      <img src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/dodecyl%20gallate/PNG" alt="Dodecylgallat Struktur" class="struct-img" onerror="hsImgErr(this)">
+      <div class="struct-placeholder" style="display:none;"><div style="font-size:28px;">&#9883;&#65039;</div><div style="margin-top:6px;">Dodecylgallat<br><em>(Bild nicht verf&#252;gbar)</em></div></div>
+      <div style="flex:1;min-width:200px;">
+        <table class="props-table">
+          <tr><td>Typ</td><td>Ester der Gallussäure mit Laurylalkohol</td></tr>
+          <tr><td>L&#246;slichkeit</td><td>fettlöslich</td></tr>
+          <tr><td>Mechanismus</td><td>phenolischer Radikalfänger (Gallat-Gruppe)</td></tr>
+          <tr><td>Einsatz</td><td>Fette, Öle (oft mit BHA/BHT kombiniert)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="info-green"><strong>Synergie:</strong> Wird häufig zusammen mit BHA/BHT eingesetzt &#8211; die Kombination verschiedener Antioxidans-Typen wirkt oft stärker als ein einzelner Stoff (Synergismus).</div>
   </div>
 
 </div>
@@ -3348,6 +3920,14 @@ function switchTab(id, btn) {
   window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+}
+
+// ─── STRUCTURE IMAGE FALLBACK ───
+// If a PubChem structure image fails to load (name not resolved), swap in the descriptive placeholder
+function hsImgErr(img) {
+  img.style.display = 'none';
+  var ph = img.nextElementSibling;
+  if (ph) ph.style.display = 'flex';
 }
 
 // ─── FLASHCARD DATA ───
@@ -3502,9 +4082,14 @@ function filterCards(cat, btn) {
   btn.classList.add('active');
   renderCards(cat);
 }
-function revealAll() {
+var allCardsRevealed = false;
+function revealAll(btn) {
+  allCardsRevealed = !allCardsRevealed;
   var answers = document.querySelectorAll('.fc-answer');
-  for (var i = 0; i < answers.length; i++) { answers[i].classList.add('show'); }
+  for (var i = 0; i < answers.length; i++) {
+    answers[i].classList.toggle('show', allCardsRevealed);
+  }
+  if (btn) btn.textContent = allCardsRevealed ? 'Alle einklappen' : 'Alle aufdecken';
 }
 renderCards('all');
 
@@ -3718,6 +4303,34 @@ var glossar = [
   {term:'Sorbitanmonostearat (Span 60)',def:'Nichtionischer W/O-Emulgator (HLB 4,7). Kombinierbar mit Polysorbaten (Tween) zur Einstellung des Misch-HLB. Einsatz in W/O-Emulsionen.'},
   {term:'Thymol',def:'Natürliches Phenol aus Thymianöl. Antiseptisch (Bakterien, Pilze). Konzentration 0,05–0,1 %. Lipophil. Einsatz in Mund- und Rachentherapeutika.'},
   {term:'Tocopherol (α-Tocopherol)',def:'Vitamin E. Fettlösliches Antioxidans. Radikalfänger: unterbricht Lipidperoxidation. Synergie mit Ascorbinsäure. Einsatz in Ölen und Salben.'},
+
+  // ── HILFSSTOFFE (Ergänzung) ──
+  {term:'Carbomer (Carbopol)',def:'Polyacrylsäure-Polymer. Gelbildung durch Neutralisation mit Base (z.B. Ammoniaklösung) → Carboxylgruppen deprotonieren, Ketten stoßen sich ab → Gelnetzwerk. Praktikum: Franzbranntwein-Gel.'},
+  {term:'Carrageen (Carrageenan)',def:'Sulfatiertes Polysaccharid aus Rotalgen. Verdickungsmittel, Gelbildner, Pseudoemulgator, Tablettenmatrixbildner.'},
+  {term:'Cellulose',def:'Unverzweigtes Polysaccharid aus β-1,4-glykosidisch verknüpfter Glucose. Grundgerüst aller Celluloseether (HPC, HPMC, Ethylcellulose, CMC-Na).'},
+  {term:'Cetostearylalkohol (Typ A/B)',def:'Selbstemulgierende Grundlage aus Cetylstearylalkohol + anionischem Tensid (Typ A: SDS, Typ B: Natriumcetylstearylsulfat). Absorptionsgrundlage für Cremes.'},
+  {term:'Cetrimid',def:'Kationische quartäre Ammoniumverbindung. Konservierungsmittel gegen grampositive Bakterien. Inkompatibel mit anionischen Tensiden.'},
+  {term:'Chlorcresol',def:'Chloriertes Phenolderivat (verwandt mit Thymol). Konservierungsmittel (0,05–0,2 %) gegen Bakterien und Pilze.'},
+  {term:'Dodecylgallat (Laurylgallat)',def:'Fettlösliches Antioxidans, Ester der Gallussäure. Phenolischer Radikalfänger, oft mit BHA/BHT kombiniert (Synergismus).'},
+  {term:'Ethylcellulose',def:'Wasserunlöslicher Celluloseether, löslich in Ethanol. Filmbildner für Retardüberzüge (verzögerte Wirkstofffreisetzung).'},
+  {term:'Glycerinfettsäureester',def:'Mono-, Di- oder Triester des Glycerols mit Fettsäuren. Nichtionischer W/O-Emulgator und Konsistenzgeber. Wichtigster Vertreter: Glycerolmonostearat (GMS).'},
+  {term:'Guaran (Guar Gum)',def:'Galactomannan aus Guarbohnen-Samen. Suspensionsstabilisator, Verdickungsmittel, Bindemittel, Emulgator.'},
+  {term:'HPC (Hydroxypropylcellulose)',def:'Nichtionischer Celluloseether, löslich in kaltem Wasser und organischen Lösungsmitteln (auch Ethanol). Gelbildner, Filmbildner.'},
+  {term:'Macrogolfettalkoholether (Cetomacrogol)',def:'Nichtionischer O/W-Emulgator: PEG-Kette verethert mit Fettalkohol. Klassischer Vertreter: Cetomacrogol 1000.'},
+  {term:'Macrogolfettsäureester',def:'Nichtionischer O/W-Emulgator: PEG verestert mit Fettsäure. Hydrolyseempfindlicher als die entsprechenden Ether.'},
+  {term:'Macrogolglycerolfettsäureester',def:'Nichtionischer O/W-Emulgator/Solubilisator aus PEG, Glycerol und Fettsäure (z.B. Kolliphor RH40). Löslichkeitsvermittlung lipophiler Wirkstoffe.'},
+  {term:'Natriumcaprylat',def:'Natriumsalz der Caprylsäure (C8). Netzmittel und schwacher anionischer Emulgator, Stabilisator in Albumin-Lösungen.'},
+  {term:'Pektin',def:'Teilweise veresterte Galacturonsäure, pflanzliches Verdickungsmittel. Gelierung abhängig vom Veresterungsgrad (mit Zucker/Säure oder mit Ca²⁺).'},
+  {term:'Phenylmercurinitrat',def:'Organische Quecksilberverbindung, historisches Konservierungsmittel (0,001–0,002 %). Wegen Toxizität heute stark eingeschränkt.'},
+  {term:'Poloxamer',def:'Synthetisches PEO-PPO-PEO-Blockcopolymer. Amphiphiler Emulgator/Solubilisator, bildet Mizellen. Manche Typen zeigen umgekehrte Thermogelierung.'},
+  {term:'Propylenglykol',def:'Zweiwertiger Alkohol, mischbar mit Wasser. Konservierend ab ≥ 20 %, hygroskopisch, Lösungsmittel und Anreibemittel (z.B. für Carmellose-Na).'},
+  {term:'Pseudoemulgator (Quasiemulgator)',def:'Substanz, die Emulsionen nicht durch Senken der Grenzflächenspannung, sondern durch Erhöhung der Viskosität der äußeren Phase stabilisiert (z.B. Traganth, Carrageen).'},
+  {term:'PVA (Polyvinylalkohol)',def:'Synthetisches wasserlösliches Polymer. Viskositätserhöhung in Augentropfen (Tränenersatzmittel), Filmüberzug.'},
+  {term:'Stärke',def:'Polysaccharid aus ~30 % Amylose (unverzweigt) und ~70 % Amylopektin (verzweigt). Bindemittel, Füllmittel, Zerfallsmittel für Tabletten.'},
+  {term:'Thiomersal (Thimerosal)',def:'Organische Quecksilberverbindung, Konservierungsmittel für Multi-Dose-Impfstoffe und historische Augentropfen. Kontrovers wegen Quecksilbergehalt.'},
+  {term:'Traganth (Tragacanth)',def:'Pflanzliches Gummi-Exsudat der Astragalus-Pflanze. Verdickungsmittel, Gelbildner, Pseudoemulgator, Stabilisator von Suspensionen.'},
+  {term:'Wollwachs (Lanolin)',def:'Komplexes Wachsester-Gemisch aus Schafwolle. Kann 200–300× sein Eigengewicht an Wasser binden. W/O-Salbengrundlage, stark rückfettend.'},
+  {term:'Xanthan (Xanthan Gum)',def:'Mikrobielles Polysaccharid (Xanthomonas-Fermentation). Stark pseudoplastisch (scherverdünnend) – Verdickungsmittel für Suspensionen.'},
 ].sort(function(a,b) { return a.term.localeCompare(b.term, 'de'); });
 
 function renderGlossar(filter) {
