@@ -188,6 +188,38 @@ body {
 .toc-link:hover, .toc-link:focus { text-decoration: underline; outline: none; }
 .toc-link em { font-style: italic; }
 
+/* ── MEGA-MENU (Rezepturen: kategorisierte Übersicht) ── */
+.megamenu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px 24px;
+}
+.megamenu-col-title {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--primary);
+  cursor: pointer;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 2px solid var(--primary-lighter);
+}
+.megamenu-col-title:hover { text-decoration: underline; }
+.rezeptur-subnav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 46px;
+  z-index: 150;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 4px;
+  margin-bottom: 20px;
+}
+@media (max-width: 700px) { .rezeptur-subnav { position: static; } }
+
 /* ── CATEGORY BANNERS ── */
 .cat-1 {
   padding: 16px 24px;
@@ -593,6 +625,17 @@ html { scroll-behavior: smooth; }
 </head>
 <body>
 
+<script>
+// Defined immediately after <body> (not in the main script at the end of the page) so it
+// already exists when the first structure-image onerror can fire, which can happen before
+// the parser even reaches the bottom of this very large document.
+function hsImgErr(img) {
+  img.style.display = 'none';
+  var ph = img.nextElementSibling;
+  if (ph) ph.style.display = 'flex';
+}
+</script>
+
 <!-- ════════ HEADER ════════ -->
 <header class="site-header">
   <h1>Arzneiformenlehre – Propädeutikum</h1>
@@ -614,61 +657,107 @@ html { scroll-behavior: smooth; }
 <!-- ══════════════════════════════════════════════════════════ -->
 <div id="tab-rezepturen" class="tab-content active theme-afl">
 
-  <!-- TOC -->
+  <!-- MEGA-MENU: kategorisierte Übersicht statt Tag-Liste -->
   <div class="toc-card">
-    <h2>Inhaltsverzeichnis – Rezepturen</h2>
-    <div class="toc-grid">
-      <button class="toc-link" onclick="scrollToAnchor('konswasser')"><em>Tag 1:</em> Konserviertes Wasser DAC</button>
-      <button class="toc-link" onclick="scrollToAnchor('glucose')"><em>Tag 1:</em> Glucose-Lösung oGTT</button>
-      <button class="toc-link" onclick="scrollToAnchor('ammonium')"><em>Tag 1:</em> Ammoniumbituminosulfonat-Schüttelmixtur</button>
-      <button class="toc-link" onclick="scrollToAnchor('polidocanol')"><em>Tag 1:</em> Polidocanol-Schüttelmixtur</button>
-      <button class="toc-link" onclick="scrollToAnchor('suspgrundlage')"><em>Tag 1:</em> Grundlage für Suspensionen</button>
-      <button class="toc-link" onclick="scrollToAnchor('basisemulsion')"><em>Tag 1:</em> Hydrophile Basisemulsion</button>
-      <button class="toc-link" onclick="scrollToAnchor('paraffin')"><em>Tag 2:</em> Paraffinölemulsion</button>
-      <button class="toc-link" onclick="scrollToAnchor('ohrentropfen')"><em>Tag 2:</em> Natriumcarbonat-Ohrentropfen</button>
-      <button class="toc-link" onclick="scrollToAnchor('nasentropfen')"><em>Tag 2:</em> Naphazolin-Nasentropfen</button>
-      <button class="toc-link" onclick="scrollToAnchor('clotrimazol')"><em>Tag 2:</em> Hydrophile Clotrimazol Lösung</button>
-      <button class="toc-link" onclick="scrollToAnchor('basiscreme')"><em>Tag 3:</em> Basiscreme DAC</button>
-      <button class="toc-link" onclick="scrollToAnchor('kuehlsalbe')"><em>Tag 3:</em> Kühlsalbe DAB</button>
-      <button class="toc-link" onclick="scrollToAnchor('wollsalbe')"><em>Tag 3:</em> Wollwachsalkoholsalbe DAB</button>
-      <button class="toc-link" onclick="scrollToAnchor('wollcreme')"><em>Tag 3:</em> Wollwachsalkoholcreme DAB</button>
-      <button class="toc-link" onclick="scrollToAnchor('anionischecreme')"><em>Tag 3:</em> Anionische Hydrophile Creme DAB</button>
-      <button class="toc-link" onclick="scrollToAnchor('zinkpaste')"><em>Tag 4:</em> Weiche Zinkpaste DAB</button>
-      <button class="toc-link" onclick="scrollToAnchor('harnstoffcreme')"><em>Tag 4:</em> Lipophile Harnstoff-NaCl-Creme</button>
-      <button class="toc-link" onclick="scrollToAnchor('hydrophobebasiscreme')"><em>Tag 4:</em> Hydrophobe Basiscreme DAC</button>
-      <button class="toc-link" onclick="scrollToAnchor('citronensaeureloesung')"><em>Tag 4:</em> Citronensäurelösung 0,5%</button>
-      <button class="toc-link" onclick="scrollToAnchor('erythromycincreme')"><em>Tag 4:</em> Hydrophile Erythromycin-Creme</button>
-      <button class="toc-link" onclick="scrollToAnchor('alcl3gel')"><em>Tag 5:</em> Aluminiumchlorid-Hexahydrat-Gel</button>
-      <button class="toc-link" onclick="scrollToAnchor('wundheilgel')"><em>Tag 5:</em> Wund- und Heilgel</button>
-      <button class="toc-link" onclick="scrollToAnchor('ammoniakloesung')"><em>Tag 5:</em> Ammoniaklösung 1 M</button>
-      <button class="toc-link" onclick="scrollToAnchor('franzbranntweingel')"><em>Tag 5:</em> Franzbranntwein-Gel</button>
-      <button class="toc-link" onclick="scrollToAnchor('gelatineschleim')"><em>Tag 5:</em> Gelatineschleim 4%ig</button>
-      <button class="toc-link" onclick="scrollToAnchor('eisenpulversuppo')"><em>Tag 6:</em> Suppositorien mit Eisenpulver</button>
-      <button class="toc-link" onclick="scrollToAnchor('ibuprofensuppo')"><em>Tag 6:</em> Tropenfeste Ibuprofen-Suppositorien</button>
-      <button class="toc-link" onclick="scrollToAnchor('milchsaeureglobuli')"><em>Tag 6:</em> Milchsäure-Globuli</button>
-      <button class="toc-link" onclick="scrollToAnchor('tablettengranulat')"><em>Tag 7:</em> Tablettengranulat</button>
-      <button class="toc-link" onclick="scrollToAnchor('magnesiumsilikatgranulat')"><em>Tag 7:</em> Magnesiumsilikatgranulat</button>
-      <button class="toc-link" onclick="scrollToAnchor('sulfathiazoltrockensaft')"><em>Tag 7:</em> Sulfathiazol-Trockensaft</button>
-      <button class="toc-link" onclick="scrollToAnchor('calciumbrausepulver')"><em>Tag 7:</em> Calcium-Brausepulver</button>
-      <button class="toc-link" onclick="scrollToAnchor('kaliumchloridpulver')"><em>Tag 7:</em> Kaliumchlorid-Pulver</button>
-      <button class="toc-link" onclick="scrollToAnchor('mannitolfuellmittel')"><em>Tag 8:</em> Mannitol-Siliciumdioxid-Füllmittel</button>
-      <button class="toc-link" onclick="scrollToAnchor('vitamincapseln')"><em>Tag 8:</em> Vitamin C Kapseln</button>
-      <button class="toc-link" onclick="scrollToAnchor('calciumkapseln')"><em>Tag 8:</em> Calcium Kapseln</button>
-      <button class="toc-link" onclick="scrollToAnchor('hydrochlorothiazidkapseln')"><em>Tag 8:</em> Hydrochlorothiazid-Kapseln 2 mg</button>
-      <button class="toc-link" onclick="scrollToAnchor('melissadilution')"><em>Tag 9:</em> Homöopathische Dilution Melissa D8</button>
-      <button class="toc-link" onclick="scrollToAnchor('melissaglobuli')"><em>Tag 9:</em> Globuli Melissa D7</button>
-      <button class="toc-link" onclick="scrollToAnchor('methylenblautrituration')"><em>Tag 9:</em> Trituration Methylenblau C1</button>
-      <button class="toc-link" onclick="scrollToAnchor('abschlussrezeptur')"><em>Tag 10:</em> Individuelle Abschlussrezeptur</button>
-      <button class="toc-link" onclick="scrollToAnchor('analytik')"><em>Tag 11/12:</em> Testung &amp; Analytik</button>
+    <h2>Rezepturen &#8211; nach Kategorie</h2>
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:14px;">Alle Rezepturen des Praktikums, gruppiert nach Darreichungsform statt nach Praktikumstag.</p>
+    <div class="megamenu-grid">
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-loesungen')">&#128167; Lösungen</div>
+        <button class="toc-link" onclick="scrollToAnchor('konswasser')">Konserviertes Wasser DAC</button>
+        <button class="toc-link" onclick="scrollToAnchor('glucose')">Glucose-Lösung 250 mg/mL für oGTT</button>
+        <button class="toc-link" onclick="scrollToAnchor('ohrentropfen')">Natriumcarbonat-Ohrentropfen 2,6%</button>
+        <button class="toc-link" onclick="scrollToAnchor('nasentropfen')">Naphazolin-Nasentropfen</button>
+        <button class="toc-link" onclick="scrollToAnchor('clotrimazol')">Hydrophile Clotrimazol Lösung 1%</button>
+        <button class="toc-link" onclick="scrollToAnchor('citronensaeureloesung')">Citronensäurelösung 0,5%</button>
+        <button class="toc-link" onclick="scrollToAnchor('ammoniakloesung')">Ammoniaklösung 1 M</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-suspensionen')">&#129514; Suspensionen &amp; Schüttelmixturen</div>
+        <button class="toc-link" onclick="scrollToAnchor('ammonium')">Ammoniumbituminosulfonat-ZnO-Schüttelmixtur 2,5%</button>
+        <button class="toc-link" onclick="scrollToAnchor('polidocanol')">Polidocanol-Zinkoxidschüttelmixtur 3%</button>
+        <button class="toc-link" onclick="scrollToAnchor('suspgrundlage')">Grundlage für Suspensionen zum Einnehmen</button>
+        <button class="toc-link" onclick="scrollToAnchor('sulfathiazoltrockensaft')">Sulfathiazol-Trockensaft</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-emulsionen')">&#129396; Emulsionen</div>
+        <button class="toc-link" onclick="scrollToAnchor('basisemulsion')">Hydrophile Basisemulsion DAC</button>
+        <button class="toc-link" onclick="scrollToAnchor('paraffin')">Paraffinölemulsion</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-cremes')">&#129381; Cremes</div>
+        <button class="toc-link" onclick="scrollToAnchor('basiscreme')">Basiscreme DAC</button>
+        <button class="toc-link" onclick="scrollToAnchor('wollcreme')">Wollwachsalkoholcreme DAB (2015)</button>
+        <button class="toc-link" onclick="scrollToAnchor('anionischecreme')">Anionische Hydrophile Creme DAB</button>
+        <button class="toc-link" onclick="scrollToAnchor('harnstoffcreme')">Lipophile Harnstoff-Natriumchlorid-Creme</button>
+        <button class="toc-link" onclick="scrollToAnchor('hydrophobebasiscreme')">Hydrophobe Basiscreme DAC</button>
+        <button class="toc-link" onclick="scrollToAnchor('erythromycincreme')">Hydrophile Erythromycin-Creme 1%</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-salben')">&#128173; Salben & Pasten</div>
+        <button class="toc-link" onclick="scrollToAnchor('kuehlsalbe')">Kühlsalbe DAB</button>
+        <button class="toc-link" onclick="scrollToAnchor('wollsalbe')">Wollwachsalkoholsalbe DAB</button>
+        <button class="toc-link" onclick="scrollToAnchor('zinkpaste')">Weiche Zinkpaste DAB</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-gele')">&#129411; Gele</div>
+        <button class="toc-link" onclick="scrollToAnchor('alcl3gel')">Hydrophiles Aluminiumchlorid-Hexahydrat-Gel 15%</button>
+        <button class="toc-link" onclick="scrollToAnchor('wundheilgel')">Wund- und Heilgel</button>
+        <button class="toc-link" onclick="scrollToAnchor('franzbranntweingel')">Franzbranntwein-Gel</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-suppositorien')">&#128367; Suppositorien &amp; Vaginalia</div>
+        <button class="toc-link" onclick="scrollToAnchor('eisenpulversuppo')">Suppositorien mit Eisenpulver</button>
+        <button class="toc-link" onclick="scrollToAnchor('ibuprofensuppo')">Tropenfeste Ibuprofen-Suppositorien</button>
+        <button class="toc-link" onclick="scrollToAnchor('milchsaeureglobuli')">Milchsäure-Globuli</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-pulver')">&#10024; Pulver &amp; Granulate</div>
+        <button class="toc-link" onclick="scrollToAnchor('tablettengranulat')">Tablettengranulat</button>
+        <button class="toc-link" onclick="scrollToAnchor('magnesiumsilikatgranulat')">Magnesiumsilikatgranulat</button>
+        <button class="toc-link" onclick="scrollToAnchor('calciumbrausepulver')">Calcium-Brausepulver</button>
+        <button class="toc-link" onclick="scrollToAnchor('kaliumchloridpulver')">Kaliumchlorid-Pulver</button>
+        <button class="toc-link" onclick="scrollToAnchor('mannitolfuellmittel')">Mannitol-Siliciumdioxid-Füllmittel</button>
+        <button class="toc-link" onclick="scrollToAnchor('gelatineschleim')">Gelatineschleim 4%ig</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-kapseln')">&#128138; Kapseln</div>
+        <button class="toc-link" onclick="scrollToAnchor('vitamincapseln')">Vitamin C Kapseln</button>
+        <button class="toc-link" onclick="scrollToAnchor('calciumkapseln')">Calcium Kapseln</button>
+        <button class="toc-link" onclick="scrollToAnchor('hydrochlorothiazidkapseln')">Hydrochlorothiazid-Kapseln 2 mg</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-homoeopathie')">&#127807; Homöopathie</div>
+        <button class="toc-link" onclick="scrollToAnchor('melissadilution')">Homöopathische Dilution Melissa D8</button>
+        <button class="toc-link" onclick="scrollToAnchor('melissaglobuli')">Globuli Melissa D7</button>
+        <button class="toc-link" onclick="scrollToAnchor('methylenblautrituration')">Trituration Methylenblau C1</button>
+      </div>
+      <div class="megamenu-col">
+        <div class="megamenu-col-title" onclick="scrollToAnchor('cat-abschluss')">&#128300; Abschluss &amp; Analytik</div>
+        <button class="toc-link" onclick="scrollToAnchor('abschlussrezeptur')">Individuelle Abschlussrezeptur</button>
+        <button class="toc-link" onclick="scrollToAnchor('analytik')">Testung und Analytik der hergestellten Rezepturen</button>
+      </div>
     </div>
   </div>
 
-  <!-- ═══════ TAG 1 ═══════ -->
-  <div class="cat-1" id="tag1">Tag 1 – Liquida 1</div>
-  <div class="cat-3">Katalog: (Kolloid-)Disperse Systeme, Konservierungsmittel, Haltbarkeit, Suspensionen, Emulsionen</div>
+  <div class="rezeptur-subnav">
+    <button class="filter-btn" onclick="scrollToAnchor('cat-loesungen')">&#128167; Lösungen</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-suspensionen')">&#129514; Suspensionen &amp; Schüttelmixturen</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-emulsionen')">&#129396; Emulsionen</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-cremes')">&#129381; Cremes</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-salben')">&#128173; Salben & Pasten</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-gele')">&#129411; Gele</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-suppositorien')">&#128367; Suppositorien &amp; Vaginalia</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-pulver')">&#10024; Pulver &amp; Granulate</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-kapseln')">&#128138; Kapseln</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-homoeopathie')">&#127807; Homöopathie</button>
+    <button class="filter-btn" onclick="scrollToAnchor('cat-abschluss')">&#128300; Abschluss &amp; Analytik</button>
+  </div>
 
-  <!-- Konserviertes Wasser -->
-  <div class="entry-card" id="konswasser">
+  <div class="cat-1" id="cat-loesungen">Lösungen</div>
+  <div class="cat-3">Wässrige &amp; alkoholische Lösungen, Ohren-/Nasentropfen</div>
+
+<div class="entry-card" id="konswasser">
     <div class="entry-header">
       <h3>Konserviertes Wasser DAC</h3>
       <span class="badge badge-nrf">NRF S.6</span>
@@ -698,8 +787,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Glucose -->
-  <div class="entry-card" id="glucose">
+<div class="entry-card" id="glucose">
     <div class="entry-header">
       <h3>Glucose-Lösung 250 mg/mL für oGTT</h3>
       <span class="badge badge-nrf">NRF 13.8</span>
@@ -729,149 +817,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Ammoniumbituminosulfonat -->
-  <div class="entry-card" id="ammonium">
-    <div class="entry-header">
-      <h3>Ammoniumbituminosulfonat-ZnO-Schüttelmixtur 2,5%</h3>
-      <span class="badge badge-nrf">NRF 11.2 (abgew.)</span>
-      <span class="badge badge-suspension">SUSPENSION</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Ammoniumbituminosulfonat</td><td>0,625 g</td><td>Wirkstoff (entzündungshemmend, juckreizstillend, antimikrobiell)</td></tr>
-      <tr><td>Bentonit</td><td>0,25 g</td><td>Verdickungsmittel (Quellton, Thixotropie → verhindert Sedimentation)</td></tr>
-      <tr><td>Zinkoxid</td><td>5,0 g</td><td>Feststoff-Phase (adstringierend, austrocknend, abdeckend)</td></tr>
-      <tr><td>Glycerol 85%</td><td>7,5 g</td><td>Anreibemittel, Feuchthaltemittel, erhöht Viskosität</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 18,2 g</td><td>Dispersionsmittel (äußere Phase)</td></tr>
-    </table>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Suspension zur Anwendung auf der Haut (Schüttelmixtur)</td></tr>
-      <tr><td>Herstellprinzip</td><td>ZnO + Bentonit + Glycerol verreiben → heißes Wasser → Ammoniumbituminosulfonat einrühren</td></tr>
-      <tr><td>Haltbarkeit</td><td>Glasflasche: 6 Monate / Kunststoff: 3 Monate</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip der Schüttelmixtur:</strong> Feststoffe (ZnO) in flüssigem Vehikel suspendiert. Da der Feststoff sedimentiert, muss vor Gebrauch geschüttelt werden. Bentonit verlangsamt die Sedimentation (→ Stokes-Gleichung!). Glycerol als Anreibemittel benetzt den hydrophoben Feststoff.
-    </div>
-    <div class="info-yellow">
-      <strong>Kennzeichnung:</strong> „Vor Gebrauch schütteln" · Individuelle Gebrauchsanweisung · Verwendbar bis …
-    </div>
-  </div>
-
-  <!-- Polidocanol -->
-  <div class="entry-card" id="polidocanol">
-    <div class="entry-header">
-      <h3>Polidocanol-Zinkoxidschüttelmixtur 3%</h3>
-      <span class="badge badge-nrf">NRF 11.66 (abgew.)</span>
-      <span class="badge badge-suspension">SUSPENSION</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Lauromacrogol 400 (Polidocanol)</td><td>0,75 g</td><td>Wirkstoff (Lokalanästhetikum, juckreizstillend) + Netzmittel</td></tr>
-      <tr><td>Zinkoxid</td><td>5,0 g</td><td>Feststoff-Phase (adstringierend, abdeckend)</td></tr>
-      <tr><td>Glycerol 85%</td><td>7,5 g</td><td>Anreibemittel, Feuchthaltemittel</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 18,8 g</td><td>Dispersionsmittel</td></tr>
-    </table>
-    <table class="props-table">
-      <tr><td>Herstellprinzip</td><td>Lauromacrogol + Glycerol mischen (ggf. Wasserbad) → ZnO einarbeiten → portionsweise Wasser</td></tr>
-      <tr><td>Aufbrauchsfrist</td><td>6 Monate</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip:</strong> Polidocanol (= Lauromacrogol 400) wirkt hier doppelt: als Wirkstoff (juckreizstillend) UND als Netzmittel, das die Benetzung des hydrophoben ZnO verbessert. IPK: Suspension muss bei kräftigem Rühren schäumen (Tensidwirkung).
-    </div>
-  </div>
-
-  <!-- Grundlage für Suspensionen -->
-  <div class="entry-card" id="suspgrundlage">
-    <div class="entry-header">
-      <h3>Grundlage für Suspensionen zum Einnehmen</h3>
-      <span class="badge badge-nrf">NRF S.52</span>
-      <span class="badge badge-gel">GEL-SOL</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Hydroxyethylcellulose 10 000</td><td>0,25 g</td><td>Gelbildner/Verdickungsmittel (Cellulose-Derivat, quillt in Wasser)</td></tr>
-      <tr><td>Glucose-Monohydrat</td><td>5,50 g</td><td>Süßungsmittel, Geschmackskorrigens, Osmotikum</td></tr>
-      <tr><td>Kaliumsorbat</td><td>0,07 g</td><td>Konservierungsmittel (wirkt bei saurem pH)</td></tr>
-      <tr><td>Citronensäure</td><td>0,035 g</td><td>pH-Einstellung (pH 4–5 → Konservierung)</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Lösungs-/Dispersionsmittel</td></tr>
-    </table>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Gel-Sol (viskose Flüssigkeit zur Weiterverarbeitung)</td></tr>
-      <tr><td>pH-Wert</td><td>4,0 – 5,0</td></tr>
-      <tr><td>Haltbarkeit</td><td>6 Monate (Enghalsflasche Braunglas)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Funktion als Grundlage:</strong> Wird als Vehikel verwendet, um Wirkstoffe als Suspension zum Einnehmen zu formulieren. Die HEC sorgt für Viskosität → verlangsamt Sedimentation suspendierter Partikel (Stokes!). Kaliumsorbat + Citronensäure = Konservierungssystem bei saurem pH.
-    </div>
-  </div>
-
-  <!-- Hydrophile Basisemulsion -->
-  <div class="entry-card" id="basisemulsion">
-    <div class="entry-header">
-      <h3>Hydrophile Basisemulsion DAC</h3>
-      <span class="badge badge-nrf">NRF S.25</span>
-      <span class="badge badge-emulsion">EMULSION</span>
-      <span class="badge badge-ow">O/W</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Sorbitanmonostearat Typ I</td><td>1,0 g</td><td>Lipophiler Co-Emulgator (niedriger HLB ≈ 4,7)</td></tr>
-      <tr><td>Macrogol-8-stearat Typ I</td><td>1,0 g</td><td>Hydrophiler Emulgator (hoher HLB ≈ 11–12) → O/W</td></tr>
-      <tr><td>Glycerol 85%</td><td>2,5 g</td><td>Feuchthaltemittel (Humectant)</td></tr>
-      <tr><td>Mittelkettige Triglyceride</td><td>2,5 g</td><td>Lipophile Phase (Ölphase)</td></tr>
-      <tr><td>Wasserfreie Citronensäure</td><td>0,035 g</td><td>pH-Einstellung</td></tr>
-      <tr><td>Kaliumsorbat</td><td>0,07 g</td><td>Konservierungsmittel</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Äußere (wässrige) Phase</td></tr>
-    </table>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>O/W-Emulsion (zur Weiterverarbeitung)</td></tr>
-      <tr><td>Herstellprinzip</td><td>Fettphase schmelzen (≥ 60°C) → Konservierung zugeben → heißes Wasser ergänzen → kräftig schütteln → unter Schütteln erkalten</td></tr>
-      <tr><td>Haltbarkeit</td><td>6 Monate</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Emulgator-System (Bancroft-Regel):</strong> Die Phase, in der der Emulgator besser löslich ist, wird zur äußeren Phase. Macrogol-8-stearat (hoher HLB) ist hydrophil → löst sich besser in Wasser → Wasser wird äußere Phase → O/W-Emulsion. Der Kombinations-HLB beider Emulgatoren zusammen bestimmt die Stabilität.
-    </div>
-    <div class="info-green">
-      <strong>Merke:</strong> Beide Phasen müssen auf gleiche Temperatur (≥ 60°C) gebracht werden, bevor sie vereinigt werden! Sonst kristallisieren die Emulgatoren vorzeitig aus und die Emulsion bricht.
-    </div>
-  </div>
-
-  <!-- ═══════ TAG 2 ═══════ -->
-  <div class="cat-1" id="tag2">Tag 2 – Liquida 2</div>
-  <div class="cat-3">Katalog: (Kolloid-)Disperse Systeme, Suspensionen, Emulsionen, Extraktionsverfahren, Mazeration, Perkolation, Droge-Extrakt-Verhältnis</div>
-
-  <!-- Paraffinölemulsion -->
-  <div class="entry-card" id="paraffin">
-    <div class="entry-header">
-      <h3>Paraffinölemulsion</h3>
-      <span class="badge badge-nrf">Ph. Helv. IX</span>
-      <span class="badge badge-emulsion">EMULSION</span>
-      <span class="badge badge-ow">O/W</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Dünnflüssiges Paraffin</td><td>20,0 g</td><td>Wirkstoff + innere Phase (Gleitmittel, Laxans)</td></tr>
-      <tr><td>Saccharin-Natrium</td><td>0,005 g</td><td>Süßungsmittel</td></tr>
-      <tr><td>Benzoesäure</td><td>0,05 g</td><td>Konservierungsmittel</td></tr>
-      <tr><td>Traganth</td><td>0,4 g</td><td>Natürlicher Emulgator/Verdickungsmittel (Polysaccharid)</td></tr>
-      <tr><td>Enzymfreies arabisches Gummi</td><td>0,5 g</td><td>Emulgator (Gummi arabicum = Schutzhydrokolloid)</td></tr>
-      <tr><td>Glycerol 85%</td><td>5,0 g</td><td>Feuchthaltemittel, Geschmackskorrigens</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Äußere Phase</td></tr>
-    </table>
-    <table class="props-table">
-      <tr><td>Herstellprinzip</td><td>Klassische Emulsionsherstellung in der Fantaschale: Emulgatoren + wenig Öl verreiben → wenig Wasser = Emulsionskern (knackendes Geräusch!) → abwechselnd Öl und Wasser zugeben</td></tr>
-      <tr><td>Haltbarkeit</td><td>6 Monate</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Emulsionskern-Methode:</strong> Traganth + Gummi arabicum mit wenig Öl anreiben, dann wenig Wasserphase zugeben und kräftig verreiben → es entsteht ein konzentrierter Emulsionskern (knackendes Geräusch = Phasenumkehr/Emulgierung). Dann schrittweise verdünnen. Diese Methode sorgt für feinere Tröpfchen und stabilere Emulsion.
-    </div>
-    <div class="info-red">
-      <strong>Cave:</strong> Dünnflüssiges Paraffin ist nicht resorbierbar → bei chronischer Einnahme kann es die Resorption fettlöslicher Vitamine (A, D, E, K) behindern!
-    </div>
-  </div>
-
-  <!-- Ohrentropfen -->
-  <div class="entry-card" id="ohrentropfen">
+<div class="entry-card" id="ohrentropfen">
     <div class="entry-header">
       <h3>Natriumcarbonat-Ohrentropfen 2,6%</h3>
       <span class="badge badge-nrf">NRF 16.1</span>
@@ -896,8 +842,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Nasentropfen -->
-  <div class="entry-card" id="nasentropfen">
+<div class="entry-card" id="nasentropfen">
     <div class="entry-header">
       <h3>Naphazolin-Nasentropfen</h3>
       <span class="badge badge-solution">LÖSUNG</span>
@@ -922,8 +867,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Clotrimazol -->
-  <div class="entry-card" id="clotrimazol">
+<div class="entry-card" id="clotrimazol">
     <div class="entry-header">
       <h3>Hydrophile Clotrimazol Lösung 1%</h3>
       <span class="badge badge-nrf">NRF 11.40</span>
@@ -943,277 +887,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ═══════ TAG 3 ═══════ -->
-  <div class="cat-1" id="tag3">Tag 3 – Halbfeste Zubereitungen 1</div>
-  <div class="cat-3">Katalog: Definition halbfeste Zubereitungen, Emulgatoren, Quasiemulsion, hydrophile und lipophile Grundlagen</div>
-
-  <!-- Basiscreme DAC -->
-  <div class="entry-card" id="basiscreme">
-    <div class="entry-header">
-      <h3>Basiscreme DAC</h3>
-      <span class="badge badge-nrf">NRF B-020</span>
-      <span class="badge badge-cream">CREME</span>
-      <span class="badge" style="color:#8e44ad;border-color:#8e44ad;">AMPHIPHIL</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Glycerolmonostearat</td><td>8,0 g</td><td>Lipophiler Co-Emulgator (HLB ≈ 3,8) + Konsistenzgeber</td></tr>
-      <tr><td>Cetylalkohol</td><td>12,0 g</td><td>Konsistenzgeber, Gelbildner (Fettalkohol) + verstärkt Emulgatorfilm</td></tr>
-      <tr><td>Mittelkettige Triglyceride (MCT)</td><td>15,0 g</td><td>Lipophile Phase (hautverträgliches Pflegeöl, gut spreitend)</td></tr>
-      <tr><td>Weißes Vaselin</td><td>51,0 g</td><td>Lipophile Grundmasse (okklusiv, inert, hypoallergen)</td></tr>
-      <tr><td>Polyoxyethylenglycerolmonostearat</td><td>14,0 g</td><td>Hydrophiler Emulgator (hoher HLB) → bestimmt O/W-Charakter</td></tr>
-      <tr><td>Propylenglykol</td><td>20,0 g</td><td>Feuchthaltemittel + Lösungsvermittler (wässrige Phase)</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 200,0 g</td><td>Wässrige (äußere) Phase</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – amphiphile Creme:</strong> Die Basiscreme DAC ist eine O/W-Creme mit amphiphilem Charakter: Sie kann sowohl Wasser aufnehmen (hydrophil) als auch fettlösliche Wirkstoffe einarbeiten (lipophile Innenphase). Das Emulgatorsystem aus Glycerolmonostearat (lipophil) + Polyoxyethylenglycerolmonostearat (hydrophil) ergibt einen ausgewogenen Misch-HLB → stabile O/W-Emulsion nach Bancroft.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Amphiphile Creme (O/W) – Vorratsgefäß für Weiterverarbeitung</td></tr>
-      <tr><td>Herstellprinzip</td><td>Fettphase schmelzen (60°C) · Wasserphase separat auf 60°C · Wässrige Phase zügig in Fettphase einarbeiten · unter Rühren erkalten lassen</td></tr>
-      <tr><td>Temperatur</td><td>Beide Phasen exakt 60°C (±2°C) – Abweichung → Emulgator kristallisiert → Creme bricht</td></tr>
-      <tr><td>Packmittel</td><td>200–300 g Plastikkruke</td></tr>
-      <tr><td>Haltbarkeit</td><td>Kunststoffkruke: 3 Monate (wasserhaltig, ohne eigene Konservierung)</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Merke:</strong> Wässrige Phase wird in die Fettphase eingearbeitet (nicht umgekehrt!) – kleine Anteile, kontinuierlich und zügig. Das Propylenglykol sorgt mit für die Weichheit der Creme und hemmt als Konservierungshelfer leicht das Keimwachstum.
-    </div>
-    <div class="info-yellow">
-      <strong>Verwendung:</strong> Basiscreme DAC ist eine universelle Rezepturgrundlage. In ihr können hydrophile UND lipophile Wirkstoffe eingearbeitet werden (z.B. Erythromycin-Creme NRF 11.77 verwendet Basiscreme DAC als Grundlage).
-    </div>
-  </div>
-
-  <!-- Kühlsalbe DAB -->
-  <div class="entry-card" id="kuehlsalbe">
-    <div class="entry-header">
-      <h3>Kühlsalbe DAB <em style="font-size:13px;font-weight:400;">(Unguentum leniens)</em></h3>
-      <span class="badge badge-quasi">QUASI-EMULSION</span>
-      <span class="badge badge-nrf">Belg. Formularium</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Gelbes Wachs</td><td>2,1 g</td><td>Konsistenzgeber (Bienenwachs-Derivat, Strukturgeber der Fettphase)</td></tr>
-      <tr><td>Cetylpalmitat</td><td>2,4 g</td><td>Konsistenzgeber (synthetischer Wachsester, erhöht Schmelzpunkt)</td></tr>
-      <tr><td>Mittelkettige Triglyceride</td><td>18,0 g</td><td>Lipophile Phase (Hauptanteil, flüssig bei RT)</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 30,0 g</td><td>Disperse Phase – wird eingeschlossen (kein Emulgator!)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Was ist eine Quasiemulsion?</strong> Eine Emulsion <em>ohne echten Emulgator</em>. Das Wasser wird rein mechanisch durch die hohe Viskosität der erstarrenden Fettmatrix eingeschlossen – keine thermodynamische Stabilisierung. Deshalb: sehr kurze Haltbarkeit (4 Wochen), muss sofort abgefüllt werden.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Quasi-Emulsion (lipophile Creme ohne Emulgator)</td></tr>
-      <tr><td>Herstellprinzip</td><td>Wachs + Cetylpalmitat + MCT auf 60°C erwärmen → gleichtemperiertes Wasser einarbeiten → unter Rühren erkalten (30% Aufschlag beachten!)</td></tr>
-      <tr><td>Packmittel</td><td>Aluminiumtube mit Innenschutzlack</td></tr>
-      <tr><td>Haltbarkeit</td><td><strong>Nur 4 Wochen</strong> (kein Konservierungsmittel, kein Antioxidans, instabil)</td></tr>
-    </table>
-    <div class="info-yellow">
-      <strong>Kühleffekt:</strong> Das eingeschlossene Wasser verdunstet beim Auftragen auf die Haut → Verdunstungskälte → lindernder Kühleffekt. Daher „Kühlsalbe" / „Unguentum leniens" (= lindernde Salbe).
-    </div>
-    <div class="info-red">
-      <strong>Cave – 30% Aufschlag:</strong> Die Fettphase muss mit 30% Mehrmengeansatz eingewogen werden, da beim Mischen und Abfüllen Material verloren geht. Die Charge auf 30 g ausrechnen + 30% extra ansetzen.
-    </div>
-  </div>
-
-  <!-- Wollwachsalkoholsalbe -->
-  <div class="entry-card" id="wollsalbe">
-    <div class="entry-header">
-      <h3>Wollwachsalkoholsalbe DAB</h3>
-      <span class="badge badge-paste">SALBE</span>
-      <span class="badge badge-wo">W/O-GRUNDLAGE</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Wollwachsalkohole</td><td>3,6 g</td><td>W/O-Emulgator (aus Lanolin, HLB ≈ 1) + wasseraufnehmend (bis 130% des Eigengewichts)</td></tr>
-      <tr><td>Cetylstearylalkohol</td><td>0,30 g</td><td>Konsistenzgeber (Fettalkohol, Co-Emulgator)</td></tr>
-      <tr><td>Weißes Vaselin</td><td>ad 60,0 g</td><td>Lipophile Grundmasse (inert, okklusiv)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip:</strong> Rein lipophile Salbe (kein Wasser). Die Wollwachsalkohole sind natürliche W/O-Emulgatoren aus Wollwachs (Lanolin). Sie geben der Salbe die Fähigkeit, Wasser aufzunehmen → wird zur Grundlage für W/O-Cremes (z.B. Wollwachsalkoholcreme DAB).
-    </div>
-    <table class="props-table">
-      <tr><td>Herstellprinzip</td><td>Alle Bestandteile auf dem Wasserbad (60°C) klarschmelzen → unter Rühren erkalten lassen → hell-opake Salbe</td></tr>
-      <tr><td>Packmittel</td><td>Plastikkruke (Vorratsgefäß für Weiterverarbeitung)</td></tr>
-      <tr><td>Haltbarkeit</td><td>Plastikkruke: 3 Jahre (wasserfrei = lange stabil)</td></tr>
-    </table>
-    <div class="info-red">
-      <strong>Allergikerhinweis:</strong> „Enthält Wollwachsalkohole" – Wollwachsalkohole können Kontaktallergien auslösen (Lanolin-Allergie). Pflicht-Kennzeichnung auf dem Etikett!
-    </div>
-    <div class="info-green">
-      <strong>Merke:</strong> Diese Salbe ist Zwischenprodukt – sie wird direkt zur Herstellung der Wollwachsalkoholcreme weiterverarbeitet (50% Salbe + 50% Wasser = Creme).
-    </div>
-  </div>
-
-  <!-- Wollwachsalkoholcreme -->
-  <div class="entry-card" id="wollcreme">
-    <div class="entry-header">
-      <h3>Wollwachsalkoholcreme DAB (2015)</h3>
-      <span class="badge badge-cream">CREME</span>
-      <span class="badge badge-wo">W/O</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Wollwachsalkoholsalbe DAB</td><td>20,0 g</td><td>Fettphase inkl. W/O-Emulgator (Wollwachsalkohole)</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 40,0 g</td><td>Wässrige Phase (innere Phase der W/O-Emulsion)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – W/O-Emulsion:</strong> Die Wollwachsalkohole in der Salbe sind W/O-Emulgatoren (niedriger HLB ≈ 1) → nach Bancroft: Öl wird äußere Phase → W/O-Emulsion. Wasser wird also innen eingeschlossen. Ergebnis: nicht abwaschbar, okklusiv, rückfettend – ideal bei trockener/schuppiger Haut.
-    </div>
-    <table class="props-table">
-      <tr><td>Herstellprinzip</td><td>Salbe auf 65°C schmelzen · Wasser ebenfalls auf 65°C · Wasser in Schmelze einrühren (gleiche Temperatur!) · unter Rühren erkalten</td></tr>
-      <tr><td>Packmittel</td><td>Spenderdose oder Kruke</td></tr>
-      <tr><td>Haltbarkeit</td><td>Kunststoff: 6 Monate (wasserhaltig)</td></tr>
-    </table>
-    <div class="info-yellow">
-      <strong>Unterschied zur Basiscreme:</strong> Basiscreme DAC = O/W (abwaschbar, leicht, kühlend) · Wollwachsalkoholcreme = W/O (nicht abwaschbar, okklusiv, rückfettend). Wirkstoffeinarbeitung: W/O bevorzugt lipophile Wirkstoffe.
-    </div>
-    <div class="info-red">
-      <strong>Allergikerhinweis:</strong> „Enthält Wollwachsalkohole" – wie bei der Salbe Pflicht!
-    </div>
-  </div>
-
-  <!-- Anionische Hydrophile Creme DAB -->
-  <div class="entry-card" id="anionischecreme">
-    <div class="entry-header">
-      <h3>Anionische Hydrophile Creme DAB</h3>
-      <span class="badge badge-cream">CREME</span>
-      <span class="badge badge-ow">O/W</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Emulgierender Cetylstearylalkohol Typ A</td><td>3,6 g</td><td>Emulgator-System: Cetylstearylalkohol + Natriumlaurylsulfat (anionisch) → O/W</td></tr>
-      <tr><td>Dickflüssiges Paraffin</td><td>4,2 g</td><td>Lipophile Phase (Mineralöl, inert, okklusiv)</td></tr>
-      <tr><td>Weißes Vaselin</td><td>4,2 g</td><td>Lipophile Grundmasse (verstärkt okklusiven Effekt)</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 40,0 g</td><td>Wässrige (äußere) Phase</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – Emulgierender Cetylstearylalkohol Typ A:</strong> Dies ist ein Gemisch aus Cetylstearylalkohol (Konsistenzgeber) + Natriumlaurylsulfat (anionisches Tensid, HLB ≈ 40). Das Natriumlaurylsulfat ist stark hydrophil → bestimmt nach Bancroft die O/W-Orientierung. „Anionisch" bezieht sich auf die negative Ladung des Sulfats.
-    </div>
-    <table class="props-table">
-      <tr><td>Herstellprinzip</td><td>Fettphase bei 70°C schmelzen · Wasserphase auf 70°C erhitzen · Wasser portionsweise einrühren (erst wenig → Emulsionsbildung · dann Rest in 3–4 Anteilen)</td></tr>
-      <tr><td>Packmittel</td><td>Kruke</td></tr>
-      <tr><td>Haltbarkeit</td><td>Kunststoffkruke: 3 Monate (wasserhaltig, ohne Konservierung)</td></tr>
-    </table>
-    <div class="info-red">
-      <strong>Cave – Inkompatibilität:</strong> Anionische Emulgatoren (Natriumlaurylsulfat) sind inkompatibel mit kationischen Substanzen (z.B. Benzalkoniumchlorid, kationische Wirkstoffe) → Ausfällung, Emulsionsbruch!
-    </div>
-    <div class="info-yellow">
-      <strong>Vergleich der 3 O/W-Cremes des Praktikums:</strong>
-      <ul>
-        <li><strong>Basiscreme DAC:</strong> amphiphil, nichtionisch, vielseitig → Standardgrundlage</li>
-        <li><strong>Anionische Hydrophile Creme:</strong> anionisch, günstig herstellbar, aber Inkompatibilitäten beachten</li>
-        <li><strong>Hydrophobe Basiscreme DAC (Tag 4):</strong> W/O, konserviert, für lipophile Wirkstoffe</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- ═══════ TAG 4 ═══════ -->
-  <div class="cat-1" id="tag4">Tag 4 – Halbfeste Zubereitungen 2</div>
-  <div class="cat-3">Katalog: Definition halbfeste Zubereitungen, Emulgatoren, hydrophile und lipophile Grundlagen</div>
-
-  <!-- Weiche Zinkpaste DAB -->
-  <div class="entry-card" id="zinkpaste">
-    <div class="entry-header">
-      <h3>Weiche Zinkpaste DAB <em style="font-size:13px;font-weight:400;">(NRF 11.21.)</em></h3>
-      <span class="badge badge-nrf">NRF 11.21.</span>
-      <span class="badge badge-paste">PASTE</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Zinkoxid</td><td>15,0 g</td><td>Wirkstoff/Feststoffanteil (30%) – adstringierend, austrocknend, deckend</td></tr>
-      <tr><td>Dickflüssiges Paraffin</td><td>20,0 g</td><td>Anreibe-/Suspendierhilfe (benetzt das Zinkoxid, bildet feine Suspension)</td></tr>
-      <tr><td>Gebleichtes Wachs</td><td>5,0 g</td><td>Konsistenzgeber (Bienenwachs-Derivat, strukturiert die Fettphase)</td></tr>
-      <tr><td>Weißes Vaselin</td><td>ad 50,0 g</td><td>Lipophile Grundmasse (inert, okklusiv)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Was macht eine Paste zur Paste?</strong> Eine Paste ist eine Salbe mit hohem Feststoffanteil (&gt; 10%) – hier liegt Zinkoxid mit 30% vor. Der hohe Feststoffanteil macht die Zubereitung stark deckend, abdeckend und steif (höhere Konsistenz als eine Salbe gleicher Grundlage). Vgl. Theorie-Tab „Halbfeste Zubereitungen".
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Lipophile Paste zur Anwendung auf der Haut</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Zinkoxid mit Dickflüssigem Paraffin in der Fantaschale anreiben (Suspension, gleichmäßig weiß) → 2) mit Gebleichtem Wachs + Weißem Vaselin ergänzen, auf dem Wasserbad klarschmelzen, bis zum Erkalten unter häufigem Abschaben rühren</td></tr>
-      <tr><td>Packmittel</td><td>Aluminiumtube</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen (wasserfrei → grundsätzlich lange stabil)</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Herstellhinweis – zweistufiges Anreiben:</strong> Erst die Suspension aus Zinkoxid + Paraffin herstellen (verteilt die Partikel fein und gleichmäßig in der flüssigen Phase), <em>dann erst</em> die festen Konsistenzgeber aufschmelzen und einarbeiten. So werden Agglomerate vermieden – die fertige Paste muss gleichmäßig weiß aussehen und schwach nach Bienenwachs riechen.
-    </div>
-    <div class="info-yellow">
-      <strong>Vergleich – Zinkoxid Tag 1 vs. Tag 4:</strong> In der Schüttelmixtur (Tag 1) liegt Zinkoxid als Suspension in einer wässrigen, fließfähigen Grundlage vor (Sedimentation nach Stokes, „Vor Gebrauch schütteln"). In der Zinkpaste liegt es hochkonzentriert (30%) in einer festen lipophilen Matrix vor – keine Sedimentation, dafür stark abdeckende, steife Konsistenz.
-    </div>
-  </div>
-
-  <!-- Lipophile Harnstoff-Natriumchlorid-Creme -->
-  <div class="entry-card" id="harnstoffcreme">
-    <div class="entry-header">
-      <h3>Lipophile Harnstoff-Natriumchlorid-Creme <em style="font-size:13px;font-weight:400;">(NRF 11.75.)</em></h3>
-      <span class="badge badge-nrf">NRF 11.75.</span>
-      <span class="badge badge-cream">CREME</span>
-      <span class="badge badge-wo">W/O</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Harnstoff</td><td>5,0 g</td><td>Wirkstoff – stark hygroskopisch, feuchtigkeitsbindend (Bestandteil des „Natural Moisturizing Factor" der Haut)</td></tr>
-      <tr><td>Natriumchlorid</td><td>5,0 g</td><td>Hilfsstoff – osmotisch wirksam, senkt zusammen mit Harnstoff die Wasseraktivität der wässrigen Phase</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>15,0 g</td><td>Lösungsmittel für Harnstoff/NaCl – innere (disperse) Phase der W/O-Emulsion</td></tr>
-      <tr><td>Wollwachsalkoholsalbe DAB</td><td>ad 50,0 g</td><td>W/O-Grundlage inkl. Emulgator (Wollwachsalkohole, vgl. Tag 3)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Funktion von Harnstoff (Urea):</strong> Harnstoff ist stark hygroskopisch – er bindet Wasser in der Hornschicht und wirkt dadurch feuchtigkeitsspendend (in niedriger Konzentration) bzw. keratolytisch (in höherer Konzentration, &gt; 10%). Er ist natürlicher Bestandteil des hauteigenen Feuchthaltesystems („Natural Moisturizing Factor").
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>W/O-Creme (Wasser als innere, disperse Phase)</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Natriumchlorid unter Erwärmen in Gereinigtem Wasser lösen → 2) <strong>nach dem Erkalten</strong> Harnstoff unter Rühren lösen → 3) Wollwachsalkoholsalbe in der Fantaschale kräftig rühren und die wässrige Lösung in Anteilen einarbeiten</td></tr>
-      <tr><td>Packmittel</td><td>Spenderdose</td></tr>
-      <tr><td>Haltbarkeit</td><td>Kunststoff: 6 Monate (wasserhaltige W/O-Creme)</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Cave – Reihenfolge beim Lösen:</strong> Harnstoff wird erst <em>nach</em> dem Erkalten der NaCl-Lösung zugegeben, weil er thermolabil ist (Zersetzung/Hydrolyse zu Ammoniak und CO₂ bei Hitze möglich) und sich zudem endotherm löst – die heiße Salzlösung würde die Auflösung erschweren und den Wirkstoff schädigen.
-    </div>
-    <div class="info-yellow">
-      <strong>Warum braucht diese wasserhaltige Creme kein zusätzliches Konservierungsmittel?</strong> Harnstoff und Natriumchlorid binden das Wasser der inneren Phase osmotisch und senken so die <strong>Wasseraktivität (a<sub>w</sub>)</strong> – das für Mikroorganismen „verfügbare" Wasser wird drastisch reduziert. Dieser Effekt wirkt selbst-konservierend (vgl. Theorie-Tab „Konservierungsmittel").
-    </div>
-    <div class="info-red">
-      <strong>Allergikerhinweis:</strong> „Enthält Wollwachsalkohole" – Pflichtangabe wegen des Lanolin-Allergiepotenzials (wie bei allen Wollwachsalkohol-Zubereitungen aus Tag 3).
-    </div>
-  </div>
-
-  <!-- Hydrophobe Basiscreme DAC -->
-  <div class="entry-card" id="hydrophobebasiscreme">
-    <div class="entry-header">
-      <h3>Hydrophobe Basiscreme DAC <em style="font-size:13px;font-weight:400;">(NRF S.41.)</em></h3>
-      <span class="badge badge-nrf">NRF S.41.</span>
-      <span class="badge badge-cream">CREME</span>
-      <span class="badge badge-wo">W/O</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Triglyceroldiisostearat</td><td>1,50 g</td><td>Lipophiler W/O-Emulgator (niedriger HLB) → bestimmt nach Bancroft die W/O-Orientierung</td></tr>
-      <tr><td>Isopropylpalmitat</td><td>1,2 g</td><td>Lipophile Phase – leichtes Esteröl, gut spreitend, penetrationsfördernd</td></tr>
-      <tr><td>Hydrophobes Basisgel DAC</td><td>12,3 g</td><td>Vorgefertigtes emulgierendes W/O-System – ermöglicht <strong>Kalt</strong>herstellung ohne Wärmezufuhr</td></tr>
-      <tr><td>Kaliumsorbat</td><td>0,07 g</td><td>Konservierungsmittel (wirkt nur im sauren Milieu)</td></tr>
-      <tr><td>Wasserfreie Citronensäure</td><td>0,035 g</td><td>Stellt den sauren pH-Wert ein, der Kaliumsorbat erst wirksam macht</td></tr>
-      <tr><td>Magnesiumsulfat-Heptahydrat</td><td>0,25 g</td><td>Elektrolyt – stabilisiert die innere wässrige Phase der W/O-Emulsion</td></tr>
-      <tr><td>Glycerol 85%</td><td>2,5 g</td><td>Feuchthaltemittel der wässrigen Phase</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Innere (disperse) wässrige Phase</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – Kaltherstellung mit dem Hydrophoben Basisgel DAC:</strong> Anders als die klassische Wollwachsalkoholcreme (Tag 3, Herstellung bei 65°C) benötigt das Hydrophobe Basisgel DAC <em>keine Wärmezufuhr</em>: Die lipophilen Bestandteile (Triglyceroldiisostearat, Isopropylpalmitat, Basisgel) werden bei Raumtemperatur verrührt, anschließend wird die fertige wässrige Lösung portionsweise eingearbeitet. Schonender für wärmeempfindliche Wirkstoffe!
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>W/O-Creme, konserviert (Vorratsgrundlage für Weiterverarbeitung)</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Kaliumsorbat, Magnesiumsulfat-Heptahydrat, Citronensäure und Glycerol in Wasser lösen (klare Lösung) → 2) Triglyceroldiisostearat + Isopropylpalmitat + Hydrophobes Basisgel <em>ohne Wärmeanwendung</em> verrühren → 3) wässrige Lösung zugeben und bis zur gleichmäßigen, weichen Creme rühren</td></tr>
-      <tr><td>Packmittel</td><td>Kruke</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen (wasserhaltig, jedoch konserviert)</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>pH-abhängige Konservierung:</strong> Kaliumsorbat ist nur bei pH &lt; 5 antimikrobiell wirksam. Die wasserfreie Citronensäure stellt diesen sauren pH gezielt ein – ohne sie wäre die Konservierung wirkungslos (vgl. Theorie-Tab „Konservierungsmittel").
-    </div>
-    <div class="info-yellow">
-      <strong>Funktion des Magnesiumsulfat-Heptahydrats:</strong> Als Elektrolyt in der inneren wässrigen Phase beeinflusst es die elektrostatischen Verhältnisse an der Tropfenoberfläche und trägt so zur Stabilisierung der W/O-Emulsion bei – ein in Rezepturgrundlagen häufig unterschätzter „stiller" Hilfsstoff.
-    </div>
-  </div>
-
-  <!-- Citronensäurelösung 0,5% -->
-  <div class="entry-card" id="citronensaeureloesung">
+<div class="entry-card" id="citronensaeureloesung">
     <div class="entry-header">
       <h3>Citronensäurelösung 0,5%</h3>
       <span class="badge badge-solution">LÖSUNG</span>
@@ -1238,106 +912,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Hydrophile Erythromycin-Creme -->
-  <div class="entry-card" id="erythromycincreme">
-    <div class="entry-header">
-      <h3>Hydrophile Erythromycin-Creme 1% <em style="font-size:13px;font-weight:400;">(NRF 11.77)</em></h3>
-      <span class="badge badge-nrf">NRF 11.77</span>
-      <span class="badge badge-cream">CREME</span>
-      <span class="badge badge-ow">O/W</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Erythromycin (mikrofein gepulvert)</td><td>0,5 g</td><td>Wirkstoff (Makrolid-Antibiotikum) – mikrofein für gleichmäßige Verteilung &amp; bessere Penetration</td></tr>
-      <tr><td>Mittelkettige Triglyceride (MCT)</td><td>0,5 g</td><td>Anreibemittel – benetzt das hydrophobe Pulver, verhindert Agglomerate vor dem Einarbeiten</td></tr>
-      <tr><td>Basiscreme DAC</td><td>24,5 g</td><td>Amphiphile O/W-Grundlage (vgl. Tag 3)</td></tr>
-      <tr><td>Citronensäure-Lösung 0,5%</td><td>4,0 g</td><td>pH-Stabilisierung des Wirkstoffs Erythromycin</td></tr>
-      <tr><td>Propylenglykol</td><td>5,0 g</td><td>Feuchthaltemittel, Lösungsvermittler, Penetrationsförderer</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Wässrige (äußere) Phase</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Verreibungsprinzip „Pulver in Salbe/Creme":</strong> Erythromycin wird zunächst mit Mittelkettigen Triglyceriden zu einer gleichmäßigen, agglomeratfreien Paste angerieben (Inprozessprüfung!) und erst danach in zwei Anteilen mit der Basiscreme DAC verrührt. So wird verhindert, dass sich das hydrophobe Wirkstoffpulver zu Klümpchen zusammenballt – Grundprinzip jeder Wirkstoffeinarbeitung in halbfeste Grundlagen.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>O/W-Creme mit Wirkstoffeinarbeitung (Basiscreme DAC als Grundlage)</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Citronensäure in Wasser lösen (Hilfslösung, gemeinsamer Gruppenansatz) → 2) Erythromycin mit MCT zur Paste anreiben → 3) portionsweise mit Basiscreme DAC verrühren → 4) Citronensäure-Lösung, Propylenglykol und Restwasser in kleinen Anteilen einarbeiten</td></tr>
-      <tr><td>Packmittel</td><td>Spenderdose</td></tr>
-      <tr><td>Haltbarkeit</td><td>Im Kühlschrank aufbewahren – Wirkstoff-Stabilität ist temperaturabhängig</td></tr>
-    </table>
-    <div class="info-yellow">
-      <strong>Mikrofein = Noyes-Whitney in der Praxis:</strong> Die Vorgabe „mikrofein gepulvert" vergrößert die spezifische Oberfläche A des Wirkstoffs deutlich (vgl. Theorie-Tab „Noyes-Whitney-Gleichung") → gleichmäßigere Verteilung in der Creme und potenziell bessere Anflutung am Wirkort. Hinweis: Aufgrund der Arzneibuchspezifikation kann eine Einwaagekorrektur (Gehaltsbestimmung) nötig sein – im Praktikum jedoch nicht erforderlich.
-    </div>
-    <div class="info-green">
-      <strong>Im Kühlschrank aufbewahren:</strong> Erythromycin ist temperatur- und pH-empfindlich. Die Citronensäure-Lösung stellt das für die Wirkstoffstabilität nötige saure Milieu ein, die Kühllagerung verlangsamt zusätzlich den Abbau – beides zusammen sichert die Haltbarkeit der wirkstoffhaltigen Creme.
-    </div>
-  </div>
-
-  <!-- ═══════ TAG 5 ═══════ -->
-  <div class="cat-1" id="tag5">Tag 5 – Gele &amp; Individuelle Rezepturen</div>
-  <div class="cat-3">Katalog: Hydrogel, Lipogele, Gelbildner, pH-Abhängigkeit</div>
-
-  <!-- Hydrophiles Aluminiumchlorid-Hexahydrat-Gel -->
-  <div class="entry-card" id="alcl3gel">
-    <div class="entry-header">
-      <h3>Hydrophiles Aluminiumchlorid-Hexahydrat-Gel 15% <em style="font-size:13px;font-weight:400;">(NRF 11.24.)</em></h3>
-      <span class="badge badge-nrf">NRF 11.24.</span>
-      <span class="badge badge-gel">HYDROGEL</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Aluminiumchlorid-Hexahydrat</td><td>3,75 g</td><td>Wirkstoff – Antitranspirant (adstringierend, schweißdrüsenverengend)</td></tr>
-      <tr><td>Hydroxyethylcellulose 250</td><td>1,25 g</td><td>Gelbildner – quillt in Wasser zum dreidimensionalen Netzwerk (Hydrogel)</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 25,0 g</td><td>Dispersionsmittel des Hydrogels</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – Hydrogelbildung durch Quellung:</strong> Hydroxyethylcellulose (HEC) ist ein nichtionischer Celluloseether, der in Wasser quillt: Die langkettigen Polymermoleküle verschlingen sich zu einem dreidimensionalen Netzwerk und schließen das Wasser ein → klares, gleichmäßiges Hydrogel. Die Quellung braucht Zeit – deshalb bleibt der Ansatz nach dem Anrühren ca. 4 Stunden stehen.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Hydrogel zur Anwendung in den Achselhöhlen (Antitranspirant)</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Aluminiumchlorid-Hexahydrat + Hydroxyethylcellulose in der Fantaschale trocken mischen → 2) Gereinigtes Wasser zugeben, rühren → 3) <strong>ca. 4 h quellen lassen</strong> (gelegentlich rühren) → 4) Verdunstungsverluste ersetzen, final rühren</td></tr>
-      <tr><td>Packmittel</td><td>Deoroller (50 ml Fassungsvolumen)</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Herstellhinweis – Geduld zahlt sich aus:</strong> Zu starkes Rühren während der Quellphase führt zur Trübung des Gels (Lufteinschlüsse, Polymerbruch) – unbedingt vermeiden! Das fertige Gel darf wenige Luftblasen und fein verteilte HEC-Fasern enthalten, muss aber klar und farblos aussehen.
-    </div>
-    <div class="info-red">
-      <strong>Cave – ätzend:</strong> Aluminiumchlorid-Hexahydrat reagiert in wässriger Lösung sauer (Hydrolyse → Salzsäure-Bildung) und wirkt ätzend/reizend. Pflichthinweis: „Nicht in Kontakt mit den Augen bringen". Entsorgung als Sondermüll (fest).
-    </div>
-  </div>
-
-  <!-- Wund- und Heilgel -->
-  <div class="entry-card" id="wundheilgel">
-    <div class="entry-header">
-      <h3>Wund- und Heilgel</h3>
-      <span class="badge badge-gel">HYDROGEL</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Dexpanthenol-Wasser-Gemisch 50%ig</td><td>2,0 g</td><td>Wirkstoff – Provitamin B5, fördert Zellregeneration und Wundheilung</td></tr>
-      <tr><td>Carboxymethylcellulose (Carmellose, Tylose C 600)</td><td>1,0 g</td><td>Gelbildner – anionischer Celluloseether, bildet das Hydrogel-Netzwerk</td></tr>
-      <tr><td>Propylenglykol</td><td>4,0 g</td><td>Anreibemittel für den Gelbildner + Feuchthaltemittel</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 20,0 g</td><td>Dispersionsmittel des Hydrogels</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – Anreiben vor dem Anquellen:</strong> Celluloseether wie Carboxymethylcellulose neigen dazu, beim direkten Einrühren in Wasser zu verklumpen: Die äußere Schicht der Partikel quillt sofort und verklebt, der trockene Kern bleibt unbenetzt („Klümpchenbildung"). Lösung: Der Gelbildner wird zuerst mit Propylenglykol zu einer homogenen Paste angerieben – das verteilt die Partikel und verhindert Agglomerate, bevor Wasser zugesetzt wird.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Hydrogel zur kutanen Anwendung (Wundheilung)</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Carboxymethylcellulose + Propylenglykol anreiben → 2) auf 60°C abgekühltes, abgekochtes Wasser in 3–4 Anteilen einarbeiten (luftblasenfrei) → 3) auf dem Wasserbad bis zum klaren, klumpenfreien Gel erwärmen → 4) abkühlen lassen, Dexpanthenol-Wasser-Gemisch einarbeiten → 5) Verdunstungsverluste ergänzen</td></tr>
-      <tr><td>Packmittel</td><td>Weithalsglas</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="info-yellow">
-      <strong>Funktion von Dexpanthenol:</strong> Provitamin B5 – wird im Körper zu Pantothensäure umgewandelt, einem essenziellen Bestandteil von Coenzym A. Fördert die Epithelisierung (Hautregeneration) und wird daher klassisch in Wund- und Heilsalben/-gelen eingesetzt.
-    </div>
-    <div class="info-green">
-      <strong>Merke – Wirkstoff zuletzt:</strong> Der wärme- und scherempfindliche Wirkstoff wird erst eingearbeitet, <em>nachdem</em> das fertige Gel abgekühlt ist – schont den Wirkstoff und verhindert Wirkverlust durch Hitzeeinwirkung.
-    </div>
-  </div>
-
-  <!-- Ammoniaklösung 1 M -->
-  <div class="entry-card" id="ammoniakloesung">
+<div class="entry-card" id="ammoniakloesung">
     <div class="entry-header">
       <h3>Ammoniaklösung 1 M <em style="font-size:13px;font-weight:400;">(Hilfszubereitung)</em></h3>
       <span class="badge badge-solution">LÖSUNG</span>
@@ -1373,244 +948,83 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Franzbranntwein-Gel -->
-  <div class="entry-card" id="franzbranntweingel">
+  <div class="cat-1" id="cat-suspensionen">Suspensionen &amp; Schüttelmixturen</div>
+  <div class="cat-3">Schüttelmixturen, Suspensionsgrundlagen, Trockensäfte</div>
+
+<div class="entry-card" id="ammonium">
     <div class="entry-header">
-      <h3>Franzbranntwein-Gel</h3>
-      <span class="badge badge-gel">GEL</span>
-      <span class="badge" style="color:#16a085;border-color:#16a085;">ETHANOLHALTIG</span>
+      <h3>Ammoniumbituminosulfonat-ZnO-Schüttelmixtur 2,5%</h3>
+      <span class="badge badge-nrf">NRF 11.2 (abgew.)</span>
+      <span class="badge badge-suspension">SUSPENSION</span>
     </div>
     <table class="ingredients-table">
       <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Ammoniaklösung 1 M</td><td>0,5 g</td><td>Neutralisationsmittel – aktiviert die Gelbildung von Polyacrylsäure</td></tr>
-      <tr><td>Polyacrylsäure (Carbopol 980)</td><td>0,2 g</td><td>Synthetischer Gelbildner – bildet erst nach Neutralisation ein klares Gel</td></tr>
-      <tr><td>Franzbranntwein</td><td>ad 20,0 g</td><td>Ethanolische Grundlage mit ätherischen Ölen (durchblutungsfördernd)</td></tr>
+      <tr><td>Ammoniumbituminosulfonat</td><td>0,625 g</td><td>Wirkstoff (entzündungshemmend, juckreizstillend, antimikrobiell)</td></tr>
+      <tr><td>Bentonit</td><td>0,25 g</td><td>Verdickungsmittel (Quellton, Thixotropie → verhindert Sedimentation)</td></tr>
+      <tr><td>Zinkoxid</td><td>5,0 g</td><td>Feststoff-Phase (adstringierend, austrocknend, abdeckend)</td></tr>
+      <tr><td>Glycerol 85%</td><td>7,5 g</td><td>Anreibemittel, Feuchthaltemittel, erhöht Viskosität</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 18,2 g</td><td>Dispersionsmittel (äußere Phase)</td></tr>
+    </table>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Suspension zur Anwendung auf der Haut (Schüttelmixtur)</td></tr>
+      <tr><td>Herstellprinzip</td><td>ZnO + Bentonit + Glycerol verreiben → heißes Wasser → Ammoniumbituminosulfonat einrühren</td></tr>
+      <tr><td>Haltbarkeit</td><td>Glasflasche: 6 Monate / Kunststoff: 3 Monate</td></tr>
     </table>
     <div class="info-blue">
-      <strong>Prinzip – pH-abhängige Gelbildung von Carbopol:</strong> Polyacrylsäure liegt zunächst als „Pulver-Knäuel" vor und verdickt eine Flüssigkeit kaum. Erst durch Zugabe einer Base (hier: Ammoniaklösung) werden die Carboxylgruppen deprotoniert (–COOH → –COO⁻) → die jetzt negativ geladenen Polymerketten stoßen sich elektrostatisch ab, strecken sich und spannen ein dichtes Netzwerk auf → starke Verdickung/Gelbildung. Ein Lehrbuchbeispiel für „Theorie zum Anfassen": vgl. Theorie-Tab „Gelbildner &amp; pH-Abhängigkeit".
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Ethanolhaltiges Gel zur kutanen Anwendung (Hautdurchblutung, Massage)</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Ammoniaklösung mit 9 g Franzbranntwein vormischen → 2) restlichen Franzbranntwein in der Fantaschale vorlegen, Polyacrylsäure aufstreuen, dispergieren und quellen lassen (bis keine weißen Klumpen mehr sichtbar sind) → 3) die ammoniakhaltige Mischung in 3 Anteilen einrühren → klares, klumpenfreies Gel ohne Lufteinschlag → 4) Verdunstungsverluste mit Franzbranntwein ergänzen</td></tr>
-      <tr><td>Packmittel</td><td>Weithalsglas</td></tr>
-      <tr><td>Haltbarkeit</td><td><strong>Nur 4 Wochen</strong> (Ethanol verdunstet, Konsistenz und Wirkstoffgehalt verändern sich)</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Cave – Reihenfolge entscheidet:</strong> Erst quellen lassen, dann neutralisieren! Würde man Polyacrylsäure direkt in die ammoniakhaltige Mischung einstreuen, würde die Oberfläche der Partikel sofort gelieren und verklumpen, bevor das Innere benetzt ist – das Ergebnis wäre ein klumpiges, inhomogenes Gel.
+      <strong>Prinzip der Schüttelmixtur:</strong> Feststoffe (ZnO) in flüssigem Vehikel suspendiert. Da der Feststoff sedimentiert, muss vor Gebrauch geschüttelt werden. Bentonit verlangsamt die Sedimentation (→ Stokes-Gleichung!). Glycerol als Anreibemittel benetzt den hydrophoben Feststoff.
     </div>
     <div class="info-yellow">
-      <strong>Kennzeichnung:</strong> „Enthält X% Alkohol" (abhängig von der genauen Herstellung) – Pflichtangabe bei ethanolhaltigen Zubereitungen, insbesondere relevant für Kinder und Alkoholkranke.
+      <strong>Kennzeichnung:</strong> „Vor Gebrauch schütteln" · Individuelle Gebrauchsanweisung · Verwendbar bis …
     </div>
   </div>
 
-  <!-- Gelatineschleim -->
-  <div class="entry-card" id="gelatineschleim">
+<div class="entry-card" id="polidocanol">
     <div class="entry-header">
-      <h3>Gelatineschleim 4%ig <em style="font-size:13px;font-weight:400;">(Hilfszubereitung)</em></h3>
-      <span class="badge" style="color:#999;border-color:#bbb;">HILFSZUBEREITUNG</span>
-      <span class="badge" style="color:#16a085;border-color:#16a085;">BINDEMITTEL</span>
+      <h3>Polidocanol-Zinkoxidschüttelmixtur 3%</h3>
+      <span class="badge badge-nrf">NRF 11.66 (abgew.)</span>
+      <span class="badge badge-suspension">SUSPENSION</span>
     </div>
     <table class="ingredients-table">
       <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Gelatine</td><td>4 % (m/m)</td><td>Tierisches Polypeptid – Gelbildner/Bindemittel</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>ad 100 % (m/m)</td><td>Dispersionsmittel</td></tr>
+      <tr><td>Lauromacrogol 400 (Polidocanol)</td><td>0,75 g</td><td>Wirkstoff (Lokalanästhetikum, juckreizstillend) + Netzmittel</td></tr>
+      <tr><td>Zinkoxid</td><td>5,0 g</td><td>Feststoff-Phase (adstringierend, abdeckend)</td></tr>
+      <tr><td>Glycerol 85%</td><td>7,5 g</td><td>Anreibemittel, Feuchthaltemittel</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 18,8 g</td><td>Dispersionsmittel</td></tr>
+    </table>
+    <table class="props-table">
+      <tr><td>Herstellprinzip</td><td>Lauromacrogol + Glycerol mischen (ggf. Wasserbad) → ZnO einarbeiten → portionsweise Wasser</td></tr>
+      <tr><td>Aufbrauchsfrist</td><td>6 Monate</td></tr>
     </table>
     <div class="info-blue">
-      <strong>Prinzip – thermoreversible Gelbildung:</strong> Gelatine quillt zunächst in kaltem Wasser, löst sich beim Erwärmen zu einem viskosen Sol und erstarrt beim Abkühlen wieder zu einem Gel (Sol-Gel-Übergang, reversibel). Diese Eigenschaft macht den Gelatineschleim zu einer vielseitigen Hilfszubereitung „zur weiteren Verwendung" im Praktikum.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Hilfszubereitung/Zwischenprodukt (kein eigenes Fertigarzneimittel)</td></tr>
-      <tr><td>Herstellprinzip</td><td>Gelatine in kaltem Wasser quellen lassen, anschließend unter Erwärmen vollständig lösen (klarer, viskoser Schleim)</td></tr>
-      <tr><td>Packmittel</td><td>– (wird direkt weiterverarbeitet)</td></tr>
-      <tr><td>Haltbarkeit</td><td>Nur als frisch hergestelltes Zwischenprodukt verwenden</td></tr>
-    </table>
-    <div class="info-yellow">
-      <strong>Verwendung im Praktikum – Granulierflüssigkeit:</strong> Der Gelatineschleim dient u.a. als „Klebstoff" (Bindemittel) bei der Feuchtgranulierung, z.B. beim Tablettengranulat (Tag 7): Er wird in kleinen Anteilen zu einer Pulvermischung gegeben, bis diese formstabile, aber nicht zu feuchte Krümel bildet, die anschließend versiebt und getrocknet werden.
+      <strong>Prinzip:</strong> Polidocanol (= Lauromacrogol 400) wirkt hier doppelt: als Wirkstoff (juckreizstillend) UND als Netzmittel, das die Benetzung des hydrophoben ZnO verbessert. IPK: Suspension muss bei kräftigem Rühren schäumen (Tensidwirkung).
     </div>
   </div>
 
-  <!-- ═══════ TAG 6 ═══════ -->
-  <div class="cat-1" id="tag6">Tag 6 – Suppositorien</div>
-  <div class="cat-3">Katalog: Grundlagen von Suppositorien, Arten von Hartfett, Sedimentation, Herstellungsmethoden</div>
-
-  <!-- Suppositorien mit Eisenpulver -->
-  <div class="entry-card" id="eisenpulversuppo">
+<div class="entry-card" id="suspgrundlage">
     <div class="entry-header">
-      <h3>Suppositorien mit Eisenpulver <em style="font-size:13px;font-weight:400;">(Hartfett-Suppositorien)</em></h3>
-      <span class="badge badge-supp">SUPPOSITORIUM</span>
-      <span class="badge" style="color:#795548;border-color:#795548;">HARTFETT</span>
+      <h3>Grundlage für Suspensionen zum Einnehmen</h3>
+      <span class="badge badge-nrf">NRF S.52</span>
+      <span class="badge badge-gel">GEL-SOL</span>
     </div>
     <table class="ingredients-table">
       <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Eisenpulver</td><td>0,3 g pro Zäpfchen</td><td>Modellwirkstoff – hohe Dichte (Sedimentationsproblematik in der Schmelze)</td></tr>
-      <tr><td>Hartfett</td><td>q.s. (ad Kalibriervolumen)</td><td>Lipophile Suppositoriengrundlage (Adeps solidus) – schmilzt bei Körpertemperatur</td></tr>
+      <tr><td>Hydroxyethylcellulose 10 000</td><td>0,25 g</td><td>Gelbildner/Verdickungsmittel (Cellulose-Derivat, quillt in Wasser)</td></tr>
+      <tr><td>Glucose-Monohydrat</td><td>5,50 g</td><td>Süßungsmittel, Geschmackskorrigens, Osmotikum</td></tr>
+      <tr><td>Kaliumsorbat</td><td>0,07 g</td><td>Konservierungsmittel (wirkt bei saurem pH)</td></tr>
+      <tr><td>Citronensäure</td><td>0,035 g</td><td>pH-Einstellung (pH 4–5 → Konservierung)</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Lösungs-/Dispersionsmittel</td></tr>
+    </table>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Gel-Sol (viskose Flüssigkeit zur Weiterverarbeitung)</td></tr>
+      <tr><td>pH-Wert</td><td>4,0 – 5,0</td></tr>
+      <tr><td>Haltbarkeit</td><td>6 Monate (Enghalsflasche Braunglas)</td></tr>
     </table>
     <div class="info-blue">
-      <strong>Verschreibung „M.f.supp.d.tal.dos. Nr. V":</strong> <em>Misce, fiant suppositoria, dentur tales doses Numero V</em> – „Mische, es mögen Suppositorien werden, gib solche Dosen, Anzahl 5". Berechnet und angesetzt wird für <strong>2 Zäpfchen mehr</strong> als verschrieben – Verlustausgleich für Gießschwarten, Anhaftungen an Gießschale/Spatel und die Inprozesskontrollen.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Lipophiles Hartfett-Suppositorium (rektal) – Modellrezeptur „Nur für Versuchszwecke"</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) <strong>Kalibriervolumen</strong> bestimmen: ca. 25 g Hartfett auf dem Wasserbad schmelzen, in die Gießform gießen, Gießschwarte mit warmem Spatel entfernen, ausgehärtete Zäpfchen im Messzylinder einschmelzen und Volumen ablesen → 2) Eisenpulver in der gereinigten Gießschale einwiegen, ca. die Hälfte des geschmolzenen Hartfetts zugeben und den Wirkstoff einarbeiten → 3) Ansatz vollständig auf die berechnete Anzahl Aussparungen verteilen (teilweise befüllen, mit reinem Hartfett auf Kalibriervolumen auffüllen), Gießschwarten entfernen → 4) erkaltete Zäpfchen erneut einschmelzen, homogenisieren, in eine Form weniger als zuvor ausgießen <em>(Inprozessprüfung: Masse gerade noch gießbar, leicht weißlich, auf keinen Fall klar/dünnflüssig)</em> → 5) im <strong>Cremeschmelzverfahren</strong> unter gelegentlichem Rühren ausgießen, abgeschabte Gießschwarte bei Bedarf wieder einschmelzen → 6) nach dem Erkalten Gießschwarte entfernen, Zäpfchen entformen <em>(Inprozessprüfung: einfarbig grau-schwarz, Öffnung plan, unversehrt und vollständig ausgeformt)</em></td></tr>
-      <tr><td>Packmittel</td><td>Einzeln in Aluminiumfolie gewickelt, im Druckverschlussbeutel</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Cremeschmelzverfahren – warum?</strong> Eisenpulver hat eine deutlich höhere Dichte als die Hartfettschmelze → nach Stokes sedimentiert es in der dünnflüssigen, klaren Schmelze rasch zu Boden (inhomogene Verteilung!). Wird stattdessen knapp oberhalb des Erstarrungspunkts gegossen (Masse „leicht weißlich, gerade noch gießbar"), ist die Viskosität so hoch, dass das Eisenpulver bis zum vollständigen Erstarren in der Schwebe bleibt.
-    </div>
-    <div class="info-yellow">
-      <strong>Inprozessprüfung – fertige Zäpfchen:</strong> Einfarbig <strong>grau-schwarz</strong> – eine gleichmäßige Farbe zeigt die homogene Verteilung des Eisenpulvers an (keine helleren/dunkleren Schlieren). Öffnung plan, Zäpfchen unversehrt und vollständig ausgeformt.
-    </div>
-    <div class="info-red">
-      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
+      <strong>Funktion als Grundlage:</strong> Wird als Vehikel verwendet, um Wirkstoffe als Suspension zum Einnehmen zu formulieren. Die HEC sorgt für Viskosität → verlangsamt Sedimentation suspendierter Partikel (Stokes!). Kaliumsorbat + Citronensäure = Konservierungssystem bei saurem pH.
     </div>
   </div>
 
-  <!-- Tropenfeste Ibuprofen-Suppositorien -->
-  <div class="entry-card" id="ibuprofensuppo">
-    <div class="entry-header">
-      <h3>Tropenfeste Ibuprofen-Suppositorien <em style="font-size:13px;font-weight:400;">(Macrogol-Suppositorien)</em></h3>
-      <span class="badge badge-supp">SUPPOSITORIUM</span>
-      <span class="badge" style="color:#2980b9;border-color:#2980b9;">MACROGOL</span>
-      <span class="badge" style="color:#e67e22;border-color:#e67e22;">TROPENFEST</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Ibuprofen</td><td>0,2 g pro Zäpfchen</td><td>Wirkstoff – nichtsteroidales Antirheumatikum (NSAR), analgetisch/antiphlogistisch</td></tr>
-      <tr><td>Macrogol 6000</td><td>1,2 g pro Zäpfchen</td><td>Feste Komponente der hydrophilen Grundlage – erhöht Schmelzbereich und Härte</td></tr>
-      <tr><td>Macrogol 400</td><td>1,8 g pro Zäpfchen</td><td>Flüssige Komponente der hydrophilen Grundlage – Lösungsmittel für Ibuprofen</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – „tropenfest" durch Lösen statt Schmelzen:</strong> Anders als Hartfett-Suppositorien (Schmelzpunkt ≈ Körpertemperatur) hat die Macrogol-Mischung aus festem PEG 6000 und flüssigem PEG 400 einen <strong>deutlich höheren Schmelzbereich</strong>. Das Suppositorium schmilzt bei Lagerung/Transport (auch in warmen Klimazonen) nicht, sondern <strong>löst sich erst im wässrigen Rektalsekret</strong> auf – daher „tropenfest".
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Hydrophiles Macrogol-Suppositorium (rektal), tropenfest</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Macrogol 6000 + Macrogol 400 in der Gießschale auf dem Wasserbad bei <strong>80°C</strong> zur Klarschmelze erwärmen → 2) Grundmasse in die Zäpfchengießform gießen (auf eine Gießschwarte achten) → 3) sobald die Grundmasse fest ist, Gießschwarte mit warmem Spatel entfernen → 4) erhärtete Suppositorien entnehmen, im Messzylinder einschmelzen, <strong>Kalibriervolumen</strong> ablesen, Grundmasse noch flüssig in eine Gießschale überführen → 5) Ibuprofen im gereinigten Messzylinder vorlegen und mit der verflüssigten Grundmasse auf das zuvor bestimmte Kalibriervolumen ergänzen → 6) erwärmen bis eine klare Schmelze vorliegt <em>(Inprozessprüfung: Masse klar und farblos bis schwach gelblich, homogen)</em> → 7) Suppositorien ausgießen → 8) nach dem Erhärten entformen <em>(Inprozessprüfung: einfarbig weiß, Öffnung plan, keine Marmorierung erkennbar)</em></td></tr>
-      <tr><td>Packmittel</td><td>Einzeln in Aluminiumfolie gewickelt, im Druckverschlussbeutel</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Kalibriervolumen-Methode statt Verdrängungsfaktor:</strong> Da sich Ibuprofen (anders als Eisenpulver) in der Macrogol-Schmelze löst statt zu sedimentieren, wird hier direkt mit der Kalibriervolumen-Methode gearbeitet: Der Wirkstoff wird im Messzylinder vorgelegt und die Grundmasse bis zum bekannten Kalibriervolumen aufgefüllt – eine separate Verdrängungsfaktor-Berechnung entfällt.
-    </div>
-    <div class="info-red">
-      <strong>Kennzeichnung:</strong> Individuelle Gebrauchsanweisung des Arztes (z.B. „1-mal täglich 1 Suppositorium in den After einführen"), „Verwendbar bis…" sowie die <strong>AnalgetikaWarnHV</strong>: „Ohne ärztlichen Rat nicht länger anwenden als von der Apothekerin oder vom Apotheker empfohlen!"
-    </div>
-  </div>
-
-  <!-- Milchsäure-Globuli -->
-  <div class="entry-card" id="milchsaeureglobuli">
-    <div class="entry-header">
-      <h3>Milchsäure-Globuli <em style="font-size:13px;font-weight:400;">(Vaginalovula)</em></h3>
-      <span class="badge badge-supp">VAGINALOVULUM</span>
-      <span class="badge" style="color:#27ae60;border-color:#27ae60;">GLYCERINGELATINE</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Milchsäure 60%ig</td><td>1,30 g</td><td>Wirkstoff – senkt den vaginalen pH-Wert (Milieusanierung)</td></tr>
-      <tr><td>Gelatine</td><td>3,0 g</td><td>Gelbildner der Grundlage – mit Glycerol/Wasser zu Glyceringelatine</td></tr>
-      <tr><td>Gereinigtes Wasser</td><td>7,5 g (+ ad 27,5 g)</td><td>Lösungs-/Quellmittel der Grundlage</td></tr>
-      <tr><td>Glycerol 85%</td><td>15,63 g</td><td>Hauptbestandteil der Grundlage – hygroskopisch, macht das Globulus wasserlöslich</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Ansatzgröße:</strong> Die Gesamtrezeptur (27,5 g) ergibt <strong>5 Globuli à 5,5 g</strong> (M.f.glob.div.parta.eq. Nr. V – „Mische, es mögen Globuli werden, in gleiche Teile geteilt, Anzahl 5").
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Vaginalovulum (Globulus vaginalis) – hydrophile Glyceringelatine-Grundlage</td></tr>
-      <tr><td>Herstellprinzip</td><td>A) Gelatine + Glycerol in der tarierten Gießschale anreiben → B) Gereinigtes Wasser zugeben und auf dem Wasserbad erhitzen, bis alles gelöst ist <em>(nicht zu stark rühren, um Schaumbildung zu vermeiden)</em> → C) vom Wasserbad nehmen, auf ca. 60°C abkühlen, Milchsäure vollständig zugeben → D) mit Gereinigtem Wasser auf 27,5 g auffüllen und mischen → E) blasenfrei in die warme Gießform ausgießen (Schaum ggf. mit Kartenblatt zurückhalten, Eingusstrichter der Bohrung mit ausgießen) → F) über Nacht abkühlen lassen, aus der Form entnehmen → G) Gehalt X an Milchsäure je Globulus berechnen</td></tr>
-      <tr><td>Packmittel</td><td>Folienbeutel</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="formula-box">
-      <div class="formula-name">Berechnungsbeispiel – Milchsäuregehalt je Globulus:</div>
-      <span style="font-size:12px; font-family: var(--font-ui);">
-      1,30 g Milchsäure 60%ig × 0,60 = 0,78 g reine Milchsäure (Gesamtansatz, 5 Globuli)<br>
-      0,78 g / 5 = <strong>0,156 g reine Milchsäure pro Globulus</strong><br>
-      bezogen auf 5,5 g Globulusmasse ≈ <strong>2,8 % (m/m)</strong>
-      </span>
-    </div>
-    <div class="info-green">
-      <strong>Vorsicht – Schaumvermeidung:</strong> Beim Lösen der Gelatine auf dem Wasserbad „nicht zu stark rühren, um Schaumbildung zu vermeiden" und die Masse anschließend „blasenfrei" ausgießen – Lufteinschlüsse würden die Globuli inhomogen und optisch fehlerhaft machen.
-    </div>
-    <div class="info-yellow">
-      <strong>Bezug zu Tag 5:</strong> Die Glyceringelatine-Grundlage nutzt dasselbe Prinzip wie der Gelatineschleim 4%ig (thermoreversible Sol-Gel-Bildung der Gelatine) – hier jedoch mit deutlich höherem Glycerol-Anteil als eigenständige, hygroskopische Arzneiform statt als Hilfszubereitung.
-    </div>
-    <div class="info-red">
-      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
-    </div>
-  </div>
-
-  <!-- ═══════ TAG 7 ═══════ -->
-  <div class="cat-1" id="tag7">Tag 7 – Pulver, Granulate &amp; Trockensaft</div>
-  <div class="cat-3">Katalog: Definition &amp; Unterschied v. Puder, Pulver, Granulat &amp; Trockensaft, Hausner-Faktor, Fließeigenschaften, Pellets</div>
-
-  <!-- Tablettengranulat -->
-  <div class="entry-card" id="tablettengranulat">
-    <div class="entry-header">
-      <h3>Tablettengranulat <em style="font-size:13px;font-weight:400;">(Klebstoff-Granulat)</em></h3>
-      <span class="badge" style="color:#8d6e63;border-color:#8d6e63;">GRANULAT</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Milchzucker (Lactose)</td><td>7,5 g</td><td>Füll-/Trägerstoff</td></tr>
-      <tr><td>Weizenstärke</td><td>17,5 g</td><td>Füllstoff + Sprengmittel (quillt in Wasser)</td></tr>
-      <tr><td>Gelatineschleim 4%ig</td><td>q.s.</td><td>Granulierflüssigkeit/Bindemittel (Hilfszubereitung aus Tag 5)</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Prinzip – Klebstoff-Granulat:</strong> Lactose und Weizenstärke werden trocken vermischt und anschließend portionsweise mit erwärmtem Gelatineschleim (Tag 5) angefeuchtet. Die Gelatine wirkt als „Klebstoff", der die Pulverpartikel beim Trocknen zu Granulatkörnern verbindet.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Granulat (Zwischenprodukt für die Tablettenherstellung) – Modellrezeptur „Nur für Versuchszwecke"</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Milchzucker + Weizenstärke in der Fantaschale gut vermischen → 2) erwärmten Gelatineschleim in kleinen Anteilen (anfangs 1–2 g, dann sehr wenig) zusetzen und durchfeuchten <em>(Inprozessprüfung „Fingerprobe": Masse darf beim Zusammendrücken mit dem Pistill nicht mehr von allein auseinanderfallen, muss formstabil sein, darf aber nicht feucht aussehen)</em> → 3) zusammengedrückte Masse über Sieb 710 mit Kartenblatt verstrangen, fadenförmiges Granulat auf Filterpapier auffangen/verteilen → 4) 90 min bei 40°C trocknen, grobe Agglomerate zerteilen → 5) getrocknetes Granulat über Sieb 710 geben, kurz schütteln, Feinanteil separat abfüllen (Ausbeute notieren) → 6) Abfüllung in Folienbeutel</td></tr>
-      <tr><td>Packmittel</td><td>Folienbeutel</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>"Fingerprobe" – die richtige Feuchte treffen:</strong> Zu trocken → die Masse zerfällt beim Sieben zu Staub statt zu Granulatkörnern. Zu feucht → verklebte, unregelmäßige Stränge und unnötig lange Trocknungszeit. Die Granulierflüssigkeit wird deshalb portionsweise und gegen Ende sehr sparsam zugegeben.
-    </div>
-    <div class="info-yellow">
-      <strong>Feinanteil:</strong> Der nach dem zweiten Sieben durchfallende, nicht granulierte Restpulveranteil wird separat aufgefangen – seine Ausbeute gibt Auskunft über die Effizienz der Granulierung.
-    </div>
-    <div class="info-red">
-      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
-    </div>
-  </div>
-
-  <!-- Magnesiumsilikatgranulat -->
-  <div class="entry-card" id="magnesiumsilikatgranulat">
-    <div class="entry-header">
-      <h3>Magnesiumsilikatgranulat <em style="font-size:13px;font-weight:400;">(Krustengranulat)</em></h3>
-      <span class="badge" style="color:#8d6e63;border-color:#8d6e63;">GRANULAT</span>
-      <span class="badge" style="color:#6d4c41;border-color:#6d4c41;">KRUSTENGRANULAT</span>
-    </div>
-    <table class="ingredients-table">
-      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
-      <tr><td>Magnesiumtrisilikat</td><td>15,0 g</td><td>Wirkstoff – Antazidum (säurebindend)</td></tr>
-      <tr><td>Kakaopulver</td><td>5,0 g</td><td>Geschmackskorrigens/Färbemittel</td></tr>
-      <tr><td>Saccharose pulv.</td><td>5,0 g</td><td>Süßungsmittel</td></tr>
-      <tr><td>Alkoholische Vanillinlösung 0,25%ig</td><td>5,0 g</td><td>Aromastoff + Granulierflüssigkeit (ethanolisch)</td></tr>
-      <tr><td>Ethanol 70%</td><td>q.s.</td><td>Zusätzliche Granulierflüssigkeit – verdunstet rückstandslos</td></tr>
-    </table>
-    <div class="info-blue">
-      <strong>Wirkprinzip Magnesiumtrisilikat:</strong> Antazidum, das Magensäure langsam und langanhaltend abpuffert (Reaktion zu Magnesiumchlorid und kolloidalem Siliciumdioxid). Kakaopulver, Saccharose und Vanillinaroma maskieren den mineralischen Geschmack – ein „Schoko-Granulat" zum Lutschen/Kauen.
-    </div>
-    <table class="props-table">
-      <tr><td>Arzneiform</td><td>Granulat zur oralen Anwendung (Antazidum) – Modellrezeptur „Nur für Versuchszwecke"</td></tr>
-      <tr><td>Herstellprinzip</td><td>1) Magnesiumtrisilikat + Kakaopulver + Saccharose in der Fantaschale gut vermischen → 2) Vanillinlösung hinzuwiegen und einarbeiten → 3) Ethanol 70% in kleinen Anteilen zugeben und verreiben, bis die Masse mit dem Pistill zusammenballt und einen feuchten Glanz zeigt → 4) Masse über Sieb 2000 mit Kartenblatt auf Filterpapier zu längeren Strängen (ca. 1 cm) verstrangen → 5) bei 40°C trocknen, bis kein Alkoholgeruch mehr wahrnehmbar ist → 6) getrocknetes Granulat über Sieb 710 geben, kurz schütteln, Feinanteil separat abfüllen (Ausbeute notieren) → 7) Abfüllung mit Pulvertrichter in Folienbeutel (Trockenbeutel)</td></tr>
-      <tr><td>Packmittel</td><td>Folienbeutel mit Trockenbeutel</td></tr>
-      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
-    </table>
-    <div class="info-green">
-      <strong>Krustengranulat vs. Tablettengranulat:</strong> Statt eines wässrigen Bindemittels (Gelatineschleim) wird hier eine ethanolische Granulierflüssigkeit verwendet – Ethanol verdunstet rückstandslos und schneller als Wasser. Das gröbere Sieb 2000 erzeugt längere, robustere Stränge ("Krusten") als das Sieb 710 beim Tablettengranulat.
-    </div>
-    <div class="info-yellow">
-      <strong>Trocknungsendpunkt – Geruchsprobe:</strong> Anders als beim Tablettengranulat (feste Trockenzeit von 90 min) wird hier sensorisch geprüft: Getrocknet wird, „bis es nicht mehr nach Alkohol riecht".
-    </div>
-    <div class="info-red">
-      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
-    </div>
-  </div>
-
-  <!-- Sulfathiazol-Trockensaft -->
-  <div class="entry-card" id="sulfathiazoltrockensaft">
+<div class="entry-card" id="sulfathiazoltrockensaft">
     <div class="entry-header">
       <h3>Sulfathiazol-Trockensaft <em style="font-size:13px;font-weight:400;">(Trockensaft/Suspension)</em></h3>
       <span class="badge badge-suspension">SUSPENSION</span>
@@ -1652,8 +1066,624 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Calcium-Brausepulver -->
-  <div class="entry-card" id="calciumbrausepulver">
+  <div class="cat-1" id="cat-emulsionen">Emulsionen</div>
+  <div class="cat-3">O/W- und W/O-Emulsionen</div>
+
+<div class="entry-card" id="basisemulsion">
+    <div class="entry-header">
+      <h3>Hydrophile Basisemulsion DAC</h3>
+      <span class="badge badge-nrf">NRF S.25</span>
+      <span class="badge badge-emulsion">EMULSION</span>
+      <span class="badge badge-ow">O/W</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Sorbitanmonostearat Typ I</td><td>1,0 g</td><td>Lipophiler Co-Emulgator (niedriger HLB ≈ 4,7)</td></tr>
+      <tr><td>Macrogol-8-stearat Typ I</td><td>1,0 g</td><td>Hydrophiler Emulgator (hoher HLB ≈ 11–12) → O/W</td></tr>
+      <tr><td>Glycerol 85%</td><td>2,5 g</td><td>Feuchthaltemittel (Humectant)</td></tr>
+      <tr><td>Mittelkettige Triglyceride</td><td>2,5 g</td><td>Lipophile Phase (Ölphase)</td></tr>
+      <tr><td>Wasserfreie Citronensäure</td><td>0,035 g</td><td>pH-Einstellung</td></tr>
+      <tr><td>Kaliumsorbat</td><td>0,07 g</td><td>Konservierungsmittel</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Äußere (wässrige) Phase</td></tr>
+    </table>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>O/W-Emulsion (zur Weiterverarbeitung)</td></tr>
+      <tr><td>Herstellprinzip</td><td>Fettphase schmelzen (≥ 60°C) → Konservierung zugeben → heißes Wasser ergänzen → kräftig schütteln → unter Schütteln erkalten</td></tr>
+      <tr><td>Haltbarkeit</td><td>6 Monate</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Emulgator-System (Bancroft-Regel):</strong> Die Phase, in der der Emulgator besser löslich ist, wird zur äußeren Phase. Macrogol-8-stearat (hoher HLB) ist hydrophil → löst sich besser in Wasser → Wasser wird äußere Phase → O/W-Emulsion. Der Kombinations-HLB beider Emulgatoren zusammen bestimmt die Stabilität.
+    </div>
+    <div class="info-green">
+      <strong>Merke:</strong> Beide Phasen müssen auf gleiche Temperatur (≥ 60°C) gebracht werden, bevor sie vereinigt werden! Sonst kristallisieren die Emulgatoren vorzeitig aus und die Emulsion bricht.
+    </div>
+  </div>
+
+<div class="entry-card" id="paraffin">
+    <div class="entry-header">
+      <h3>Paraffinölemulsion</h3>
+      <span class="badge badge-nrf">Ph. Helv. IX</span>
+      <span class="badge badge-emulsion">EMULSION</span>
+      <span class="badge badge-ow">O/W</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Dünnflüssiges Paraffin</td><td>20,0 g</td><td>Wirkstoff + innere Phase (Gleitmittel, Laxans)</td></tr>
+      <tr><td>Saccharin-Natrium</td><td>0,005 g</td><td>Süßungsmittel</td></tr>
+      <tr><td>Benzoesäure</td><td>0,05 g</td><td>Konservierungsmittel</td></tr>
+      <tr><td>Traganth</td><td>0,4 g</td><td>Natürlicher Emulgator/Verdickungsmittel (Polysaccharid)</td></tr>
+      <tr><td>Enzymfreies arabisches Gummi</td><td>0,5 g</td><td>Emulgator (Gummi arabicum = Schutzhydrokolloid)</td></tr>
+      <tr><td>Glycerol 85%</td><td>5,0 g</td><td>Feuchthaltemittel, Geschmackskorrigens</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Äußere Phase</td></tr>
+    </table>
+    <table class="props-table">
+      <tr><td>Herstellprinzip</td><td>Klassische Emulsionsherstellung in der Fantaschale: Emulgatoren + wenig Öl verreiben → wenig Wasser = Emulsionskern (knackendes Geräusch!) → abwechselnd Öl und Wasser zugeben</td></tr>
+      <tr><td>Haltbarkeit</td><td>6 Monate</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Emulsionskern-Methode:</strong> Traganth + Gummi arabicum mit wenig Öl anreiben, dann wenig Wasserphase zugeben und kräftig verreiben → es entsteht ein konzentrierter Emulsionskern (knackendes Geräusch = Phasenumkehr/Emulgierung). Dann schrittweise verdünnen. Diese Methode sorgt für feinere Tröpfchen und stabilere Emulsion.
+    </div>
+    <div class="info-red">
+      <strong>Cave:</strong> Dünnflüssiges Paraffin ist nicht resorbierbar → bei chronischer Einnahme kann es die Resorption fettlöslicher Vitamine (A, D, E, K) behindern!
+    </div>
+  </div>
+
+  <div class="cat-1" id="cat-cremes">Cremes</div>
+  <div class="cat-3">Amphiphile, O/W- und W/O-Cremes</div>
+
+<div class="entry-card" id="basiscreme">
+    <div class="entry-header">
+      <h3>Basiscreme DAC</h3>
+      <span class="badge badge-nrf">NRF B-020</span>
+      <span class="badge badge-cream">CREME</span>
+      <span class="badge" style="color:#8e44ad;border-color:#8e44ad;">AMPHIPHIL</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Glycerolmonostearat</td><td>8,0 g</td><td>Lipophiler Co-Emulgator (HLB ≈ 3,8) + Konsistenzgeber</td></tr>
+      <tr><td>Cetylalkohol</td><td>12,0 g</td><td>Konsistenzgeber, Gelbildner (Fettalkohol) + verstärkt Emulgatorfilm</td></tr>
+      <tr><td>Mittelkettige Triglyceride (MCT)</td><td>15,0 g</td><td>Lipophile Phase (hautverträgliches Pflegeöl, gut spreitend)</td></tr>
+      <tr><td>Weißes Vaselin</td><td>51,0 g</td><td>Lipophile Grundmasse (okklusiv, inert, hypoallergen)</td></tr>
+      <tr><td>Polyoxyethylenglycerolmonostearat</td><td>14,0 g</td><td>Hydrophiler Emulgator (hoher HLB) → bestimmt O/W-Charakter</td></tr>
+      <tr><td>Propylenglykol</td><td>20,0 g</td><td>Feuchthaltemittel + Lösungsvermittler (wässrige Phase)</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 200,0 g</td><td>Wässrige (äußere) Phase</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – amphiphile Creme:</strong> Die Basiscreme DAC ist eine O/W-Creme mit amphiphilem Charakter: Sie kann sowohl Wasser aufnehmen (hydrophil) als auch fettlösliche Wirkstoffe einarbeiten (lipophile Innenphase). Das Emulgatorsystem aus Glycerolmonostearat (lipophil) + Polyoxyethylenglycerolmonostearat (hydrophil) ergibt einen ausgewogenen Misch-HLB → stabile O/W-Emulsion nach Bancroft.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Amphiphile Creme (O/W) – Vorratsgefäß für Weiterverarbeitung</td></tr>
+      <tr><td>Herstellprinzip</td><td>Fettphase schmelzen (60°C) · Wasserphase separat auf 60°C · Wässrige Phase zügig in Fettphase einarbeiten · unter Rühren erkalten lassen</td></tr>
+      <tr><td>Temperatur</td><td>Beide Phasen exakt 60°C (±2°C) – Abweichung → Emulgator kristallisiert → Creme bricht</td></tr>
+      <tr><td>Packmittel</td><td>200–300 g Plastikkruke</td></tr>
+      <tr><td>Haltbarkeit</td><td>Kunststoffkruke: 3 Monate (wasserhaltig, ohne eigene Konservierung)</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Merke:</strong> Wässrige Phase wird in die Fettphase eingearbeitet (nicht umgekehrt!) – kleine Anteile, kontinuierlich und zügig. Das Propylenglykol sorgt mit für die Weichheit der Creme und hemmt als Konservierungshelfer leicht das Keimwachstum.
+    </div>
+    <div class="info-yellow">
+      <strong>Verwendung:</strong> Basiscreme DAC ist eine universelle Rezepturgrundlage. In ihr können hydrophile UND lipophile Wirkstoffe eingearbeitet werden (z.B. Erythromycin-Creme NRF 11.77 verwendet Basiscreme DAC als Grundlage).
+    </div>
+  </div>
+
+<div class="entry-card" id="wollcreme">
+    <div class="entry-header">
+      <h3>Wollwachsalkoholcreme DAB (2015)</h3>
+      <span class="badge badge-cream">CREME</span>
+      <span class="badge badge-wo">W/O</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Wollwachsalkoholsalbe DAB</td><td>20,0 g</td><td>Fettphase inkl. W/O-Emulgator (Wollwachsalkohole)</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 40,0 g</td><td>Wässrige Phase (innere Phase der W/O-Emulsion)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – W/O-Emulsion:</strong> Die Wollwachsalkohole in der Salbe sind W/O-Emulgatoren (niedriger HLB ≈ 1) → nach Bancroft: Öl wird äußere Phase → W/O-Emulsion. Wasser wird also innen eingeschlossen. Ergebnis: nicht abwaschbar, okklusiv, rückfettend – ideal bei trockener/schuppiger Haut.
+    </div>
+    <table class="props-table">
+      <tr><td>Herstellprinzip</td><td>Salbe auf 65°C schmelzen · Wasser ebenfalls auf 65°C · Wasser in Schmelze einrühren (gleiche Temperatur!) · unter Rühren erkalten</td></tr>
+      <tr><td>Packmittel</td><td>Spenderdose oder Kruke</td></tr>
+      <tr><td>Haltbarkeit</td><td>Kunststoff: 6 Monate (wasserhaltig)</td></tr>
+    </table>
+    <div class="info-yellow">
+      <strong>Unterschied zur Basiscreme:</strong> Basiscreme DAC = O/W (abwaschbar, leicht, kühlend) · Wollwachsalkoholcreme = W/O (nicht abwaschbar, okklusiv, rückfettend). Wirkstoffeinarbeitung: W/O bevorzugt lipophile Wirkstoffe.
+    </div>
+    <div class="info-red">
+      <strong>Allergikerhinweis:</strong> „Enthält Wollwachsalkohole" – wie bei der Salbe Pflicht!
+    </div>
+  </div>
+
+<div class="entry-card" id="anionischecreme">
+    <div class="entry-header">
+      <h3>Anionische Hydrophile Creme DAB</h3>
+      <span class="badge badge-cream">CREME</span>
+      <span class="badge badge-ow">O/W</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Emulgierender Cetylstearylalkohol Typ A</td><td>3,6 g</td><td>Emulgator-System: Cetylstearylalkohol + Natriumlaurylsulfat (anionisch) → O/W</td></tr>
+      <tr><td>Dickflüssiges Paraffin</td><td>4,2 g</td><td>Lipophile Phase (Mineralöl, inert, okklusiv)</td></tr>
+      <tr><td>Weißes Vaselin</td><td>4,2 g</td><td>Lipophile Grundmasse (verstärkt okklusiven Effekt)</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 40,0 g</td><td>Wässrige (äußere) Phase</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – Emulgierender Cetylstearylalkohol Typ A:</strong> Dies ist ein Gemisch aus Cetylstearylalkohol (Konsistenzgeber) + Natriumlaurylsulfat (anionisches Tensid, HLB ≈ 40). Das Natriumlaurylsulfat ist stark hydrophil → bestimmt nach Bancroft die O/W-Orientierung. „Anionisch" bezieht sich auf die negative Ladung des Sulfats.
+    </div>
+    <table class="props-table">
+      <tr><td>Herstellprinzip</td><td>Fettphase bei 70°C schmelzen · Wasserphase auf 70°C erhitzen · Wasser portionsweise einrühren (erst wenig → Emulsionsbildung · dann Rest in 3–4 Anteilen)</td></tr>
+      <tr><td>Packmittel</td><td>Kruke</td></tr>
+      <tr><td>Haltbarkeit</td><td>Kunststoffkruke: 3 Monate (wasserhaltig, ohne Konservierung)</td></tr>
+    </table>
+    <div class="info-red">
+      <strong>Cave – Inkompatibilität:</strong> Anionische Emulgatoren (Natriumlaurylsulfat) sind inkompatibel mit kationischen Substanzen (z.B. Benzalkoniumchlorid, kationische Wirkstoffe) → Ausfällung, Emulsionsbruch!
+    </div>
+    <div class="info-yellow">
+      <strong>Vergleich der 3 O/W-Cremes des Praktikums:</strong>
+      <ul>
+        <li><strong>Basiscreme DAC:</strong> amphiphil, nichtionisch, vielseitig → Standardgrundlage</li>
+        <li><strong>Anionische Hydrophile Creme:</strong> anionisch, günstig herstellbar, aber Inkompatibilitäten beachten</li>
+        <li><strong>Hydrophobe Basiscreme DAC (Tag 4):</strong> W/O, konserviert, für lipophile Wirkstoffe</li>
+      </ul>
+    </div>
+  </div>
+
+<div class="entry-card" id="harnstoffcreme">
+    <div class="entry-header">
+      <h3>Lipophile Harnstoff-Natriumchlorid-Creme <em style="font-size:13px;font-weight:400;">(NRF 11.75.)</em></h3>
+      <span class="badge badge-nrf">NRF 11.75.</span>
+      <span class="badge badge-cream">CREME</span>
+      <span class="badge badge-wo">W/O</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Harnstoff</td><td>5,0 g</td><td>Wirkstoff – stark hygroskopisch, feuchtigkeitsbindend (Bestandteil des „Natural Moisturizing Factor" der Haut)</td></tr>
+      <tr><td>Natriumchlorid</td><td>5,0 g</td><td>Hilfsstoff – osmotisch wirksam, senkt zusammen mit Harnstoff die Wasseraktivität der wässrigen Phase</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>15,0 g</td><td>Lösungsmittel für Harnstoff/NaCl – innere (disperse) Phase der W/O-Emulsion</td></tr>
+      <tr><td>Wollwachsalkoholsalbe DAB</td><td>ad 50,0 g</td><td>W/O-Grundlage inkl. Emulgator (Wollwachsalkohole, vgl. Tag 3)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Funktion von Harnstoff (Urea):</strong> Harnstoff ist stark hygroskopisch – er bindet Wasser in der Hornschicht und wirkt dadurch feuchtigkeitsspendend (in niedriger Konzentration) bzw. keratolytisch (in höherer Konzentration, &gt; 10%). Er ist natürlicher Bestandteil des hauteigenen Feuchthaltesystems („Natural Moisturizing Factor").
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>W/O-Creme (Wasser als innere, disperse Phase)</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Natriumchlorid unter Erwärmen in Gereinigtem Wasser lösen → 2) <strong>nach dem Erkalten</strong> Harnstoff unter Rühren lösen → 3) Wollwachsalkoholsalbe in der Fantaschale kräftig rühren und die wässrige Lösung in Anteilen einarbeiten</td></tr>
+      <tr><td>Packmittel</td><td>Spenderdose</td></tr>
+      <tr><td>Haltbarkeit</td><td>Kunststoff: 6 Monate (wasserhaltige W/O-Creme)</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Cave – Reihenfolge beim Lösen:</strong> Harnstoff wird erst <em>nach</em> dem Erkalten der NaCl-Lösung zugegeben, weil er thermolabil ist (Zersetzung/Hydrolyse zu Ammoniak und CO₂ bei Hitze möglich) und sich zudem endotherm löst – die heiße Salzlösung würde die Auflösung erschweren und den Wirkstoff schädigen.
+    </div>
+    <div class="info-yellow">
+      <strong>Warum braucht diese wasserhaltige Creme kein zusätzliches Konservierungsmittel?</strong> Harnstoff und Natriumchlorid binden das Wasser der inneren Phase osmotisch und senken so die <strong>Wasseraktivität (a<sub>w</sub>)</strong> – das für Mikroorganismen „verfügbare" Wasser wird drastisch reduziert. Dieser Effekt wirkt selbst-konservierend (vgl. Theorie-Tab „Konservierungsmittel").
+    </div>
+    <div class="info-red">
+      <strong>Allergikerhinweis:</strong> „Enthält Wollwachsalkohole" – Pflichtangabe wegen des Lanolin-Allergiepotenzials (wie bei allen Wollwachsalkohol-Zubereitungen aus Tag 3).
+    </div>
+  </div>
+
+<div class="entry-card" id="hydrophobebasiscreme">
+    <div class="entry-header">
+      <h3>Hydrophobe Basiscreme DAC <em style="font-size:13px;font-weight:400;">(NRF S.41.)</em></h3>
+      <span class="badge badge-nrf">NRF S.41.</span>
+      <span class="badge badge-cream">CREME</span>
+      <span class="badge badge-wo">W/O</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Triglyceroldiisostearat</td><td>1,50 g</td><td>Lipophiler W/O-Emulgator (niedriger HLB) → bestimmt nach Bancroft die W/O-Orientierung</td></tr>
+      <tr><td>Isopropylpalmitat</td><td>1,2 g</td><td>Lipophile Phase – leichtes Esteröl, gut spreitend, penetrationsfördernd</td></tr>
+      <tr><td>Hydrophobes Basisgel DAC</td><td>12,3 g</td><td>Vorgefertigtes emulgierendes W/O-System – ermöglicht <strong>Kalt</strong>herstellung ohne Wärmezufuhr</td></tr>
+      <tr><td>Kaliumsorbat</td><td>0,07 g</td><td>Konservierungsmittel (wirkt nur im sauren Milieu)</td></tr>
+      <tr><td>Wasserfreie Citronensäure</td><td>0,035 g</td><td>Stellt den sauren pH-Wert ein, der Kaliumsorbat erst wirksam macht</td></tr>
+      <tr><td>Magnesiumsulfat-Heptahydrat</td><td>0,25 g</td><td>Elektrolyt – stabilisiert die innere wässrige Phase der W/O-Emulsion</td></tr>
+      <tr><td>Glycerol 85%</td><td>2,5 g</td><td>Feuchthaltemittel der wässrigen Phase</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Innere (disperse) wässrige Phase</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – Kaltherstellung mit dem Hydrophoben Basisgel DAC:</strong> Anders als die klassische Wollwachsalkoholcreme (Tag 3, Herstellung bei 65°C) benötigt das Hydrophobe Basisgel DAC <em>keine Wärmezufuhr</em>: Die lipophilen Bestandteile (Triglyceroldiisostearat, Isopropylpalmitat, Basisgel) werden bei Raumtemperatur verrührt, anschließend wird die fertige wässrige Lösung portionsweise eingearbeitet. Schonender für wärmeempfindliche Wirkstoffe!
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>W/O-Creme, konserviert (Vorratsgrundlage für Weiterverarbeitung)</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Kaliumsorbat, Magnesiumsulfat-Heptahydrat, Citronensäure und Glycerol in Wasser lösen (klare Lösung) → 2) Triglyceroldiisostearat + Isopropylpalmitat + Hydrophobes Basisgel <em>ohne Wärmeanwendung</em> verrühren → 3) wässrige Lösung zugeben und bis zur gleichmäßigen, weichen Creme rühren</td></tr>
+      <tr><td>Packmittel</td><td>Kruke</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen (wasserhaltig, jedoch konserviert)</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>pH-abhängige Konservierung:</strong> Kaliumsorbat ist nur bei pH &lt; 5 antimikrobiell wirksam. Die wasserfreie Citronensäure stellt diesen sauren pH gezielt ein – ohne sie wäre die Konservierung wirkungslos (vgl. Theorie-Tab „Konservierungsmittel").
+    </div>
+    <div class="info-yellow">
+      <strong>Funktion des Magnesiumsulfat-Heptahydrats:</strong> Als Elektrolyt in der inneren wässrigen Phase beeinflusst es die elektrostatischen Verhältnisse an der Tropfenoberfläche und trägt so zur Stabilisierung der W/O-Emulsion bei – ein in Rezepturgrundlagen häufig unterschätzter „stiller" Hilfsstoff.
+    </div>
+  </div>
+
+<div class="entry-card" id="erythromycincreme">
+    <div class="entry-header">
+      <h3>Hydrophile Erythromycin-Creme 1% <em style="font-size:13px;font-weight:400;">(NRF 11.77)</em></h3>
+      <span class="badge badge-nrf">NRF 11.77</span>
+      <span class="badge badge-cream">CREME</span>
+      <span class="badge badge-ow">O/W</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Erythromycin (mikrofein gepulvert)</td><td>0,5 g</td><td>Wirkstoff (Makrolid-Antibiotikum) – mikrofein für gleichmäßige Verteilung &amp; bessere Penetration</td></tr>
+      <tr><td>Mittelkettige Triglyceride (MCT)</td><td>0,5 g</td><td>Anreibemittel – benetzt das hydrophobe Pulver, verhindert Agglomerate vor dem Einarbeiten</td></tr>
+      <tr><td>Basiscreme DAC</td><td>24,5 g</td><td>Amphiphile O/W-Grundlage (vgl. Tag 3)</td></tr>
+      <tr><td>Citronensäure-Lösung 0,5%</td><td>4,0 g</td><td>pH-Stabilisierung des Wirkstoffs Erythromycin</td></tr>
+      <tr><td>Propylenglykol</td><td>5,0 g</td><td>Feuchthaltemittel, Lösungsvermittler, Penetrationsförderer</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 50,0 g</td><td>Wässrige (äußere) Phase</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Verreibungsprinzip „Pulver in Salbe/Creme":</strong> Erythromycin wird zunächst mit Mittelkettigen Triglyceriden zu einer gleichmäßigen, agglomeratfreien Paste angerieben (Inprozessprüfung!) und erst danach in zwei Anteilen mit der Basiscreme DAC verrührt. So wird verhindert, dass sich das hydrophobe Wirkstoffpulver zu Klümpchen zusammenballt – Grundprinzip jeder Wirkstoffeinarbeitung in halbfeste Grundlagen.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>O/W-Creme mit Wirkstoffeinarbeitung (Basiscreme DAC als Grundlage)</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Citronensäure in Wasser lösen (Hilfslösung, gemeinsamer Gruppenansatz) → 2) Erythromycin mit MCT zur Paste anreiben → 3) portionsweise mit Basiscreme DAC verrühren → 4) Citronensäure-Lösung, Propylenglykol und Restwasser in kleinen Anteilen einarbeiten</td></tr>
+      <tr><td>Packmittel</td><td>Spenderdose</td></tr>
+      <tr><td>Haltbarkeit</td><td>Im Kühlschrank aufbewahren – Wirkstoff-Stabilität ist temperaturabhängig</td></tr>
+    </table>
+    <div class="info-yellow">
+      <strong>Mikrofein = Noyes-Whitney in der Praxis:</strong> Die Vorgabe „mikrofein gepulvert" vergrößert die spezifische Oberfläche A des Wirkstoffs deutlich (vgl. Theorie-Tab „Noyes-Whitney-Gleichung") → gleichmäßigere Verteilung in der Creme und potenziell bessere Anflutung am Wirkort. Hinweis: Aufgrund der Arzneibuchspezifikation kann eine Einwaagekorrektur (Gehaltsbestimmung) nötig sein – im Praktikum jedoch nicht erforderlich.
+    </div>
+    <div class="info-green">
+      <strong>Im Kühlschrank aufbewahren:</strong> Erythromycin ist temperatur- und pH-empfindlich. Die Citronensäure-Lösung stellt das für die Wirkstoffstabilität nötige saure Milieu ein, die Kühllagerung verlangsamt zusätzlich den Abbau – beides zusammen sichert die Haltbarkeit der wirkstoffhaltigen Creme.
+    </div>
+  </div>
+
+  <div class="cat-1" id="cat-salben">Salben & Pasten</div>
+  <div class="cat-3">Quasiemulsionen, W/O-Salben, feststoffreiche Pasten</div>
+
+<div class="entry-card" id="kuehlsalbe">
+    <div class="entry-header">
+      <h3>Kühlsalbe DAB <em style="font-size:13px;font-weight:400;">(Unguentum leniens)</em></h3>
+      <span class="badge badge-quasi">QUASI-EMULSION</span>
+      <span class="badge badge-nrf">Belg. Formularium</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Gelbes Wachs</td><td>2,1 g</td><td>Konsistenzgeber (Bienenwachs-Derivat, Strukturgeber der Fettphase)</td></tr>
+      <tr><td>Cetylpalmitat</td><td>2,4 g</td><td>Konsistenzgeber (synthetischer Wachsester, erhöht Schmelzpunkt)</td></tr>
+      <tr><td>Mittelkettige Triglyceride</td><td>18,0 g</td><td>Lipophile Phase (Hauptanteil, flüssig bei RT)</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 30,0 g</td><td>Disperse Phase – wird eingeschlossen (kein Emulgator!)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Was ist eine Quasiemulsion?</strong> Eine Emulsion <em>ohne echten Emulgator</em>. Das Wasser wird rein mechanisch durch die hohe Viskosität der erstarrenden Fettmatrix eingeschlossen – keine thermodynamische Stabilisierung. Deshalb: sehr kurze Haltbarkeit (4 Wochen), muss sofort abgefüllt werden.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Quasi-Emulsion (lipophile Creme ohne Emulgator)</td></tr>
+      <tr><td>Herstellprinzip</td><td>Wachs + Cetylpalmitat + MCT auf 60°C erwärmen → gleichtemperiertes Wasser einarbeiten → unter Rühren erkalten (30% Aufschlag beachten!)</td></tr>
+      <tr><td>Packmittel</td><td>Aluminiumtube mit Innenschutzlack</td></tr>
+      <tr><td>Haltbarkeit</td><td><strong>Nur 4 Wochen</strong> (kein Konservierungsmittel, kein Antioxidans, instabil)</td></tr>
+    </table>
+    <div class="info-yellow">
+      <strong>Kühleffekt:</strong> Das eingeschlossene Wasser verdunstet beim Auftragen auf die Haut → Verdunstungskälte → lindernder Kühleffekt. Daher „Kühlsalbe" / „Unguentum leniens" (= lindernde Salbe).
+    </div>
+    <div class="info-red">
+      <strong>Cave – 30% Aufschlag:</strong> Die Fettphase muss mit 30% Mehrmengeansatz eingewogen werden, da beim Mischen und Abfüllen Material verloren geht. Die Charge auf 30 g ausrechnen + 30% extra ansetzen.
+    </div>
+  </div>
+
+<div class="entry-card" id="wollsalbe">
+    <div class="entry-header">
+      <h3>Wollwachsalkoholsalbe DAB</h3>
+      <span class="badge badge-paste">SALBE</span>
+      <span class="badge badge-wo">W/O-GRUNDLAGE</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Wollwachsalkohole</td><td>3,6 g</td><td>W/O-Emulgator (aus Lanolin, HLB ≈ 1) + wasseraufnehmend (bis 130% des Eigengewichts)</td></tr>
+      <tr><td>Cetylstearylalkohol</td><td>0,30 g</td><td>Konsistenzgeber (Fettalkohol, Co-Emulgator)</td></tr>
+      <tr><td>Weißes Vaselin</td><td>ad 60,0 g</td><td>Lipophile Grundmasse (inert, okklusiv)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip:</strong> Rein lipophile Salbe (kein Wasser). Die Wollwachsalkohole sind natürliche W/O-Emulgatoren aus Wollwachs (Lanolin). Sie geben der Salbe die Fähigkeit, Wasser aufzunehmen → wird zur Grundlage für W/O-Cremes (z.B. Wollwachsalkoholcreme DAB).
+    </div>
+    <table class="props-table">
+      <tr><td>Herstellprinzip</td><td>Alle Bestandteile auf dem Wasserbad (60°C) klarschmelzen → unter Rühren erkalten lassen → hell-opake Salbe</td></tr>
+      <tr><td>Packmittel</td><td>Plastikkruke (Vorratsgefäß für Weiterverarbeitung)</td></tr>
+      <tr><td>Haltbarkeit</td><td>Plastikkruke: 3 Jahre (wasserfrei = lange stabil)</td></tr>
+    </table>
+    <div class="info-red">
+      <strong>Allergikerhinweis:</strong> „Enthält Wollwachsalkohole" – Wollwachsalkohole können Kontaktallergien auslösen (Lanolin-Allergie). Pflicht-Kennzeichnung auf dem Etikett!
+    </div>
+    <div class="info-green">
+      <strong>Merke:</strong> Diese Salbe ist Zwischenprodukt – sie wird direkt zur Herstellung der Wollwachsalkoholcreme weiterverarbeitet (50% Salbe + 50% Wasser = Creme).
+    </div>
+  </div>
+
+<div class="entry-card" id="zinkpaste">
+    <div class="entry-header">
+      <h3>Weiche Zinkpaste DAB <em style="font-size:13px;font-weight:400;">(NRF 11.21.)</em></h3>
+      <span class="badge badge-nrf">NRF 11.21.</span>
+      <span class="badge badge-paste">PASTE</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Zinkoxid</td><td>15,0 g</td><td>Wirkstoff/Feststoffanteil (30%) – adstringierend, austrocknend, deckend</td></tr>
+      <tr><td>Dickflüssiges Paraffin</td><td>20,0 g</td><td>Anreibe-/Suspendierhilfe (benetzt das Zinkoxid, bildet feine Suspension)</td></tr>
+      <tr><td>Gebleichtes Wachs</td><td>5,0 g</td><td>Konsistenzgeber (Bienenwachs-Derivat, strukturiert die Fettphase)</td></tr>
+      <tr><td>Weißes Vaselin</td><td>ad 50,0 g</td><td>Lipophile Grundmasse (inert, okklusiv)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Was macht eine Paste zur Paste?</strong> Eine Paste ist eine Salbe mit hohem Feststoffanteil (&gt; 10%) – hier liegt Zinkoxid mit 30% vor. Der hohe Feststoffanteil macht die Zubereitung stark deckend, abdeckend und steif (höhere Konsistenz als eine Salbe gleicher Grundlage). Vgl. Theorie-Tab „Halbfeste Zubereitungen".
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Lipophile Paste zur Anwendung auf der Haut</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Zinkoxid mit Dickflüssigem Paraffin in der Fantaschale anreiben (Suspension, gleichmäßig weiß) → 2) mit Gebleichtem Wachs + Weißem Vaselin ergänzen, auf dem Wasserbad klarschmelzen, bis zum Erkalten unter häufigem Abschaben rühren</td></tr>
+      <tr><td>Packmittel</td><td>Aluminiumtube</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen (wasserfrei → grundsätzlich lange stabil)</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Herstellhinweis – zweistufiges Anreiben:</strong> Erst die Suspension aus Zinkoxid + Paraffin herstellen (verteilt die Partikel fein und gleichmäßig in der flüssigen Phase), <em>dann erst</em> die festen Konsistenzgeber aufschmelzen und einarbeiten. So werden Agglomerate vermieden – die fertige Paste muss gleichmäßig weiß aussehen und schwach nach Bienenwachs riechen.
+    </div>
+    <div class="info-yellow">
+      <strong>Vergleich – Zinkoxid Tag 1 vs. Tag 4:</strong> In der Schüttelmixtur (Tag 1) liegt Zinkoxid als Suspension in einer wässrigen, fließfähigen Grundlage vor (Sedimentation nach Stokes, „Vor Gebrauch schütteln"). In der Zinkpaste liegt es hochkonzentriert (30%) in einer festen lipophilen Matrix vor – keine Sedimentation, dafür stark abdeckende, steife Konsistenz.
+    </div>
+  </div>
+
+  <div class="cat-1" id="cat-gele">Gele</div>
+  <div class="cat-3">Hydrogele, ethanolhaltige Gele</div>
+
+<div class="entry-card" id="alcl3gel">
+    <div class="entry-header">
+      <h3>Hydrophiles Aluminiumchlorid-Hexahydrat-Gel 15% <em style="font-size:13px;font-weight:400;">(NRF 11.24.)</em></h3>
+      <span class="badge badge-nrf">NRF 11.24.</span>
+      <span class="badge badge-gel">HYDROGEL</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Aluminiumchlorid-Hexahydrat</td><td>3,75 g</td><td>Wirkstoff – Antitranspirant (adstringierend, schweißdrüsenverengend)</td></tr>
+      <tr><td>Hydroxyethylcellulose 250</td><td>1,25 g</td><td>Gelbildner – quillt in Wasser zum dreidimensionalen Netzwerk (Hydrogel)</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 25,0 g</td><td>Dispersionsmittel des Hydrogels</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – Hydrogelbildung durch Quellung:</strong> Hydroxyethylcellulose (HEC) ist ein nichtionischer Celluloseether, der in Wasser quillt: Die langkettigen Polymermoleküle verschlingen sich zu einem dreidimensionalen Netzwerk und schließen das Wasser ein → klares, gleichmäßiges Hydrogel. Die Quellung braucht Zeit – deshalb bleibt der Ansatz nach dem Anrühren ca. 4 Stunden stehen.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Hydrogel zur Anwendung in den Achselhöhlen (Antitranspirant)</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Aluminiumchlorid-Hexahydrat + Hydroxyethylcellulose in der Fantaschale trocken mischen → 2) Gereinigtes Wasser zugeben, rühren → 3) <strong>ca. 4 h quellen lassen</strong> (gelegentlich rühren) → 4) Verdunstungsverluste ersetzen, final rühren</td></tr>
+      <tr><td>Packmittel</td><td>Deoroller (50 ml Fassungsvolumen)</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Herstellhinweis – Geduld zahlt sich aus:</strong> Zu starkes Rühren während der Quellphase führt zur Trübung des Gels (Lufteinschlüsse, Polymerbruch) – unbedingt vermeiden! Das fertige Gel darf wenige Luftblasen und fein verteilte HEC-Fasern enthalten, muss aber klar und farblos aussehen.
+    </div>
+    <div class="info-red">
+      <strong>Cave – ätzend:</strong> Aluminiumchlorid-Hexahydrat reagiert in wässriger Lösung sauer (Hydrolyse → Salzsäure-Bildung) und wirkt ätzend/reizend. Pflichthinweis: „Nicht in Kontakt mit den Augen bringen". Entsorgung als Sondermüll (fest).
+    </div>
+  </div>
+
+<div class="entry-card" id="wundheilgel">
+    <div class="entry-header">
+      <h3>Wund- und Heilgel</h3>
+      <span class="badge badge-gel">HYDROGEL</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Dexpanthenol-Wasser-Gemisch 50%ig</td><td>2,0 g</td><td>Wirkstoff – Provitamin B5, fördert Zellregeneration und Wundheilung</td></tr>
+      <tr><td>Carboxymethylcellulose (Carmellose, Tylose C 600)</td><td>1,0 g</td><td>Gelbildner – anionischer Celluloseether, bildet das Hydrogel-Netzwerk</td></tr>
+      <tr><td>Propylenglykol</td><td>4,0 g</td><td>Anreibemittel für den Gelbildner + Feuchthaltemittel</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 20,0 g</td><td>Dispersionsmittel des Hydrogels</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – Anreiben vor dem Anquellen:</strong> Celluloseether wie Carboxymethylcellulose neigen dazu, beim direkten Einrühren in Wasser zu verklumpen: Die äußere Schicht der Partikel quillt sofort und verklebt, der trockene Kern bleibt unbenetzt („Klümpchenbildung"). Lösung: Der Gelbildner wird zuerst mit Propylenglykol zu einer homogenen Paste angerieben – das verteilt die Partikel und verhindert Agglomerate, bevor Wasser zugesetzt wird.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Hydrogel zur kutanen Anwendung (Wundheilung)</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Carboxymethylcellulose + Propylenglykol anreiben → 2) auf 60°C abgekühltes, abgekochtes Wasser in 3–4 Anteilen einarbeiten (luftblasenfrei) → 3) auf dem Wasserbad bis zum klaren, klumpenfreien Gel erwärmen → 4) abkühlen lassen, Dexpanthenol-Wasser-Gemisch einarbeiten → 5) Verdunstungsverluste ergänzen</td></tr>
+      <tr><td>Packmittel</td><td>Weithalsglas</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="info-yellow">
+      <strong>Funktion von Dexpanthenol:</strong> Provitamin B5 – wird im Körper zu Pantothensäure umgewandelt, einem essenziellen Bestandteil von Coenzym A. Fördert die Epithelisierung (Hautregeneration) und wird daher klassisch in Wund- und Heilsalben/-gelen eingesetzt.
+    </div>
+    <div class="info-green">
+      <strong>Merke – Wirkstoff zuletzt:</strong> Der wärme- und scherempfindliche Wirkstoff wird erst eingearbeitet, <em>nachdem</em> das fertige Gel abgekühlt ist – schont den Wirkstoff und verhindert Wirkverlust durch Hitzeeinwirkung.
+    </div>
+  </div>
+
+<div class="entry-card" id="franzbranntweingel">
+    <div class="entry-header">
+      <h3>Franzbranntwein-Gel</h3>
+      <span class="badge badge-gel">GEL</span>
+      <span class="badge" style="color:#16a085;border-color:#16a085;">ETHANOLHALTIG</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Ammoniaklösung 1 M</td><td>0,5 g</td><td>Neutralisationsmittel – aktiviert die Gelbildung von Polyacrylsäure</td></tr>
+      <tr><td>Polyacrylsäure (Carbopol 980)</td><td>0,2 g</td><td>Synthetischer Gelbildner – bildet erst nach Neutralisation ein klares Gel</td></tr>
+      <tr><td>Franzbranntwein</td><td>ad 20,0 g</td><td>Ethanolische Grundlage mit ätherischen Ölen (durchblutungsfördernd)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – pH-abhängige Gelbildung von Carbopol:</strong> Polyacrylsäure liegt zunächst als „Pulver-Knäuel" vor und verdickt eine Flüssigkeit kaum. Erst durch Zugabe einer Base (hier: Ammoniaklösung) werden die Carboxylgruppen deprotoniert (–COOH → –COO⁻) → die jetzt negativ geladenen Polymerketten stoßen sich elektrostatisch ab, strecken sich und spannen ein dichtes Netzwerk auf → starke Verdickung/Gelbildung. Ein Lehrbuchbeispiel für „Theorie zum Anfassen": vgl. Theorie-Tab „Gelbildner &amp; pH-Abhängigkeit".
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Ethanolhaltiges Gel zur kutanen Anwendung (Hautdurchblutung, Massage)</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Ammoniaklösung mit 9 g Franzbranntwein vormischen → 2) restlichen Franzbranntwein in der Fantaschale vorlegen, Polyacrylsäure aufstreuen, dispergieren und quellen lassen (bis keine weißen Klumpen mehr sichtbar sind) → 3) die ammoniakhaltige Mischung in 3 Anteilen einrühren → klares, klumpenfreies Gel ohne Lufteinschlag → 4) Verdunstungsverluste mit Franzbranntwein ergänzen</td></tr>
+      <tr><td>Packmittel</td><td>Weithalsglas</td></tr>
+      <tr><td>Haltbarkeit</td><td><strong>Nur 4 Wochen</strong> (Ethanol verdunstet, Konsistenz und Wirkstoffgehalt verändern sich)</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Cave – Reihenfolge entscheidet:</strong> Erst quellen lassen, dann neutralisieren! Würde man Polyacrylsäure direkt in die ammoniakhaltige Mischung einstreuen, würde die Oberfläche der Partikel sofort gelieren und verklumpen, bevor das Innere benetzt ist – das Ergebnis wäre ein klumpiges, inhomogenes Gel.
+    </div>
+    <div class="info-yellow">
+      <strong>Kennzeichnung:</strong> „Enthält X% Alkohol" (abhängig von der genauen Herstellung) – Pflichtangabe bei ethanolhaltigen Zubereitungen, insbesondere relevant für Kinder und Alkoholkranke.
+    </div>
+  </div>
+
+  <div class="cat-1" id="cat-suppositorien">Suppositorien &amp; Vaginalia</div>
+  <div class="cat-3">Hartfett- &amp; Macrogol-Suppositorien, Vaginalovula</div>
+
+<div class="entry-card" id="eisenpulversuppo">
+    <div class="entry-header">
+      <h3>Suppositorien mit Eisenpulver <em style="font-size:13px;font-weight:400;">(Hartfett-Suppositorien)</em></h3>
+      <span class="badge badge-supp">SUPPOSITORIUM</span>
+      <span class="badge" style="color:#795548;border-color:#795548;">HARTFETT</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Eisenpulver</td><td>0,3 g pro Zäpfchen</td><td>Modellwirkstoff – hohe Dichte (Sedimentationsproblematik in der Schmelze)</td></tr>
+      <tr><td>Hartfett</td><td>q.s. (ad Kalibriervolumen)</td><td>Lipophile Suppositoriengrundlage (Adeps solidus) – schmilzt bei Körpertemperatur</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Verschreibung „M.f.supp.d.tal.dos. Nr. V":</strong> <em>Misce, fiant suppositoria, dentur tales doses Numero V</em> – „Mische, es mögen Suppositorien werden, gib solche Dosen, Anzahl 5". Berechnet und angesetzt wird für <strong>2 Zäpfchen mehr</strong> als verschrieben – Verlustausgleich für Gießschwarten, Anhaftungen an Gießschale/Spatel und die Inprozesskontrollen.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Lipophiles Hartfett-Suppositorium (rektal) – Modellrezeptur „Nur für Versuchszwecke"</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) <strong>Kalibriervolumen</strong> bestimmen: ca. 25 g Hartfett auf dem Wasserbad schmelzen, in die Gießform gießen, Gießschwarte mit warmem Spatel entfernen, ausgehärtete Zäpfchen im Messzylinder einschmelzen und Volumen ablesen → 2) Eisenpulver in der gereinigten Gießschale einwiegen, ca. die Hälfte des geschmolzenen Hartfetts zugeben und den Wirkstoff einarbeiten → 3) Ansatz vollständig auf die berechnete Anzahl Aussparungen verteilen (teilweise befüllen, mit reinem Hartfett auf Kalibriervolumen auffüllen), Gießschwarten entfernen → 4) erkaltete Zäpfchen erneut einschmelzen, homogenisieren, in eine Form weniger als zuvor ausgießen <em>(Inprozessprüfung: Masse gerade noch gießbar, leicht weißlich, auf keinen Fall klar/dünnflüssig)</em> → 5) im <strong>Cremeschmelzverfahren</strong> unter gelegentlichem Rühren ausgießen, abgeschabte Gießschwarte bei Bedarf wieder einschmelzen → 6) nach dem Erkalten Gießschwarte entfernen, Zäpfchen entformen <em>(Inprozessprüfung: einfarbig grau-schwarz, Öffnung plan, unversehrt und vollständig ausgeformt)</em></td></tr>
+      <tr><td>Packmittel</td><td>Einzeln in Aluminiumfolie gewickelt, im Druckverschlussbeutel</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Cremeschmelzverfahren – warum?</strong> Eisenpulver hat eine deutlich höhere Dichte als die Hartfettschmelze → nach Stokes sedimentiert es in der dünnflüssigen, klaren Schmelze rasch zu Boden (inhomogene Verteilung!). Wird stattdessen knapp oberhalb des Erstarrungspunkts gegossen (Masse „leicht weißlich, gerade noch gießbar"), ist die Viskosität so hoch, dass das Eisenpulver bis zum vollständigen Erstarren in der Schwebe bleibt.
+    </div>
+    <div class="info-yellow">
+      <strong>Inprozessprüfung – fertige Zäpfchen:</strong> Einfarbig <strong>grau-schwarz</strong> – eine gleichmäßige Farbe zeigt die homogene Verteilung des Eisenpulvers an (keine helleren/dunkleren Schlieren). Öffnung plan, Zäpfchen unversehrt und vollständig ausgeformt.
+    </div>
+    <div class="info-red">
+      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
+    </div>
+  </div>
+
+<div class="entry-card" id="ibuprofensuppo">
+    <div class="entry-header">
+      <h3>Tropenfeste Ibuprofen-Suppositorien <em style="font-size:13px;font-weight:400;">(Macrogol-Suppositorien)</em></h3>
+      <span class="badge badge-supp">SUPPOSITORIUM</span>
+      <span class="badge" style="color:#2980b9;border-color:#2980b9;">MACROGOL</span>
+      <span class="badge" style="color:#e67e22;border-color:#e67e22;">TROPENFEST</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Ibuprofen</td><td>0,2 g pro Zäpfchen</td><td>Wirkstoff – nichtsteroidales Antirheumatikum (NSAR), analgetisch/antiphlogistisch</td></tr>
+      <tr><td>Macrogol 6000</td><td>1,2 g pro Zäpfchen</td><td>Feste Komponente der hydrophilen Grundlage – erhöht Schmelzbereich und Härte</td></tr>
+      <tr><td>Macrogol 400</td><td>1,8 g pro Zäpfchen</td><td>Flüssige Komponente der hydrophilen Grundlage – Lösungsmittel für Ibuprofen</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – „tropenfest" durch Lösen statt Schmelzen:</strong> Anders als Hartfett-Suppositorien (Schmelzpunkt ≈ Körpertemperatur) hat die Macrogol-Mischung aus festem PEG 6000 und flüssigem PEG 400 einen <strong>deutlich höheren Schmelzbereich</strong>. Das Suppositorium schmilzt bei Lagerung/Transport (auch in warmen Klimazonen) nicht, sondern <strong>löst sich erst im wässrigen Rektalsekret</strong> auf – daher „tropenfest".
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Hydrophiles Macrogol-Suppositorium (rektal), tropenfest</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Macrogol 6000 + Macrogol 400 in der Gießschale auf dem Wasserbad bei <strong>80°C</strong> zur Klarschmelze erwärmen → 2) Grundmasse in die Zäpfchengießform gießen (auf eine Gießschwarte achten) → 3) sobald die Grundmasse fest ist, Gießschwarte mit warmem Spatel entfernen → 4) erhärtete Suppositorien entnehmen, im Messzylinder einschmelzen, <strong>Kalibriervolumen</strong> ablesen, Grundmasse noch flüssig in eine Gießschale überführen → 5) Ibuprofen im gereinigten Messzylinder vorlegen und mit der verflüssigten Grundmasse auf das zuvor bestimmte Kalibriervolumen ergänzen → 6) erwärmen bis eine klare Schmelze vorliegt <em>(Inprozessprüfung: Masse klar und farblos bis schwach gelblich, homogen)</em> → 7) Suppositorien ausgießen → 8) nach dem Erhärten entformen <em>(Inprozessprüfung: einfarbig weiß, Öffnung plan, keine Marmorierung erkennbar)</em></td></tr>
+      <tr><td>Packmittel</td><td>Einzeln in Aluminiumfolie gewickelt, im Druckverschlussbeutel</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Kalibriervolumen-Methode statt Verdrängungsfaktor:</strong> Da sich Ibuprofen (anders als Eisenpulver) in der Macrogol-Schmelze löst statt zu sedimentieren, wird hier direkt mit der Kalibriervolumen-Methode gearbeitet: Der Wirkstoff wird im Messzylinder vorgelegt und die Grundmasse bis zum bekannten Kalibriervolumen aufgefüllt – eine separate Verdrängungsfaktor-Berechnung entfällt.
+    </div>
+    <div class="info-red">
+      <strong>Kennzeichnung:</strong> Individuelle Gebrauchsanweisung des Arztes (z.B. „1-mal täglich 1 Suppositorium in den After einführen"), „Verwendbar bis…" sowie die <strong>AnalgetikaWarnHV</strong>: „Ohne ärztlichen Rat nicht länger anwenden als von der Apothekerin oder vom Apotheker empfohlen!"
+    </div>
+  </div>
+
+<div class="entry-card" id="milchsaeureglobuli">
+    <div class="entry-header">
+      <h3>Milchsäure-Globuli <em style="font-size:13px;font-weight:400;">(Vaginalovula)</em></h3>
+      <span class="badge badge-supp">VAGINALOVULUM</span>
+      <span class="badge" style="color:#27ae60;border-color:#27ae60;">GLYCERINGELATINE</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Milchsäure 60%ig</td><td>1,30 g</td><td>Wirkstoff – senkt den vaginalen pH-Wert (Milieusanierung)</td></tr>
+      <tr><td>Gelatine</td><td>3,0 g</td><td>Gelbildner der Grundlage – mit Glycerol/Wasser zu Glyceringelatine</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>7,5 g (+ ad 27,5 g)</td><td>Lösungs-/Quellmittel der Grundlage</td></tr>
+      <tr><td>Glycerol 85%</td><td>15,63 g</td><td>Hauptbestandteil der Grundlage – hygroskopisch, macht das Globulus wasserlöslich</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Ansatzgröße:</strong> Die Gesamtrezeptur (27,5 g) ergibt <strong>5 Globuli à 5,5 g</strong> (M.f.glob.div.parta.eq. Nr. V – „Mische, es mögen Globuli werden, in gleiche Teile geteilt, Anzahl 5").
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Vaginalovulum (Globulus vaginalis) – hydrophile Glyceringelatine-Grundlage</td></tr>
+      <tr><td>Herstellprinzip</td><td>A) Gelatine + Glycerol in der tarierten Gießschale anreiben → B) Gereinigtes Wasser zugeben und auf dem Wasserbad erhitzen, bis alles gelöst ist <em>(nicht zu stark rühren, um Schaumbildung zu vermeiden)</em> → C) vom Wasserbad nehmen, auf ca. 60°C abkühlen, Milchsäure vollständig zugeben → D) mit Gereinigtem Wasser auf 27,5 g auffüllen und mischen → E) blasenfrei in die warme Gießform ausgießen (Schaum ggf. mit Kartenblatt zurückhalten, Eingusstrichter der Bohrung mit ausgießen) → F) über Nacht abkühlen lassen, aus der Form entnehmen → G) Gehalt X an Milchsäure je Globulus berechnen</td></tr>
+      <tr><td>Packmittel</td><td>Folienbeutel</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="formula-box">
+      <div class="formula-name">Berechnungsbeispiel – Milchsäuregehalt je Globulus:</div>
+      <span style="font-size:12px; font-family: var(--font-ui);">
+      1,30 g Milchsäure 60%ig × 0,60 = 0,78 g reine Milchsäure (Gesamtansatz, 5 Globuli)<br>
+      0,78 g / 5 = <strong>0,156 g reine Milchsäure pro Globulus</strong><br>
+      bezogen auf 5,5 g Globulusmasse ≈ <strong>2,8 % (m/m)</strong>
+      </span>
+    </div>
+    <div class="info-green">
+      <strong>Vorsicht – Schaumvermeidung:</strong> Beim Lösen der Gelatine auf dem Wasserbad „nicht zu stark rühren, um Schaumbildung zu vermeiden" und die Masse anschließend „blasenfrei" ausgießen – Lufteinschlüsse würden die Globuli inhomogen und optisch fehlerhaft machen.
+    </div>
+    <div class="info-yellow">
+      <strong>Bezug zu Tag 5:</strong> Die Glyceringelatine-Grundlage nutzt dasselbe Prinzip wie der Gelatineschleim 4%ig (thermoreversible Sol-Gel-Bildung der Gelatine) – hier jedoch mit deutlich höherem Glycerol-Anteil als eigenständige, hygroskopische Arzneiform statt als Hilfszubereitung.
+    </div>
+    <div class="info-red">
+      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
+    </div>
+  </div>
+
+  <div class="cat-1" id="cat-pulver">Pulver &amp; Granulate</div>
+  <div class="cat-3">Pulvermischungen, Granulate, Füllmittel</div>
+
+<div class="entry-card" id="tablettengranulat">
+    <div class="entry-header">
+      <h3>Tablettengranulat <em style="font-size:13px;font-weight:400;">(Klebstoff-Granulat)</em></h3>
+      <span class="badge" style="color:#8d6e63;border-color:#8d6e63;">GRANULAT</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Milchzucker (Lactose)</td><td>7,5 g</td><td>Füll-/Trägerstoff</td></tr>
+      <tr><td>Weizenstärke</td><td>17,5 g</td><td>Füllstoff + Sprengmittel (quillt in Wasser)</td></tr>
+      <tr><td>Gelatineschleim 4%ig</td><td>q.s.</td><td>Granulierflüssigkeit/Bindemittel (Hilfszubereitung aus Tag 5)</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – Klebstoff-Granulat:</strong> Lactose und Weizenstärke werden trocken vermischt und anschließend portionsweise mit erwärmtem Gelatineschleim (Tag 5) angefeuchtet. Die Gelatine wirkt als „Klebstoff", der die Pulverpartikel beim Trocknen zu Granulatkörnern verbindet.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Granulat (Zwischenprodukt für die Tablettenherstellung) – Modellrezeptur „Nur für Versuchszwecke"</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Milchzucker + Weizenstärke in der Fantaschale gut vermischen → 2) erwärmten Gelatineschleim in kleinen Anteilen (anfangs 1–2 g, dann sehr wenig) zusetzen und durchfeuchten <em>(Inprozessprüfung „Fingerprobe": Masse darf beim Zusammendrücken mit dem Pistill nicht mehr von allein auseinanderfallen, muss formstabil sein, darf aber nicht feucht aussehen)</em> → 3) zusammengedrückte Masse über Sieb 710 mit Kartenblatt verstrangen, fadenförmiges Granulat auf Filterpapier auffangen/verteilen → 4) 90 min bei 40°C trocknen, grobe Agglomerate zerteilen → 5) getrocknetes Granulat über Sieb 710 geben, kurz schütteln, Feinanteil separat abfüllen (Ausbeute notieren) → 6) Abfüllung in Folienbeutel</td></tr>
+      <tr><td>Packmittel</td><td>Folienbeutel</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>"Fingerprobe" – die richtige Feuchte treffen:</strong> Zu trocken → die Masse zerfällt beim Sieben zu Staub statt zu Granulatkörnern. Zu feucht → verklebte, unregelmäßige Stränge und unnötig lange Trocknungszeit. Die Granulierflüssigkeit wird deshalb portionsweise und gegen Ende sehr sparsam zugegeben.
+    </div>
+    <div class="info-yellow">
+      <strong>Feinanteil:</strong> Der nach dem zweiten Sieben durchfallende, nicht granulierte Restpulveranteil wird separat aufgefangen – seine Ausbeute gibt Auskunft über die Effizienz der Granulierung.
+    </div>
+    <div class="info-red">
+      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
+    </div>
+  </div>
+
+<div class="entry-card" id="magnesiumsilikatgranulat">
+    <div class="entry-header">
+      <h3>Magnesiumsilikatgranulat <em style="font-size:13px;font-weight:400;">(Krustengranulat)</em></h3>
+      <span class="badge" style="color:#8d6e63;border-color:#8d6e63;">GRANULAT</span>
+      <span class="badge" style="color:#6d4c41;border-color:#6d4c41;">KRUSTENGRANULAT</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Magnesiumtrisilikat</td><td>15,0 g</td><td>Wirkstoff – Antazidum (säurebindend)</td></tr>
+      <tr><td>Kakaopulver</td><td>5,0 g</td><td>Geschmackskorrigens/Färbemittel</td></tr>
+      <tr><td>Saccharose pulv.</td><td>5,0 g</td><td>Süßungsmittel</td></tr>
+      <tr><td>Alkoholische Vanillinlösung 0,25%ig</td><td>5,0 g</td><td>Aromastoff + Granulierflüssigkeit (ethanolisch)</td></tr>
+      <tr><td>Ethanol 70%</td><td>q.s.</td><td>Zusätzliche Granulierflüssigkeit – verdunstet rückstandslos</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Wirkprinzip Magnesiumtrisilikat:</strong> Antazidum, das Magensäure langsam und langanhaltend abpuffert (Reaktion zu Magnesiumchlorid und kolloidalem Siliciumdioxid). Kakaopulver, Saccharose und Vanillinaroma maskieren den mineralischen Geschmack – ein „Schoko-Granulat" zum Lutschen/Kauen.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Granulat zur oralen Anwendung (Antazidum) – Modellrezeptur „Nur für Versuchszwecke"</td></tr>
+      <tr><td>Herstellprinzip</td><td>1) Magnesiumtrisilikat + Kakaopulver + Saccharose in der Fantaschale gut vermischen → 2) Vanillinlösung hinzuwiegen und einarbeiten → 3) Ethanol 70% in kleinen Anteilen zugeben und verreiben, bis die Masse mit dem Pistill zusammenballt und einen feuchten Glanz zeigt → 4) Masse über Sieb 2000 mit Kartenblatt auf Filterpapier zu längeren Strängen (ca. 1 cm) verstrangen → 5) bei 40°C trocknen, bis kein Alkoholgeruch mehr wahrnehmbar ist → 6) getrocknetes Granulat über Sieb 710 geben, kurz schütteln, Feinanteil separat abfüllen (Ausbeute notieren) → 7) Abfüllung mit Pulvertrichter in Folienbeutel (Trockenbeutel)</td></tr>
+      <tr><td>Packmittel</td><td>Folienbeutel mit Trockenbeutel</td></tr>
+      <tr><td>Haltbarkeit</td><td>Gemäß DAC/NRF in Abhängigkeit vom Packmittel zu bestimmen</td></tr>
+    </table>
+    <div class="info-green">
+      <strong>Krustengranulat vs. Tablettengranulat:</strong> Statt eines wässrigen Bindemittels (Gelatineschleim) wird hier eine ethanolische Granulierflüssigkeit verwendet – Ethanol verdunstet rückstandslos und schneller als Wasser. Das gröbere Sieb 2000 erzeugt längere, robustere Stränge ("Krusten") als das Sieb 710 beim Tablettengranulat.
+    </div>
+    <div class="info-yellow">
+      <strong>Trocknungsendpunkt – Geruchsprobe:</strong> Anders als beim Tablettengranulat (feste Trockenzeit von 90 min) wird hier sensorisch geprüft: Getrocknet wird, „bis es nicht mehr nach Alkohol riecht".
+    </div>
+    <div class="info-red">
+      <strong>Kennzeichnung:</strong> Mind. die Angaben gem. ApBetrO: „Nur für Versuchszwecke, nicht zur Anwendung am Menschen" und „Verwendbar bis…".
+    </div>
+  </div>
+
+<div class="entry-card" id="calciumbrausepulver">
     <div class="entry-header">
       <h3>Calcium-Brausepulver <em style="font-size:13px;font-weight:400;">(Brausepulver)</em></h3>
       <span class="badge badge-powder">PULVER</span>
@@ -1687,8 +1717,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Kaliumchlorid-Pulver -->
-  <div class="entry-card" id="kaliumchloridpulver">
+<div class="entry-card" id="kaliumchloridpulver">
     <div class="entry-header">
       <h3>Kaliumchlorid-Pulver <em style="font-size:13px;font-weight:400;">(Pulverkapseln/Convolute)</em></h3>
       <span class="badge badge-powder">PULVER</span>
@@ -1716,12 +1745,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ═══════ TAG 8 ═══════ -->
-  <div class="cat-1" id="tag8">Tag 8 – Hartgelatinekapseln</div>
-  <div class="cat-3">Katalog: Gelatine, Füllmittel, Kapselherstellmethoden, Analytik von Kapseln</div>
-
-  <!-- Mannitol-Siliciumdioxid-Füllmittel -->
-  <div class="entry-card" id="mannitolfuellmittel">
+<div class="entry-card" id="mannitolfuellmittel">
     <div class="entry-header">
       <h3>Mannitol-Siliciumdioxid-Füllmittel <em style="font-size:13px;font-weight:400;">(NRF S.38)</em></h3>
       <span class="badge badge-powder">PULVER</span>
@@ -1749,8 +1773,35 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Vitamin C Kapseln -->
-  <div class="entry-card" id="vitamincapseln">
+<div class="entry-card" id="gelatineschleim">
+    <div class="entry-header">
+      <h3>Gelatineschleim 4%ig <em style="font-size:13px;font-weight:400;">(Hilfszubereitung)</em></h3>
+      <span class="badge" style="color:#999;border-color:#bbb;">HILFSZUBEREITUNG</span>
+      <span class="badge" style="color:#16a085;border-color:#16a085;">BINDEMITTEL</span>
+    </div>
+    <table class="ingredients-table">
+      <tr><th>Bestandteil</th><th>Soll-Einwaage</th><th>Funktion</th></tr>
+      <tr><td>Gelatine</td><td>4 % (m/m)</td><td>Tierisches Polypeptid – Gelbildner/Bindemittel</td></tr>
+      <tr><td>Gereinigtes Wasser</td><td>ad 100 % (m/m)</td><td>Dispersionsmittel</td></tr>
+    </table>
+    <div class="info-blue">
+      <strong>Prinzip – thermoreversible Gelbildung:</strong> Gelatine quillt zunächst in kaltem Wasser, löst sich beim Erwärmen zu einem viskosen Sol und erstarrt beim Abkühlen wieder zu einem Gel (Sol-Gel-Übergang, reversibel). Diese Eigenschaft macht den Gelatineschleim zu einer vielseitigen Hilfszubereitung „zur weiteren Verwendung" im Praktikum.
+    </div>
+    <table class="props-table">
+      <tr><td>Arzneiform</td><td>Hilfszubereitung/Zwischenprodukt (kein eigenes Fertigarzneimittel)</td></tr>
+      <tr><td>Herstellprinzip</td><td>Gelatine in kaltem Wasser quellen lassen, anschließend unter Erwärmen vollständig lösen (klarer, viskoser Schleim)</td></tr>
+      <tr><td>Packmittel</td><td>– (wird direkt weiterverarbeitet)</td></tr>
+      <tr><td>Haltbarkeit</td><td>Nur als frisch hergestelltes Zwischenprodukt verwenden</td></tr>
+    </table>
+    <div class="info-yellow">
+      <strong>Verwendung im Praktikum – Granulierflüssigkeit:</strong> Der Gelatineschleim dient u.a. als „Klebstoff" (Bindemittel) bei der Feuchtgranulierung, z.B. beim Tablettengranulat (Tag 7): Er wird in kleinen Anteilen zu einer Pulvermischung gegeben, bis diese formstabile, aber nicht zu feuchte Krümel bildet, die anschließend versiebt und getrocknet werden.
+    </div>
+  </div>
+
+  <div class="cat-1" id="cat-kapseln">Kapseln</div>
+  <div class="cat-3">Hartgelatinekapseln</div>
+
+<div class="entry-card" id="vitamincapseln">
     <div class="entry-header">
       <h3>Vitamin C Kapseln <em style="font-size:13px;font-weight:400;">(Hartgelatinekapseln)</em></h3>
       <span class="badge badge-capsule">KAPSEL</span>
@@ -1794,8 +1845,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Calcium Kapseln -->
-  <div class="entry-card" id="calciumkapseln">
+<div class="entry-card" id="calciumkapseln">
     <div class="entry-header">
       <h3>Calcium Kapseln <em style="font-size:13px;font-weight:400;">(Hartgelatinekapseln)</em></h3>
       <span class="badge badge-capsule">KAPSEL</span>
@@ -1825,8 +1875,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Hydrochlorothiazid-Kapseln -->
-  <div class="entry-card" id="hydrochlorothiazidkapseln">
+<div class="entry-card" id="hydrochlorothiazidkapseln">
     <div class="entry-header">
       <h3>Hydrochlorothiazid-Kapseln 2 mg <em style="font-size:13px;font-weight:400;">(NRF 26.3, Hartgelatinekapseln)</em></h3>
       <span class="badge badge-capsule">KAPSEL</span>
@@ -1858,12 +1907,10 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ═══════ TAG 9 ═══════ -->
-  <div class="cat-1" id="tag9">Tag 9 – Homöopathische Arzneiformen</div>
-  <div class="cat-3">Katalog: Arten und Einteilung v. Inkompatibilitäten, Geschichte &amp; Grundprinzipien der Homöopathie, Potenzierung, Globuli, Triturationen, Dilutionen</div>
+  <div class="cat-1" id="cat-homoeopathie">Homöopathie</div>
+  <div class="cat-3">Dilutionen, Globuli, Triturationen</div>
 
-  <!-- Homöopathische Dilution Melissa D8 -->
-  <div class="entry-card" id="melissadilution">
+<div class="entry-card" id="melissadilution">
     <div class="entry-header">
       <h3>Homöopathische Dilution Melissa D8 <em style="font-size:13px;font-weight:400;">(Alkoholische Lösung)</em></h3>
       <span class="badge badge-solution">LÖSUNG</span>
@@ -1891,8 +1938,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Globuli Melissa D7 -->
-  <div class="entry-card" id="melissaglobuli">
+<div class="entry-card" id="melissaglobuli">
     <div class="entry-header">
       <h3>Globuli Melissa D7 <em style="font-size:13px;font-weight:400;">(Streukügelchen)</em></h3>
       <span class="badge" style="color:#8e44ad;border-color:#8e44ad;">GLOBULI</span>
@@ -1919,8 +1965,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- Trituration Methylenblau C1 -->
-  <div class="entry-card" id="methylenblautrituration">
+<div class="entry-card" id="methylenblautrituration">
     <div class="entry-header">
       <h3>Trituration Methylenblau C1 <em style="font-size:13px;font-weight:400;">(Homöopathische Verreibung)</em></h3>
       <span class="badge" style="color:#2980b9;border-color:#2980b9;">TRITURATION</span>
@@ -1950,11 +1995,10 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ═══════ TAG 10 ═══════ -->
-  <div class="cat-1" id="tag10">Tag 10 – Individuelle Abschlussrezeptur</div>
-  <div class="cat-3">Katalog: Gute Herstellungspraxis, Plausibilitätsprüfung, Herstellungsanweisung, Herstellungsprotokoll</div>
+  <div class="cat-1" id="cat-abschluss">Abschluss &amp; Analytik</div>
+  <div class="cat-3">Individuelle Abschlussrezeptur, Testung & Analytik</div>
 
-  <div class="entry-card" id="abschlussrezeptur">
+<div class="entry-card" id="abschlussrezeptur">
     <div class="entry-header">
       <h3>Individuelle Abschlussrezeptur</h3>
       <span class="badge" style="color:#e67e22;border-color:#e67e22;">ABSCHLUSS</span>
@@ -1973,11 +2017,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ═══════ TAG 11 & 12 ═══════ -->
-  <div class="cat-1" id="tag11">Tag 11 &amp; 12 – Testung &amp; Analytik</div>
-  <div class="cat-3">Katalog: Gleichförmigkeit einzeldosierter Arzneiformen, Gleichförmigkeit der Masse und Gehalt, Grindometer, pH-Wert-Messung, Überprüfen der Phasenlage, Refraktometrie</div>
-
-  <div class="entry-card" id="analytik">
+<div class="entry-card" id="analytik">
     <div class="entry-header">
       <h3>Testung und Analytik der hergestellten Rezepturen</h3>
       <span class="badge" style="color:#16a085;border-color:#16a085;">ANALYTIK</span>
@@ -2000,12 +2040,9 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 
-</div><!-- /tab-rezepturen -->
 
+</div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  TAB: THEORIE & GRUNDLAGEN                               -->
-<!-- ══════════════════════════════════════════════════════════ -->
 <div id="tab-theorie" class="tab-content theme-theory">
 
   <div class="toc-card">
@@ -3920,14 +3957,6 @@ function switchTab(id, btn) {
   window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-}
-
-// ─── STRUCTURE IMAGE FALLBACK ───
-// If a PubChem structure image fails to load (name not resolved), swap in the descriptive placeholder
-function hsImgErr(img) {
-  img.style.display = 'none';
-  var ph = img.nextElementSibling;
-  if (ph) ph.style.display = 'flex';
 }
 
 // ─── FLASHCARD DATA ───
