@@ -454,6 +454,15 @@ body {
 .btn-correct { background: var(--green); color: #fff; }
 .btn-wrong { background: var(--accent-light); color: #fff; }
 
+/* ── QUIZ: Hilfsstoffe Bild-Quiz ── */
+.quiz-subnav { display: -webkit-flex; display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.qzh-quiz-img { display: block; margin: 0 auto; max-width: 100%; max-height: 260px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); background: #fff; }
+.qzh-answer-name { font-family: var(--font-body); font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+.qzh-answer-badges .badge { margin: 0 4px 4px 0; }
+.qzh-answer-props { font-size: 13px; margin-top: 8px; }
+.qzh-answer-notes { font-size: 13px; margin-top: 10px; }
+.qzh-answer-notes > div { margin-top: 8px; }
+
 /* ── GLOSSAR ── */
 .glossar-search {
   width: 100%;
@@ -2734,20 +2743,44 @@ function hsImgErr(img) {
 <!--  TAB: QUIZ                                               -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div id="tab-quiz" class="tab-content">
-  <div class="filter-bar" id="quiz-filters"></div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-    <button class="filter-btn" onclick="resetQuiz()" style="color:var(--accent);border-color:var(--accent);">Fortschritt zurücksetzen</button>
-    <span id="quiz-counter" style="font-family:var(--font-ui);font-size:13px;color:var(--text-muted);">1 / 20</span>
+  <div class="quiz-subnav">
+    <button class="filter-btn active" onclick="switchQuizMode('allgemein', this)">Allgemeine Fragen</button>
+    <button class="filter-btn" onclick="switchQuizMode('hilfsstoffe', this)">&#128220; Hilfsstoffe (Bild-Quiz)</button>
   </div>
-  <div class="quiz-progress">
-    <span id="qz-correct-count">0</span> <span style="color:var(--green)">richtig</span>
-    <div class="progress-bar-wrap">
-      <div class="progress-correct" id="qz-bar-correct" style="width:0%"></div>
-      <div class="progress-wrong" id="qz-bar-wrong" style="width:0%"></div>
+
+  <!-- ═══ ALLGEMEINE FRAGEN ═══ -->
+  <div id="quiz-mode-allgemein">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <button class="filter-btn" onclick="resetQuiz()" style="color:var(--accent);border-color:var(--accent);">Fortschritt zurücksetzen</button>
+      <span id="quiz-counter" style="font-family:var(--font-ui);font-size:13px;color:var(--text-muted);">1 / 20</span>
     </div>
-    <span id="qz-wrong-count">0</span> <span style="color:var(--accent-light)">falsch</span>
+    <div class="quiz-progress">
+      <span id="qz-correct-count">0</span> <span style="color:var(--green)">richtig</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-correct" id="qz-bar-correct" style="width:0%"></div>
+        <div class="progress-wrong" id="qz-bar-wrong" style="width:0%"></div>
+      </div>
+      <span id="qz-wrong-count">0</span> <span style="color:var(--accent-light)">falsch</span>
+    </div>
+    <div id="quiz-card-container"></div>
   </div>
-  <div id="quiz-card-container"></div>
+
+  <!-- ═══ HILFSSTOFFE BILD-QUIZ ═══ -->
+  <div id="quiz-mode-hilfsstoffe" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <button class="filter-btn" onclick="resetHilfsQuiz()" style="color:var(--accent);border-color:var(--accent);">Fortschritt zurücksetzen</button>
+      <span id="quiz-hilfs-counter" style="font-family:var(--font-ui);font-size:13px;color:var(--text-muted);">1 / 20</span>
+    </div>
+    <div class="quiz-progress">
+      <span id="qzh-correct-count">0</span> <span style="color:var(--green)">richtig</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-correct" id="qzh-bar-correct" style="width:0%"></div>
+        <div class="progress-wrong" id="qzh-bar-wrong" style="width:0%"></div>
+      </div>
+      <span id="qzh-wrong-count">0</span> <span style="color:var(--accent-light)">falsch</span>
+    </div>
+    <div id="quiz-hilfs-card-container"></div>
+  </div>
 </div>
 
 
@@ -4551,6 +4584,122 @@ function resetQuiz() {
   renderQuiz();
 }
 renderQuiz();
+
+// ─── QUIZ MODE SWITCHER (Allgemeine Fragen vs. Hilfsstoffe) ───
+function switchQuizMode(mode, btn) {
+  var allg = document.getElementById('quiz-mode-allgemein');
+  var hilfs = document.getElementById('quiz-mode-hilfsstoffe');
+  if (allg) allg.style.display = (mode === 'allgemein') ? 'block' : 'none';
+  if (hilfs) hilfs.style.display = (mode === 'hilfsstoffe') ? 'block' : 'none';
+  var btns = document.querySelectorAll('#tab-quiz .quiz-subnav .filter-btn');
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  if (btn) btn.classList.add('active');
+}
+
+// ─── HILFSSTOFFE BILD-QUIZ ───
+// Builds its quiz data by reading directly from the Hilfsstoffe-tab entry-cards
+// (same source of truth — no separate/duplicated content to keep in sync).
+// Only entries with an embedded (base64) structure image are included, since
+// those are guaranteed to render regardless of network access.
+var hilfsQuizData = [];
+var hqIdx = 0, hqCorrect = 0, hqWrong = 0;
+
+function buildHilfsstoffeQuizData() {
+  var data = [];
+  var cards = document.querySelectorAll('#tab-hilfsstoffe .entry-card');
+  for (var i = 0; i < cards.length; i++) {
+    var card = cards[i];
+    var img = card.querySelector('img');
+    if (!img || img.getAttribute('src').indexOf('data:image') !== 0) continue;
+    var h3 = card.querySelector('h3');
+    var name = h3 ? h3.textContent.trim() : card.id;
+    var badgeEls = card.querySelectorAll('.badge');
+    var badges = '';
+    for (var b = 0; b < badgeEls.length; b++) { badges += badgeEls[b].outerHTML; }
+    var propRows = card.querySelectorAll('table.props-table tr');
+    var propsHtml = '';
+    for (var p = 0; p < propRows.length; p++) {
+      var tds = propRows[p].querySelectorAll('td');
+      if (tds.length === 2) propsHtml += '<tr><td>' + tds[0].innerHTML + '</td><td>' + tds[1].innerHTML + '</td></tr>';
+    }
+    var noteEls = card.querySelectorAll('.info-blue, .info-red, .info-yellow, .info-green');
+    var notesHtml = '';
+    for (var n = 0; n < noteEls.length; n++) { notesHtml += noteEls[n].outerHTML; }
+    data.push({
+      name: name,
+      badges: badges,
+      propsHtml: propsHtml,
+      notesHtml: notesHtml,
+      imgSrc: img.getAttribute('src'),
+      imgAlt: img.getAttribute('alt') || name
+    });
+  }
+  return data;
+}
+
+function renderHilfsQuiz() {
+  if (hqIdx >= hilfsQuizData.length) { hqIdx = 0; hilfsQuizData.sort(function() { return Math.random()-0.5; }); }
+  var c = hilfsQuizData[hqIdx];
+  var container = document.getElementById('quiz-hilfs-card-container');
+  document.getElementById('quiz-hilfs-counter').textContent = (hqIdx+1) + ' / ' + hilfsQuizData.length;
+  container.innerHTML =
+    '<div class="quiz-card">' +
+      '<img src="' + c.imgSrc + '" alt="' + c.imgAlt + '" class="qzh-quiz-img">' +
+      '<div class="qz-hint" style="font-style:italic;margin-top:14px;">Welcher Hilfsstoff ist das? Überlege dir Name, Funktion &amp; Eigenschaften, dann aufdecken.</div>' +
+      '<button class="qz-reveal-btn" id="qzh-reveal-btn">Antwort aufdecken</button>' +
+      '<div class="qz-answer" id="qzh-answer-box" style="display:none;">' +
+        '<div class="qzh-answer-name">' + c.name + '</div>' +
+        '<div class="qzh-answer-badges">' + c.badges + '</div>' +
+        '<table class="props-table qzh-answer-props">' + c.propsHtml + '</table>' +
+        (c.notesHtml ? '<div class="qzh-answer-notes">' + c.notesHtml + '</div>' : '') +
+      '</div>' +
+      '<div class="qz-btns" id="qzh-btns" style="display:none;">' +
+        '<button class="btn-correct" id="qzh-btn-correct">✓ Richtig</button>' +
+        '<button class="btn-wrong" id="qzh-btn-wrong">✗ Falsch</button>' +
+      '</div>' +
+    '</div>';
+
+  var revealBtn = document.getElementById('qzh-reveal-btn');
+  if (revealBtn) revealBtn.addEventListener('click', revealHilfsQuiz, { passive: true });
+  var btnC = document.getElementById('qzh-btn-correct');
+  if (btnC) btnC.addEventListener('click', function() { hilfsQuizAnswer(true); }, { passive: true });
+  var btnW = document.getElementById('qzh-btn-wrong');
+  if (btnW) btnW.addEventListener('click', function() { hilfsQuizAnswer(false); }, { passive: true });
+}
+
+function revealHilfsQuiz() {
+  var ansBox = document.getElementById('qzh-answer-box');
+  var btns = document.getElementById('qzh-btns');
+  var revBtn = document.getElementById('qzh-reveal-btn');
+  if (ansBox) ansBox.style.display = 'block';
+  if (btns) btns.style.display = 'flex';
+  if (revBtn) revBtn.style.display = 'none';
+}
+
+function hilfsQuizAnswer(correct) {
+  if (correct) hqCorrect++; else hqWrong++;
+  var total = hqCorrect + hqWrong;
+  document.getElementById('qzh-correct-count').textContent = hqCorrect;
+  document.getElementById('qzh-wrong-count').textContent = hqWrong;
+  document.getElementById('qzh-bar-correct').style.width = (hqCorrect/total*100) + '%';
+  document.getElementById('qzh-bar-wrong').style.width = (hqWrong/total*100) + '%';
+  hqIdx++;
+  renderHilfsQuiz();
+}
+
+function resetHilfsQuiz() {
+  hqIdx = 0; hqCorrect = 0; hqWrong = 0;
+  hilfsQuizData.sort(function() { return Math.random()-0.5; });
+  document.getElementById('qzh-correct-count').textContent = '0';
+  document.getElementById('qzh-wrong-count').textContent = '0';
+  document.getElementById('qzh-bar-correct').style.width = '0%';
+  document.getElementById('qzh-bar-wrong').style.width = '0%';
+  renderHilfsQuiz();
+}
+
+hilfsQuizData = buildHilfsstoffeQuizData();
+hilfsQuizData.sort(function() { return Math.random()-0.5; });
+renderHilfsQuiz();
 
 // ─── GLOSSAR ───
 var glossar = [
