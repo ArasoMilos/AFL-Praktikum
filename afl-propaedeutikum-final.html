@@ -2277,6 +2277,30 @@ function hsImgErr(img) {
     <div class="info-green">
       <strong>Merke:</strong> Nichtionische Emulgatoren (Span, Tween, Macrogole) sind in der Rezeptur am häufigsten → gut verträglich, pH-unabhängig, kombinierbar für jeden gewünschten HLB.
     </div>
+
+    <h4>Koaleszenz – der letzte Schritt zum "Brechen" der Emulsion</h4>
+    <p><strong>Koaleszenz</strong> ist das irreversible <strong>Verschmelzen zweier oder mehrerer Tröpfchen</strong> der inneren (dispersen) Phase zu einem einzigen, größeren Tropfen. Dabei sinkt die gesamte Grenzfläche zwischen den beiden Phasen – ein thermodynamisch begünstigter Vorgang, da jedes System bestrebt ist, seine Grenzflächenenergie zu minimieren. Koaleszenz ist damit der Endpunkt der Emulsionsdestabilisierung: Immer mehr Tröpfchen verschmelzen zu immer größeren Tropfen, bis die Emulsion vollständig in ihre zwei Ausgangsphasen "bricht".</p>
+
+    <table class="props-table">
+      <tr><td><strong>Aufrahmen/Sedimentation</strong></td><td>Tröpfchen wandern durch Dichteunterschiede nach oben/unten (Stokes-Gleichung) – reversibel durch Schütteln, Tröpfchen bleiben dabei intakt</td></tr>
+      <tr><td><strong>Flockung</strong></td><td>Tröpfchen lagern sich lose aneinander (Aggregation), verschmelzen aber noch nicht – ebenfalls reversibel</td></tr>
+      <tr><td><strong>Koaleszenz</strong></td><td>Tröpfchen verschmelzen tatsächlich zu größeren Tropfen – <strong>irreversibel</strong></td></tr>
+      <tr><td><strong>Phasentrennung ("Brechen")</strong></td><td>Endstadium: vollständige Trennung in zwei durchgehende Phasen, Emulsion ist zerstört</td></tr>
+    </table>
+
+    <div class="info-yellow">
+      <strong>Wie entsteht Koaleszenz?</strong> Wenn sich zwei Tröpfchen einander annähern (z.B. durch Aufrahmen oder Flockung), müssen sie den dünnen Flüssigkeitsfilm zwischen sich sowie den stabilisierenden Emulgatorfilm überwinden. Ist dieser Grenzflächenfilm mechanisch zu schwach, zu dünn oder lückenhaft (z.B. bei zu wenig Emulgator, ungünstigem HLB-Wert, Temperaturschwankungen oder starker mechanischer Belastung), reißt er bei Kontakt der Tröpfchen – die inneren Phasen fließen ineinander und verschmelzen zu einem größeren Tropfen.</div>
+
+    <div class="info-blue">
+      <strong>Wie kann man Koaleszenz umgehen?</strong>
+      <ul>
+        <li><strong>Ausreichende Emulgatormenge</strong> mit passendem HLB-Wert für die jeweilige Ölphase → bildet einen mechanisch stabilen, geschlossenen Grenzflächenfilm</li>
+        <li><strong>Elektrostatische oder sterische Stabilisierung:</strong> geladene (ionische) oder sperrige (nichtionische Polymer-)Emulgatoren halten die Tröpfchen durch Abstoßung auf Abstand, bevor es überhaupt zum Kontakt kommt</li>
+        <li><strong>Erhöhung der Viskosität</strong> der äußeren Phase → verlangsamt nach der Stokes-Gleichung die Beweglichkeit der Tröpfchen und damit die Kollisionshäufigkeit</li>
+        <li><strong>Feine, enge Tröpfchengrößenverteilung</strong> durch gutes Homogenisieren → kleinere Tröpfchen kollidieren seltener und sind stabiler</li>
+        <li><strong>Vermeidung von Temperaturschwankungen/Gefrieren</strong> → destabilisiert sonst den Emulgatorfilm und begünstigt Koaleszenz</li>
+      </ul>
+    </div>
   </div>
 
   <!-- BANCROFT-REGEL -->
@@ -4576,6 +4600,11 @@ var flashcards = [
   // ── Rechenteil: Suppositorien-Grundmasse berechnen ──
   {cat:'altklausur',q:'Wie berechnet man die benötigte Grundmasse (Hartfett) für 30 Suppositorien mit 2 Wirkstoffen inkl. 10% Rezepturzuschlag?',a:'1) Gesamtmenge je Wirkstoff für 33 Stück (30 + 10% Zuschlag) berechnen. 2) Leerformgewicht E der Gießform mit reinem Hartfett ermitteln. 3) Verdrängte Grundlagenmenge je Wirkstoff: m_verdrängt = m_Wirkstoff &#215; f (f = Verdrängungsfaktor aus DAC/NRF-Tabelle). 4) Hartfettmenge: m_Hartfett = (E &#215; 33) − (m_WS,A &#215; f_A) − (m_WS,B &#215; f_B).',exp:'Beispiel: Wirkstoff A 0,05 g &#215; 33 = 1,65 g; Wirkstoff B 0,45 g &#215; 33 = 14,85 g – dann jeweils mit dem substanzspezifischen Verdrängungsfaktor in die Formel einsetzen.',freq:7},
 
+  // ── Koaleszenz (Emulsionsdestabilisierung) ──
+  {cat:'emulsion',q:'Was ist Koaleszenz und warum ist sie irreversibel?',a:'Das Verschmelzen zweier oder mehrerer Tröpfchen der inneren Phase zu einem größeren Tropfen – irreversibel, da dabei die Grenzfläche zwischen den Phasen dauerhaft abnimmt (thermodynamisch begünstigt).',exp:'Koaleszenz ist der letzte Schritt vor der vollständigen Phasentrennung ("Brechen" der Emulsion).',freq:7},
+  {cat:'emulsion',q:'Was unterscheidet Koaleszenz von Flockung?',a:'Flockung: Tröpfchen lagern sich nur lose aneinander an, bleiben aber intakt – reversibel (z.B. durch Schütteln). Koaleszenz: Tröpfchen verschmelzen tatsächlich zu einem größeren Tropfen – irreversibel.',exp:'Flockung geht der Koaleszenz oft voraus, da sich aneinandergelagerte Tröpfchen leichter berühren können.',freq:6},
+  {cat:'emulsion',q:'Nenne 3 Maßnahmen, um Koaleszenz in einer Emulsion zu verhindern.',a:'Ausreichende Emulgatormenge mit passendem HLB-Wert, Erhöhung der Viskosität der äußeren Phase, feine/enge Tröpfchengrößenverteilung durch gutes Homogenisieren.',exp:'Zusätzlich: elektrostatische/sterische Stabilisierung durch geeignete Emulgatoren, Vermeidung von Temperaturschwankungen.',freq:7},
+
 ];
 
 // ─── RENDER FLASHCARDS ───
@@ -5009,6 +5038,8 @@ var glossar = [
   {term:'Umschlagpaste',def:'Paste, die in dickerer Schicht für einen Verband/Umschlag aufgetragen und abgedeckt wird – verlängerter Hautkontakt verstärkt den lokalen Effekt des Feststoffanteils.'},
   {term:'V. rectalis media/inferior',def:'Münden in die V. iliaca interna → direkt in den systemischen Kreislauf, umgehen die Leber (First-Pass-Effekt). Relevant für tief bzw. oberflächlich platzierte Suppositorien.'},
   {term:'Verdrängungsfaktor (Methode nach Münzel)',def:'Experimentelle Methode zur Bestimmung der benötigten Hartfettmenge pro Zäpfchen: f = (G – Gw)/Ew. G = Masse reines Grundmasse-Zäpfchen, Gw = Grundmassenanteil im wirkstoffhaltigen Zäpfchen, Ew = Wirkstoffmasse pro Zäpfchen.'},
+
+  {term:'Koaleszenz',def:'Irreversibles Verschmelzen zweier oder mehrerer Tröpfchen der inneren Phase einer Emulsion zu einem größeren Tropfen. Entsteht, wenn der Emulgatorfilm zwischen sich berührenden Tröpfchen versagt. Letzter Schritt vor dem vollständigen "Brechen" der Emulsion. Vorbeugung: ausreichend Emulgator mit passendem HLB, hohe Viskosität der Außenphase, feine Tröpfchengrößenverteilung.'},
 ].sort(function(a,b) { return a.term.localeCompare(b.term, 'de'); });
 
 function renderGlossar(filter) {
