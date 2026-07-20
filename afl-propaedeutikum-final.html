@@ -2301,6 +2301,24 @@ function hsImgErr(img) {
         <li><strong>Vermeidung von Temperaturschwankungen/Gefrieren</strong> → destabilisiert sonst den Emulgatorfilm und begünstigt Koaleszenz</li>
       </ul>
     </div>
+
+    <h4>Mizellen (Mizellbildung)</h4>
+    <p>Emulgatoren sind <strong>amphiphile Moleküle</strong>: ein hydrophiler Kopf und ein lipophiler Schwanz. In wässriger Lösung lagern sich diese Moleküle ab einer bestimmten Konzentration spontan zu kugelförmigen Aggregaten zusammen – den <strong>Mizellen</strong>. Dabei zeigen die lipophilen Schwänze nach innen (unpolarer Mizellkern) und die hydrophilen Köpfe nach außen zum Wasser.</p>
+
+    <div class="info-yellow">
+      <strong>Wann entstehen Mizellen? Die kritische Mizellbildungskonzentration (CMC)</strong><br>
+      Unterhalb der <strong>CMC</strong> liegen Emulgatormoleküle einzeln (monomer) in Lösung vor und lagern sich lediglich an vorhandenen Grenzflächen (z.B. Öl/Wasser) an, um deren Grenzflächenspannung zu senken. Erst wenn die Grenzfläche vollständig mit Emulgator belegt ist ("gesättigt") und die Konzentration weiter steigt, lagert sich der <strong>überschüssige</strong> Emulgator zu Mizellen zusammen. Die CMC ist stoffspezifisch und sinkt z.B. durch Salzzugabe (Ladungsabschirmung erleichtert die Aggregation ionischer Tenside).
+    </div>
+
+    <table class="props-table">
+      <tr><td><strong>Welche Emulgatoren bilden Mizellen?</strong></td><td>Alle ausreichend amphiphilen Tenside/Emulgatoren – klassisch nichtionische Tenside wie Polysorbate (Tween), Poloxamer und Macrogolester, aber auch ionische Tenside wie Natriumlaurylsulfat (SDS) sowie amphotere Tenside wie Lecithin</td></tr>
+      <tr><td><strong>Inverse (umgekehrte) Mizellen</strong></td><td>In unpolaren/öligen Medien kehrt sich die Anordnung um: hydrophile Köpfe zeigen nach innen, lipophile Schwänze nach außen zum Öl</td></tr>
+    </table>
+
+    <div class="info-green">
+      <strong>Funktion der Mizellen – Solubilisierung:</strong> Der unpolare Mizellkern kann schlecht wasserlösliche (lipophile) Wirkstoffe aufnehmen und "einschließen". Der Wirkstoff ist dadurch nicht wirklich molekular gelöst, sondern im Mizellkern verteilt – die Mizelle als Ganzes bleibt aber wasserlöslich/-dispergierbar. Dadurch steigt die <strong>scheinbare Löslichkeit</strong> des Wirkstoffs deutlich an (Solubilisierung). Je niedriger die CMC eines Tensids, desto weniger Tensid wird für eine wirksame Solubilisierung benötigt.
+    </div>
+    <div class="info-blue"><strong>Verwandtes Prinzip:</strong> Cyclodextrine solubilisieren lipophile Wirkstoffe nach einem ähnlichen Konzept – dort übernimmt der lipophile Hohlraum eines Einzelmoleküls die Funktion, die bei Mizellen der Kern eines ganzen Tensid-Aggregats übernimmt (vgl. Hilfsstoffe-Tab „β-Cyclodextrin").</div>
   </div>
 
   <!-- BANCROFT-REGEL -->
@@ -4605,6 +4623,11 @@ var flashcards = [
   {cat:'emulsion',q:'Was unterscheidet Koaleszenz von Flockung?',a:'Flockung: Tröpfchen lagern sich nur lose aneinander an, bleiben aber intakt – reversibel (z.B. durch Schütteln). Koaleszenz: Tröpfchen verschmelzen tatsächlich zu einem größeren Tropfen – irreversibel.',exp:'Flockung geht der Koaleszenz oft voraus, da sich aneinandergelagerte Tröpfchen leichter berühren können.',freq:6},
   {cat:'emulsion',q:'Nenne 3 Maßnahmen, um Koaleszenz in einer Emulsion zu verhindern.',a:'Ausreichende Emulgatormenge mit passendem HLB-Wert, Erhöhung der Viskosität der äußeren Phase, feine/enge Tröpfchengrößenverteilung durch gutes Homogenisieren.',exp:'Zusätzlich: elektrostatische/sterische Stabilisierung durch geeignete Emulgatoren, Vermeidung von Temperaturschwankungen.',freq:7},
 
+  // ── Mizellen ──
+  {cat:'emulsion',q:'Was ist eine Mizelle und wie ist sie aufgebaut?',a:'Ein kugelförmiges Aggregat aus amphiphilen Emulgatormolekülen: lipophile Schwänze zeigen nach innen (unpolarer Kern), hydrophile Köpfe nach außen zum Wasser.',exp:'In unpolaren Medien entstehen inverse Mizellen mit umgekehrter Anordnung.',freq:7},
+  {cat:'emulsion',q:'Wann bilden sich Mizellen (welche Rolle spielt die CMC)?',a:'Erst oberhalb der kritischen Mizellbildungskonzentration (CMC). Unterhalb liegen Emulgatormoleküle einzeln gelöst vor und lagern sich nur an Grenzflächen an; erst überschüssiger Emulgator ab der CMC bildet Mizellen.',exp:'Die CMC ist stoffspezifisch und sinkt z.B. durch Salzzugabe.',freq:7},
+  {cat:'emulsion',q:'Welche Funktion haben Mizellen pharmazeutisch (Solubilisierung)?',a:'Der unpolare Mizellkern nimmt schlecht wasserlösliche Wirkstoffe auf, wodurch deren scheinbare Löslichkeit steigt, obwohl der Wirkstoff nicht molekular gelöst ist.',exp:'Ähnliches Prinzip wie bei Cyclodextrin-Einschlusskomplexen, nur mit einem Tensid-Aggregat statt einem Einzelmolekül.',freq:7},
+
 ];
 
 // ─── RENDER FLASHCARDS ───
@@ -5040,6 +5063,8 @@ var glossar = [
   {term:'Verdrängungsfaktor (Methode nach Münzel)',def:'Experimentelle Methode zur Bestimmung der benötigten Hartfettmenge pro Zäpfchen: f = (G – Gw)/Ew. G = Masse reines Grundmasse-Zäpfchen, Gw = Grundmassenanteil im wirkstoffhaltigen Zäpfchen, Ew = Wirkstoffmasse pro Zäpfchen.'},
 
   {term:'Koaleszenz',def:'Irreversibles Verschmelzen zweier oder mehrerer Tröpfchen der inneren Phase einer Emulsion zu einem größeren Tropfen. Entsteht, wenn der Emulgatorfilm zwischen sich berührenden Tröpfchen versagt. Letzter Schritt vor dem vollständigen "Brechen" der Emulsion. Vorbeugung: ausreichend Emulgator mit passendem HLB, hohe Viskosität der Außenphase, feine Tröpfchengrößenverteilung.'},
+
+  {term:'Mizelle',def:'Kugelförmiges Aggregat amphiphiler Emulgatormoleküle in Wasser (lipophile Schwänze innen, hydrophile Köpfe außen), das sich oberhalb der kritischen Mizellbildungskonzentration (CMC) bildet. Funktion: Solubilisierung schlecht wasserlöslicher Wirkstoffe im unpolaren Kern.'},
 ].sort(function(a,b) { return a.term.localeCompare(b.term, 'de'); });
 
 function renderGlossar(filter) {
